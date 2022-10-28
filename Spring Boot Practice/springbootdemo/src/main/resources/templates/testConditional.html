@@ -10,10 +10,12 @@
     </head>
     <body>
         <div class="container m-3">
-            
-            <p th:each="number : ${numberList}">
-                <span th:text="${'Number: ' + number}"> </span>
-            </p>
+
+            <p th:if="${aBoolean}">Boolean is true</p>
+            <p th:if="${anotherBoolean}">Boolean is false</p>
+            <p th:if="${aNumber == 33}">The number is 33</p>
+            <p th:if="${aNumber == 44}">The number is 44</p>
+            <p th:if="${aString == 'Hello'}">Hello!</p>
 
         </div>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

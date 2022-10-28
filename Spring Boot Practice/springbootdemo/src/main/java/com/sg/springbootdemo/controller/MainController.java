@@ -53,4 +53,15 @@ public class MainController {
 
         return "testList";
     }
+
+    @GetMapping("testConditional")
+    public String testConditional(Model model) {
+
+        model.addAttribute("aBoolean", true);
+        model.addAttribute("anotherBoolean", false);
+        model.addAttribute("aNumber", 33);
+        model.addAttribute("aString", "Hello");
+
+        return "testConditional";
+    }
 }
