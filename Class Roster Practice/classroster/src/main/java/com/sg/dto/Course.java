@@ -100,6 +100,11 @@ public class Course {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" + "id=" + id + ", name=" + name + ", description=" + description + ", teacher=" + teacher + ", students=" + students + '}';
+    }
     
     
 }

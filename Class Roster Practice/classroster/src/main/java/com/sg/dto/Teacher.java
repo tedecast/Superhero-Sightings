@@ -86,6 +86,10 @@ public class Teacher {
         }
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Teacher{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", specialty=" + specialty + '}';
+    }
+
 }
