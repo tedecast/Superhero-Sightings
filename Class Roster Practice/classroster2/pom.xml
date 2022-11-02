@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sg</groupId>
-    <artifactId>classroster2</artifactId>
+    <artifactId>classroster</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>classroster2</name>
+    <name>classroster</name>
     <description>Class Roster Project 2</description>
     <properties>
         <java.version>11</java.version>
