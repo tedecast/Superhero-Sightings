@@ -5,7 +5,7 @@
  */
 package com.sg.classroster.dao;
 
-import com.sg.classroster.dao.StudenDaoDB.StudentMapper;
+import com.sg.classroster.dao.StudentDaoDB.StudentMapper;
 import com.sg.classroster.dao.TeacherDaoDB.TeacherMapper;
 import com.sg.classroster.entities.Course;
 import com.sg.classroster.entities.Student;
