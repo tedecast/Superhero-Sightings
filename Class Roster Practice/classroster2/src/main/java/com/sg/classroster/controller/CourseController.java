@@ -71,4 +71,9 @@ public class CourseController {
         return "courseDetail";
     }
 
+    @GetMapping("deleteCourse")
+    public String deleteCourse(Integer id) {
+        courseDao.deleteCourseById(id);
+        return "redirect:/courses";
+    }
 }
