@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.classroster2.entities;
+package com.sg.classroster.entities;
 
 import java.util.List;
 import java.util.Objects;

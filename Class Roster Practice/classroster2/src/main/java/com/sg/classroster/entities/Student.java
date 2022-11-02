@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.classroster2.entities;
+package com.sg.classroster.entities;
 
 import java.util.Objects;
 
@@ -11,12 +11,11 @@ import java.util.Objects;
  *
  * @author Teresa
  */
-public class Teacher {
+public class Student {
 
     private int id;
     private String firstName;
     private String lastName;
-    private String specialty;
 
     public int getId() {
         return id;
@@ -42,21 +41,12 @@ public class Teacher {
         this.lastName = lastName;
     }
 
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + this.id;
-        hash = 59 * hash + Objects.hashCode(this.firstName);
-        hash = 59 * hash + Objects.hashCode(this.lastName);
-        hash = 59 * hash + Objects.hashCode(this.specialty);
+        int hash = 3;
+        hash = 71 * hash + this.id;
+        hash = 71 * hash + Objects.hashCode(this.firstName);
+        hash = 71 * hash + Objects.hashCode(this.lastName);
         return hash;
     }
 
@@ -71,7 +61,7 @@ public class Teacher {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Teacher other = (Teacher) obj;
+        final Student other = (Student) obj;
         if (this.id != other.id) {
             return false;
         }
@@ -81,18 +71,12 @@ public class Teacher {
         if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
-        if (!Objects.equals(this.specialty, other.specialty)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Teacher{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", specialty=" + specialty + '}';
+        return "Student{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + '}';
     }
     
-    
-    
-
 }

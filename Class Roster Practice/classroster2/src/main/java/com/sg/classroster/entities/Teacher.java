@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.classroster2.entities;
+package com.sg.classroster.entities;
 
 import java.util.Objects;
 
@@ -11,11 +11,12 @@ import java.util.Objects;
  *
  * @author Teresa
  */
-public class Student {
+public class Teacher {
 
     private int id;
     private String firstName;
     private String lastName;
+    private String specialty;
 
     public int getId() {
         return id;
@@ -41,12 +42,21 @@ public class Student {
         this.lastName = lastName;
     }
 
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + this.id;
-        hash = 71 * hash + Objects.hashCode(this.firstName);
-        hash = 71 * hash + Objects.hashCode(this.lastName);
+        int hash = 5;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.firstName);
+        hash = 59 * hash + Objects.hashCode(this.lastName);
+        hash = 59 * hash + Objects.hashCode(this.specialty);
         return hash;
     }
 
@@ -61,7 +71,7 @@ public class Student {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Student other = (Student) obj;
+        final Teacher other = (Teacher) obj;
         if (this.id != other.id) {
             return false;
         }
@@ -71,12 +81,18 @@ public class Student {
         if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
+        if (!Objects.equals(this.specialty, other.specialty)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "Teacher{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", specialty=" + specialty + '}';
     }
     
+    
+    
+
 }
