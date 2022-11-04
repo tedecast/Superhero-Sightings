@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -23,19 +24,26 @@ import org.springframework.stereotype.Repository;
  * @author Teresa
  */
 @Repository
-public class SuperDaoDB implements SuperDao{
-    
-    @Autowired 
+public class SuperDaoDB implements SuperDao {
+
+    @Autowired
     JdbcTemplate jdbc;
 
     @Override
     public Super getSuperByID(int superID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
+            return this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
+
+        } catch (DataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
     public List<Super> getAllSupers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String GET_ALL_SUPERS = "SELECT * FROM super";
+        return this.jdbc.query(GET_ALL_SUPERS, new SuperMapper());
     }
 
     @Override
@@ -72,9 +80,9 @@ public class SuperDaoDB implements SuperDao{
     public List<Super> getSupersForOrganization(Organization organization) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public static final class SuperMapper implements RowMapper<Super> {
-    
+
         @Override
         public Super mapRow(ResultSet rs, int index) throws SQLException {
             Super superhero = new Super();
@@ -83,7 +91,7 @@ public class SuperDaoDB implements SuperDao{
             superhero.setType(rs.getString("type"));
             superhero.setName(rs.getString("name"));
             superhero.setDescrption(rs.getString("description"));
-            
+
             return superhero;
         }
     }
