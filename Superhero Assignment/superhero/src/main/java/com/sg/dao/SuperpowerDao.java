@@ -5,10 +5,22 @@
  */
 package com.sg.dao;
 
+import com.sg.entities.Superpower;
+import java.util.List;
+
 /**
  *
  * @author Teresa
  */
 public interface SuperpowerDao {
-    
+
+    public Superpower getSuperPowerByID(int superpowerID);
+
+    public List<Superpower> getAllSuperpowers();
+
+    public Superpower addSuperpower(Superpower superpower);
+
+    public void updateSuperpower(Superpower superpower);
+
+    public void deleteSuperpowerByID(int superpowerID);
 }
