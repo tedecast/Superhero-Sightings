@@ -32,6 +32,7 @@ public class SuperDaoDB implements SuperDao {
 
     @Override
     public Super getSuperByID(int superID) {
+        // create private method to return power for hero, pass hero ids, write queries to get the powers
         try {
             final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
             return this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
@@ -70,7 +71,7 @@ public class SuperDaoDB implements SuperDao {
         
         this.jdbc.update(UPDATE_SUPER, 
                 superhero.getSuperID(),
-                superhero.getSuperpowerID(), 
+                superhero.getSuperpower().getSuperpowerID(), 
                 superhero.getType(), 
                 superhero.getName(), 
                 superhero.getDescrption());

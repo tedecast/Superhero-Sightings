@@ -7,6 +7,8 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Sighting;
+import com.sg.superhero.entities.Super;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -27,5 +29,9 @@ public interface SightingDao {
     
     // Added in to access Location object
     public List<Sighting> getSightingsForLocation(Location location);
+    
+    public List<Sighting> getSightingsByDate (LocalDate date);
+    
+    public List<Sighting> getSightingsBySuper (Super supers);
 
 }
