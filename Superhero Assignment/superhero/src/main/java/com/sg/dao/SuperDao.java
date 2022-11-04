@@ -29,12 +29,12 @@ public interface SuperDao {
     public void deleteHeroByID(int superID);
 
     // Added in to access other objects 
-    public List<Super> getHeroesForSighting(Sighting sighting);
+    public List<Super> getSupersForSighting(Sighting sighting);
 
-    public List<Super> getHeroesForSuperpower(Superpower superpower);
+    public List<Super> getSupersForSuperpower(Superpower superpower);
 
-    public List<Super> getHeroesForLocation(Location location);
+    public List<Super> getSupersForLocation(Location location);
 
-    public List<Super> getHeroesForOrganization(Organization organization);
+    public List<Super> getSupersForOrganization(Organization organization);
 
 }
