@@ -15,6 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -40,22 +41,50 @@ public class LocationDaoDB implements LocationDao {
 
     @Override
     public List<Location> getAllLocations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_ALL_LOCATIONS = "SELECT * FROM location";
+        return this.jdbc.query(SELECT_ALL_LOCATIONS, new LocationMapper());
     }
 
     @Override
+    @Transactional
     public Location addLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_LOCATION = "INSERT INTO location (name, description, address, latitude, longitude)" 
+                + "VALUES(?,?,?,?,?)";
+        
+        this.jdbc.update(INSERT_LOCATION, 
+                location.getName(), 
+                location.getDescrption(), 
+                location.getAddress(), 
+                location.getLatitude(), 
+                location.getLongitude());
+        
+        int newLocationID = this.jdbc.queryForObject("SELECT LAST_INSERT_LOCATIONID()", Integer.class);
+        location.setLocationID(newLocationID);
+        return location;
     }
 
     @Override
     public void updateLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String UPDATE_LOCATION = "UPDATE location SET name = ?, description = ?, address = ?, latitude = ?, longitude = ?"
+                + "WHERE locationID = ?";
+        
+        this.jdbc.update(UPDATE_LOCATION, 
+                location.getLocationID(), 
+                location.getName(),
+                location.getDescrption(),
+                location.getAddress(), 
+                location.getLatitude(), 
+                location.getLongitude());
     }
 
     @Override
+    @Transactional
     public void deleteLocationByID(int locationID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_SIGHTING_LOCATION = "DELETE FROM sighting_location WHERE locationID = ?";
+        this.jdbc.update(DELETE_SIGHTING_LOCATION, locationID);
+        
+        final String DELETE_LOCATION = "DELETE FROM location WHERE locationID = ?";
+        this.jdbc.update(DELETE_LOCATION, locationID);
     }
 
     @Override
