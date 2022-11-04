@@ -16,17 +16,17 @@ import java.util.List;
  *
  * @author Teresa
  */
-public interface HeroDao {
+public interface SuperDao {
 
-    public Super getHeroByID(int heroID);
+    public Super getSuperByID(int superID);
 
-    public List<Super> getAllHeroes();
+    public List<Super> getAllSupers();
 
-    public Super addHero(Super hero);
+    public Super addSuper(Super superhero);
 
-    public void updateHero(Super hero);
+    public void updateSuper(Super superhero);
 
-    public void deleteHeroByID(int heroID);
+    public void deleteHeroByID(int superID);
 
     // Added in to access other objects 
     public List<Super> getHeroesForSighting(Sighting sighting);

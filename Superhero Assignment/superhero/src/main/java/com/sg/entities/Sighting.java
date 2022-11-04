@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Teresa
  */
 public class Sighting {
-    
+
     private int sightingID;
     private int superID;
     private int locationID;
@@ -105,5 +105,5 @@ public class Sighting {
     public String toString() {
         return "Sighting{" + "sightingID=" + sightingID + ", superID=" + superID + ", locationID=" + locationID + ", date=" + date + ", description=" + description + '}';
     }
-     
+
 }
