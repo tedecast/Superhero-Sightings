@@ -49,7 +49,7 @@ CREATE TABLE SuperOrganization (
     OrganizationID INT NOT NULL, 
     PRIMARY KEY PK_SuperOrganization(SuperID, OrganizationID), 
     CONSTRAINT FK_SuperOrganization_Super FOREIGN KEY (SuperID)
-		REFERENCES Super (superID), 
+		REFERENCES Super (SuperID), 
 	CONSTRAINT FK_SuperOrganization_Organization FOREIGN KEY (OrganizationID)
 		REFERENCES `Organization` (OrganizationID)
 );

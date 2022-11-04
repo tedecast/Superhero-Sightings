@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Sighting {
     
     private int sightingID;
-    private int heroID;
+    private int superID;
     private int locationID;
     private LocalDate date;
     private String description;
@@ -28,12 +28,12 @@ public class Sighting {
         this.sightingID = sightingID;
     }
 
-    public int getHeroID() {
-        return heroID;
+    public int getSuperID() {
+        return superID;
     }
 
-    public void setHeroID(int heroID) {
-        this.heroID = heroID;
+    public void setSuperID(int superID) {
+        this.superID = superID;
     }
 
     public int getLocationID() {
@@ -62,12 +62,12 @@ public class Sighting {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + this.sightingID;
-        hash = 83 * hash + this.heroID;
-        hash = 83 * hash + this.locationID;
-        hash = 83 * hash + Objects.hashCode(this.date);
-        hash = 83 * hash + Objects.hashCode(this.description);
+        int hash = 7;
+        hash = 97 * hash + this.sightingID;
+        hash = 97 * hash + this.superID;
+        hash = 97 * hash + this.locationID;
+        hash = 97 * hash + Objects.hashCode(this.date);
+        hash = 97 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -86,7 +86,7 @@ public class Sighting {
         if (this.sightingID != other.sightingID) {
             return false;
         }
-        if (this.heroID != other.heroID) {
+        if (this.superID != other.superID) {
             return false;
         }
         if (this.locationID != other.locationID) {
@@ -103,8 +103,7 @@ public class Sighting {
 
     @Override
     public String toString() {
-        return "Sighting{" + "sightingID=" + sightingID + ", heroID=" + heroID + ", locationID=" + locationID + ", date=" + date + ", description=" + description + '}';
+        return "Sighting{" + "sightingID=" + sightingID + ", superID=" + superID + ", locationID=" + locationID + ", date=" + date + ", description=" + description + '}';
     }
-    
-    
+     
 }
