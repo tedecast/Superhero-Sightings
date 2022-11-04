@@ -5,6 +5,7 @@
  */
 package com.sg.superhero.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,6 +20,7 @@ public class Organization {
     private String address;
     private String contactInfo;
     private String type;
+    private List<Super> supers;
 
     public int getOrganizationID() {
         return organizationID;
@@ -68,15 +70,24 @@ public class Organization {
         this.type = type;
     }
 
+    public List<Super> getSupers() {
+        return supers;
+    }
+
+    public void setSupers(List<Super> supers) {
+        this.supers = supers;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.organizationID;
-        hash = 59 * hash + Objects.hashCode(this.name);
-        hash = 59 * hash + Objects.hashCode(this.description);
-        hash = 59 * hash + Objects.hashCode(this.address);
-        hash = 59 * hash + Objects.hashCode(this.contactInfo);
-        hash = 59 * hash + Objects.hashCode(this.type);
+        hash = 29 * hash + this.organizationID;
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.description);
+        hash = 29 * hash + Objects.hashCode(this.address);
+        hash = 29 * hash + Objects.hashCode(this.contactInfo);
+        hash = 29 * hash + Objects.hashCode(this.type);
+        hash = 29 * hash + Objects.hashCode(this.supers);
         return hash;
     }
 
@@ -110,12 +121,17 @@ public class Organization {
         if (!Objects.equals(this.type, other.type)) {
             return false;
         }
+        if (!Objects.equals(this.supers, other.supers)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Organization{" + "organizationID=" + organizationID + ", name=" + name + ", description=" + description + ", address=" + address + ", contactInfo=" + contactInfo + ", type=" + type + '}';
+        return "Organization{" + "organizationID=" + organizationID + ", name=" + name + ", description=" + description + ", address=" + address + ", contactInfo=" + contactInfo + ", type=" + type + ", supers=" + supers + '}';
     }
+
+    
     
 }
