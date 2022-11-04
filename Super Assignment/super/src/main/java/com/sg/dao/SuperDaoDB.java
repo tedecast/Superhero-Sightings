@@ -10,9 +10,12 @@ import com.sg.entities.Organization;
 import com.sg.entities.Sighting;
 import com.sg.entities.Super;
 import com.sg.entities.Superpower;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -70,4 +73,18 @@ public class SuperDaoDB implements SuperDao{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public static final class SuperMapper implements RowMapper<Super> {
+    
+        @Override
+        public Super mapRow(ResultSet rs, int index) throws SQLException {
+            Super superhero = new Super();
+            superhero.setSuperID(rs.getInt("superID"));
+            superhero.setSuperpowerID(rs.getInt("superpowerID"));
+            superhero.setType(rs.getString("type"));
+            superhero.setName(rs.getString("name"));
+            superhero.setDescrption(rs.getString("description"));
+            
+            return superhero;
+        }
+    }
 }
