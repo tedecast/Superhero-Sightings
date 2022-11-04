@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sg</groupId>
-    <artifactId>superhero</artifactId>
+    <artifactId>super</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>superhero</name>
+    <name>super</name>
     <description>Superhero Assignment</description>
     <properties>
         <java.version>11</java.version>
