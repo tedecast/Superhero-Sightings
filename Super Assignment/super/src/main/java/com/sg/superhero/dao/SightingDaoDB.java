@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,12 +30,20 @@ public class SightingDaoDB implements SightingDao {
 
     @Override
     public Sighting getSightingByID(int sightingID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            final String SELECT_SIGHTING_BY_ID = "SELECT * FROM sightingID = ?";
+            
+            return this.jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+            
+        } catch (DataAccessException ex){
+            return null;
+        }
     }
 
     @Override
     public List<Sighting> getAllSightings() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sightings";
+        return this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
     }
 
     @Override
