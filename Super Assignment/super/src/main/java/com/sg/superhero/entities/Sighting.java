@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Sighting {
 
     private int sightingID;
-    private int superID;
+    private Super superhero;
     private int locationID;
     private LocalDate date;
     private String description;
@@ -28,12 +28,12 @@ public class Sighting {
         this.sightingID = sightingID;
     }
 
-    public int getSuperID() {
-        return superID;
+    public Super getSuperhero() {
+        return superhero;
     }
 
-    public void setSuperID(int superID) {
-        this.superID = superID;
+    public void setSuperhero(Super superhero) {
+        this.superhero = superhero;
     }
 
     public int getLocationID() {
@@ -62,12 +62,12 @@ public class Sighting {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.sightingID;
-        hash = 97 * hash + this.superID;
-        hash = 97 * hash + this.locationID;
-        hash = 97 * hash + Objects.hashCode(this.date);
-        hash = 97 * hash + Objects.hashCode(this.description);
+        int hash = 5;
+        hash = 29 * hash + this.sightingID;
+        hash = 29 * hash + Objects.hashCode(this.superhero);
+        hash = 29 * hash + this.locationID;
+        hash = 29 * hash + Objects.hashCode(this.date);
+        hash = 29 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -86,13 +86,13 @@ public class Sighting {
         if (this.sightingID != other.sightingID) {
             return false;
         }
-        if (this.superID != other.superID) {
-            return false;
-        }
         if (this.locationID != other.locationID) {
             return false;
         }
         if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.superhero, other.superhero)) {
             return false;
         }
         if (!Objects.equals(this.date, other.date)) {
@@ -103,7 +103,8 @@ public class Sighting {
 
     @Override
     public String toString() {
-        return "Sighting{" + "sightingID=" + sightingID + ", superID=" + superID + ", locationID=" + locationID + ", date=" + date + ", description=" + description + '}';
+        return "Sighting{" + "sightingID=" + sightingID + ", superhero=" + superhero + ", locationID=" + locationID + ", date=" + date + ", description=" + description + '}';
     }
+
 
 }
