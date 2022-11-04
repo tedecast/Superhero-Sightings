@@ -5,6 +5,7 @@
  */
 package com.sg.dao;
 
+import com.sg.entities.Hero;
 import com.sg.entities.Location;
 import java.util.List;
 
@@ -23,5 +24,8 @@ public interface LocationDao {
     public void updateLocation(Location location);
 
     public void deleteLocationByID(int locationID);
+    
+    // Added in to access Hero object
+    public List<Location> getLocationsForHero(Hero hero);
 
 }
