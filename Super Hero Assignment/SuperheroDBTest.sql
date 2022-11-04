@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS superheroDB; 
+DROP DATABASE IF EXISTS superheroDBTest; 
 
-CREATE DATABASE superheroDB;
+CREATE DATABASE superheroDBTest;
 
-USE superheroDB;
+USE superheroDBTest;
 
 CREATE TABLE Hero (
 	HeroID INT PRIMARY KEY AUTO_INCREMENT, 
