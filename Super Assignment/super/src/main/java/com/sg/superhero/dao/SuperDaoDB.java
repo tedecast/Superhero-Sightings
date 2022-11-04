@@ -59,8 +59,8 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getDescrption());
 
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERID()", Integer.class);
-
         superhero.setSuperID(newSuperID);
+        
         return superhero;
     }
 
