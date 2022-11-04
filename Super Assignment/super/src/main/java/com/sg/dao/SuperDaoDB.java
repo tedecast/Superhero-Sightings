@@ -69,6 +69,8 @@ public class SuperDaoDB implements SuperDao {
                 + "name = ?, " + "description = ? WHERE superID = ?";
         
         this.jdbc.update(UPDATE_SUPER, 
+                superhero.getSuperID(),
+                superhero.getSuperpowerID(), 
                 superhero.getType(), 
                 superhero.getName(), 
                 superhero.getDescrption());

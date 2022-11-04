@@ -61,12 +61,22 @@ public class SuperpowerDaoDB implements SuperpowerDao{
 
     @Override
     public void updateSuperpower(Superpower superpower) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String UPDATE_SUPERPOWER = "UPDATE superpower SET name = ?, description = ?, WHERE superpowerID = ?";
+        
+        this.jdbc.update(UPDATE_SUPERPOWER, 
+                superpower.getSuperpowerID(),
+                superpower.getName(), 
+                superpower.getDescription());
     }
 
     @Override
+    @Transactional
     public void deleteSuperpowerByID(int superpowerID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_SUPER_SUPERPOWER = "DELETE FROM super_superpower WHERE superpowerID = ?";
+        this.jdbc.update(DELETE_SUPER_SUPERPOWER, superpowerID);
+        
+        final String DELETE_SUPERPOWER = "DELETE FROM superpower WHERE superpowerID = ?";
+        this.jdbc.update(DELETE_SUPERPOWER, superpowerID);
     }
     
     public static final class SuperpowerMapper implements RowMapper<Superpower> {
