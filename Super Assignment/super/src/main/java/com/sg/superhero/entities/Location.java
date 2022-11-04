@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.entities;
+package com.sg.superhero.entities;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ public class Location {
     
     private int locationID;
     private String name;
-    private String descrption;
+    private String description;
     private String address;
     private String latitude;
     private String longitude;

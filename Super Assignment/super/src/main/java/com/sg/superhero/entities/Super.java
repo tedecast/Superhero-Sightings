@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.entities;
+package com.sg.superhero.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Objects;
 public class Super {
 
     private int superID;
-    private int superpowerID;
+    private Superpower superpower;
+    private List<Organization> organization;
     private String type;
     private String name;
     private String descrption;

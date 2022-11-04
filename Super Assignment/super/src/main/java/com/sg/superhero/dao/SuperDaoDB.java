@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.dao;
+package com.sg.superhero.dao;
 
-import com.sg.entities.Location;
-import com.sg.entities.Organization;
-import com.sg.entities.Sighting;
-import com.sg.entities.Super;
-import com.sg.entities.Superpower;
+import com.sg.superhero.entities.Location;
+import com.sg.superhero.entities.Organization;
+import com.sg.superhero.entities.Sighting;
+import com.sg.superhero.entities.Super;
+import com.sg.superhero.entities.Superpower;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -107,7 +107,7 @@ public class SuperDaoDB implements SuperDao {
         public Super mapRow(ResultSet rs, int index) throws SQLException {
             Super superhero = new Super();
             superhero.setSuperID(rs.getInt("superID"));
-            superhero.setSuperpowerID(rs.getInt("superpowerID"));
+            // need to get list of organizations
             superhero.setType(rs.getString("type"));
             superhero.setName(rs.getString("name"));
             superhero.setDescrption(rs.getString("description"));

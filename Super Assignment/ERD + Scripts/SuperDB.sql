@@ -4,8 +4,8 @@ CREATE DATABASE superDB;
 
 USE superDB;
 
-CREATE TABLE Super (
-	superID INT PRIMARY KEY AUTO_INCREMENT, 
+CREATE TABLE `Super` (
+	SuperID INT PRIMARY KEY AUTO_INCREMENT, 
     SuperpowerID INT NOT NULL, 
     `Type` VARCHAR (10) NOT NULL, 
     `Name` VARCHAR (50) NOT NULL, 
@@ -18,6 +18,11 @@ CREATE TABLE Superpower (
     `Description` VARCHAR(255) NOT NULL
 );
 
+ALTER TABLE `Super`
+ADD CONSTRAINT FK_SuperSuperpower
+FOREIGN KEY FK_SuperSuperpower (SuperpowerID)
+REFERENCES Superpower (SuperpowerID);
+
 CREATE TABLE Sighting (
 	SightingID INT PRIMARY KEY AUTO_INCREMENT,
     SuperID INT NOT NULL, 
@@ -25,6 +30,11 @@ CREATE TABLE Sighting (
     `Date` DATE NOT NULL,
     `Description` VARCHAR(255) NOT NULL
 );
+
+ALTER TABLE Sighting 
+ADD CONSTRAINT FK_SightingSuper
+FOREIGN KEY FK_SightingSuper (SuperID)
+REFERENCES `Super` (SuperID);
 
 CREATE TABLE Location (
 	LocationID INT PRIMARY KEY AUTO_INCREMENT, 
@@ -34,6 +44,11 @@ CREATE TABLE Location (
     Latitude VARCHAR(50) NOT NULL, 
     Longitude VARCHAR(50) NOT NULL
 );
+
+ALTER TABLE Sighting 
+ADD CONSTRAINT FK_SightingLocation
+FOREIGN KEY FK_SightingLocation (LocationID)
+REFERENCES Location (LocationID);
 
 CREATE TABLE `Organization` (
 	OrganizationID INT PRIMARY KEY AUTO_INCREMENT, 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.dao;
+package com.sg.superhero.dao;
 
-import com.sg.entities.Organization;
-import com.sg.entities.Super;
+import com.sg.superhero.entities.Organization;
+import com.sg.superhero.entities.Super;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
