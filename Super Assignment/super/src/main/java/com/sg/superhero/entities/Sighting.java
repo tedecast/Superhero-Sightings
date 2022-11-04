@@ -16,7 +16,7 @@ public class Sighting {
 
     private int sightingID;
     private Super superhero;
-    private int locationID;
+    private Location location;
     private LocalDate date;
     private String description;
 
@@ -36,12 +36,12 @@ public class Sighting {
         this.superhero = superhero;
     }
 
-    public int getLocationID() {
-        return locationID;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationID(int locationID) {
-        this.locationID = locationID;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public LocalDate getDate() {
@@ -62,12 +62,12 @@ public class Sighting {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + this.sightingID;
-        hash = 29 * hash + Objects.hashCode(this.superhero);
-        hash = 29 * hash + this.locationID;
-        hash = 29 * hash + Objects.hashCode(this.date);
-        hash = 29 * hash + Objects.hashCode(this.description);
+        int hash = 7;
+        hash = 83 * hash + this.sightingID;
+        hash = 83 * hash + Objects.hashCode(this.superhero);
+        hash = 83 * hash + Objects.hashCode(this.location);
+        hash = 83 * hash + Objects.hashCode(this.date);
+        hash = 83 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -86,13 +86,13 @@ public class Sighting {
         if (this.sightingID != other.sightingID) {
             return false;
         }
-        if (this.locationID != other.locationID) {
-            return false;
-        }
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         if (!Objects.equals(this.superhero, other.superhero)) {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location)) {
             return false;
         }
         if (!Objects.equals(this.date, other.date)) {
@@ -103,8 +103,7 @@ public class Sighting {
 
     @Override
     public String toString() {
-        return "Sighting{" + "sightingID=" + sightingID + ", superhero=" + superhero + ", locationID=" + locationID + ", date=" + date + ", description=" + description + '}';
+        return "Sighting{" + "sightingID=" + sightingID + ", superhero=" + superhero + ", location=" + location + ", date=" + date + ", description=" + description + '}';
     }
-
 
 }
