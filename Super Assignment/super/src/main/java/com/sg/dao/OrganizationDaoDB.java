@@ -58,6 +58,7 @@ public class OrganizationDaoDB implements OrganizationDao {
         
         int newOrganizationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ORGANIZATIONID()", Integer.class);
         organization.setOrganizationID(newOrganizationID);
+        
         return organization;
     }
 
