@@ -18,6 +18,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -47,13 +48,30 @@ public class SuperDaoDB implements SuperDao {
     }
 
     @Override
+    @Transactional
     public Super addSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_SUPER = "INSERT INTO super(type, name, description) "
+                + "VALUES(?,?,?)";
+        this.jdbc.update(INSERT_SUPER,
+                superhero.getType(),
+                superhero.getName(),
+                superhero.getDescrption());
+
+        int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERID()", Integer.class);
+
+        superhero.setSuperID(newSuperID);
+        return superhero;
     }
 
     @Override
     public void updateSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String UPDATE_SUPER = "UPDATE super SET type = ?"
+                + "name = ?, " + "description = ? WHERE superID = ?";
+        
+        this.jdbc.update(UPDATE_SUPER, 
+                superhero.getType(), 
+                superhero.getName(), 
+                superhero.getDescrption());
     }
 
     @Override
