@@ -12,10 +12,10 @@ import java.util.Objects;
  * @author Teresa
  */
 public class Superpower {
-    
+
     private int superpowerID;
     private String name;
-    private String description; 
+    private String description;
 
     public int getSuperpowerID() {
         return superpowerID;
@@ -78,6 +78,5 @@ public class Superpower {
     public String toString() {
         return "Superpower{" + "superpowerID=" + superpowerID + ", name=" + name + ", description=" + description + '}';
     }
-    
-    
+
 }

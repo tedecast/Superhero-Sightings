@@ -11,20 +11,20 @@ import java.util.Objects;
  *
  * @author Teresa
  */
-public class Hero {
-    
-    private int heroID;
+public class Super {
+
+    private int superID;
     private int superpowerID;
     private String type;
     private String name;
-    private String descrption; 
+    private String descrption;
 
-    public int getHeroID() {
-        return heroID;
+    public int getSuperID() {
+        return superID;
     }
 
-    public void setHeroID(int heroID) {
-        this.heroID = heroID;
+    public void setSuperID(int superID) {
+        this.superID = superID;
     }
 
     public int getSuperpowerID() {
@@ -62,11 +62,11 @@ public class Hero {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + this.heroID;
-        hash = 53 * hash + this.superpowerID;
-        hash = 53 * hash + Objects.hashCode(this.type);
-        hash = 53 * hash + Objects.hashCode(this.name);
-        hash = 53 * hash + Objects.hashCode(this.descrption);
+        hash = 97 * hash + this.superID;
+        hash = 97 * hash + this.superpowerID;
+        hash = 97 * hash + Objects.hashCode(this.type);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.descrption);
         return hash;
     }
 
@@ -81,8 +81,8 @@ public class Hero {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Hero other = (Hero) obj;
-        if (this.heroID != other.heroID) {
+        final Super other = (Super) obj;
+        if (this.superID != other.superID) {
             return false;
         }
         if (this.superpowerID != other.superpowerID) {
@@ -102,9 +102,8 @@ public class Hero {
 
     @Override
     public String toString() {
-        return "Hero{" + "heroID=" + heroID + ", superpowerID=" + superpowerID + ", type=" + type + ", name=" + name + ", descrption=" + descrption + '}';
+        return "Super{" + "superID=" + superID + ", superpowerID=" + superpowerID + ", type=" + type + ", name=" + name + ", descrption=" + descrption + '}';
     }
-    
-    
+
     
 }

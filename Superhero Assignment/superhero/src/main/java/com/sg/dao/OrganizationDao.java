@@ -5,7 +5,7 @@
  */
 package com.sg.dao;
 
-import com.sg.entities.Hero;
+import com.sg.entities.Super;
 import com.sg.entities.Organization;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface OrganizationDao {
 
     public void deleteOrganizationByID(int organizationID);
     
-    // Added in to access Hero Object
-    public List<Organization> getOrganizationsForHero(Hero hero);
+    // Added in to access Super Object
+    public List<Organization> getOrganizationsForHero(Super hero);
 
 }

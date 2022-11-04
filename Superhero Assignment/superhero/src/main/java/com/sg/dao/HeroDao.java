@@ -5,7 +5,7 @@
  */
 package com.sg.dao;
 
-import com.sg.entities.Hero;
+import com.sg.entities.Super;
 import com.sg.entities.Location;
 import com.sg.entities.Organization;
 import com.sg.entities.Sighting;
@@ -18,23 +18,23 @@ import java.util.List;
  */
 public interface HeroDao {
 
-    public Hero getHeroByID(int heroID);
+    public Super getHeroByID(int heroID);
 
-    public List<Hero> getAllHeroes();
+    public List<Super> getAllHeroes();
 
-    public Hero addHero(Hero hero);
+    public Super addHero(Super hero);
 
-    public void updateHero(Hero hero);
+    public void updateHero(Super hero);
 
     public void deleteHeroByID(int heroID);
 
     // Added in to access other objects 
-    public List<Hero> getHeroesForSighting(Sighting sighting);
+    public List<Super> getHeroesForSighting(Sighting sighting);
 
-    public List<Hero> getHeroesForSuperpower(Superpower superpower);
+    public List<Super> getHeroesForSuperpower(Superpower superpower);
 
-    public List<Hero> getHeroesForLocation(Location location);
+    public List<Super> getHeroesForLocation(Location location);
 
-    public List<Hero> getHeroesForOrganization(Organization organization);
+    public List<Super> getHeroesForOrganization(Organization organization);
 
 }
