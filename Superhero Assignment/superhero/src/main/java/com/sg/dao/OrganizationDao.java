@@ -26,6 +26,6 @@ public interface OrganizationDao {
     public void deleteOrganizationByID(int organizationID);
     
     // Added in to access Super Object
-    public List<Organization> getOrganizationsForHero(Super hero);
+    public List<Organization> getOrganizationsForSuper(Super superhero);
 
 }
