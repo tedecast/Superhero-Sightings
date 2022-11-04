@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -47,18 +48,36 @@ public class SightingDaoDB implements SightingDao {
     }
 
     @Override
+    @Transactional
     public Sighting addSighting(Sighting sighting) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_SIGHTING = "INSERT INTO sighting(date, description)" + "VALUES(?,?)";
+        
+        this.jdbc.update(INSERT_SIGHTING, 
+                sighting.getDate(), 
+                sighting.getDescription());
+        
+        int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID", Integer.class);
+        sighting.setSightingID(newSightingID);
+        
+        return sighting;
     }
 
     @Override
     public void updateSighting(Sighting sighting) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String UPDATE_SIGHTING = "UPDATE sighting SET date = ?, description = ? " 
+                + "WHERE sightingID = ?";
+        
+        this.jdbc.update(UPDATE_SIGHTING, 
+                sighting.getSightingID(), 
+                sighting.getDate(), 
+                sighting.getDescription());
     }
 
     @Override
+    @Transactional
     public void deleteSightingByID(int sightingID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_SIGHTING = "DELETE FROM sighting WHERE sightingID = ?";
+        this.jdbc.update(DELETE_SIGHTING, sightingID);
     }
 
     @Override
