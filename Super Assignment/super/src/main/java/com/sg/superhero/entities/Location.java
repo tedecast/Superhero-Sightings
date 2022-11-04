@@ -36,12 +36,12 @@ public class Location {
         this.name = name;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAddress() {
@@ -71,12 +71,12 @@ public class Location {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + this.locationID;
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.descrption);
-        hash = 13 * hash + Objects.hashCode(this.address);
-        hash = 13 * hash + Objects.hashCode(this.latitude);
-        hash = 13 * hash + Objects.hashCode(this.longitude);
+        hash = 89 * hash + this.locationID;
+        hash = 89 * hash + Objects.hashCode(this.name);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + Objects.hashCode(this.address);
+        hash = 89 * hash + Objects.hashCode(this.latitude);
+        hash = 89 * hash + Objects.hashCode(this.longitude);
         return hash;
     }
 
@@ -98,7 +98,7 @@ public class Location {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.descrption, other.descrption)) {
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         if (!Objects.equals(this.address, other.address)) {
@@ -115,7 +115,9 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" + "locationID=" + locationID + ", name=" + name + ", descrption=" + descrption + ", address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + '}';
+        return "Location{" + "locationID=" + locationID + ", name=" + name + ", description=" + description + ", address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + '}';
     }
+
+    
     
 }
