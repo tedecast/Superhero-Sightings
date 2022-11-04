@@ -5,6 +5,7 @@
  */
 package com.sg.dao;
 
+import com.sg.entities.Location;
 import com.sg.entities.Sighting;
 import java.util.List;
 
@@ -23,5 +24,8 @@ public interface SightingDao {
     public void updateSighting(Sighting sighting);
 
     public void deleteSightingByID(int sightingID);
+    
+    // Added in to access Location object
+    public List<Sighting> getSightingsForLocation(Location location);
 
 }
