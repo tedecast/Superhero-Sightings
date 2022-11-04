@@ -5,10 +5,27 @@
  */
 package com.sg.dao;
 
+import com.sg.entities.Hero;
+import com.sg.entities.Organization;
+import java.util.List;
+
 /**
  *
  * @author Teresa
  */
 public interface OrganizationDao {
+
+    public Organization getOrganizationByID(int organizationID);
+
+    public List<Organization> getAllOrganizations();
+
+    public Organization addOrganization(Organization organization);
+
+    public void updateOrganization(Organization organization);
+
+    public void deleteOrganizationByID(int organizationID);
     
+    // Added in to access Hero Object
+    public List<Organization> getOrganizationsForHero(Hero hero);
+
 }
