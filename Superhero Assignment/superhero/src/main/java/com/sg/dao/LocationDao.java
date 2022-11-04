@@ -26,6 +26,6 @@ public interface LocationDao {
     public void deleteLocationByID(int locationID);
     
     // Added in to access Super object
-    public List<Location> getLocationsForHero(Super hero);
+    public List<Location> getLocationsForSuper(Super superhero);
 
 }
