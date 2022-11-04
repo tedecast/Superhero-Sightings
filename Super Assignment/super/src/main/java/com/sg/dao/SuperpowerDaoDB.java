@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -26,17 +28,35 @@ public class SuperpowerDaoDB implements SuperpowerDao{
 
     @Override
     public Superpower getSuperpowerByID(int superpowerID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            final String GET_SUPERPOWER_BY_ID = "SELECT * FROM superpower WHERE superpowerID = ?";
+            
+            return this.jdbc.queryForObject(GET_SUPERPOWER_BY_ID, new SuperpowerMapper(), superpowerID);
+            
+        } catch(DataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
     public List<Superpower> getAllSuperpowers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String GET_ALL_SUPERPOWERS = "SELECT * from superpower"; 
+        return this.jdbc.query(GET_ALL_SUPERPOWERS, new SuperpowerMapper());
     }
 
     @Override
+    @Transactional
     public Superpower addSuperpower(Superpower superpower) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_SUPERPOWER = "INSERT INTO superpower(name, description) " + 
+                "VALUES(?,?)";
+        this.jdbc.update(INSERT_SUPERPOWER, 
+                superpower.getName(), 
+                superpower.getDescription());
+        
+        int newSuperpowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERPOWERID()", Integer.class);
+        
+        superpower.setSuperpowerID(newSuperpowerID);
+        return superpower;
     }
 
     @Override
