@@ -53,7 +53,7 @@ public class LocationDaoDB implements LocationDao {
         
         this.jdbc.update(INSERT_LOCATION, 
                 location.getName(), 
-                location.getDescrption(), 
+                location.getDescription(), 
                 location.getAddress(), 
                 location.getLatitude(), 
                 location.getLongitude());
@@ -71,7 +71,7 @@ public class LocationDaoDB implements LocationDao {
         this.jdbc.update(UPDATE_LOCATION, 
                 location.getLocationID(), 
                 location.getName(),
-                location.getDescrption(),
+                location.getDescription(),
                 location.getAddress(), 
                 location.getLatitude(), 
                 location.getLongitude());
@@ -99,7 +99,7 @@ public class LocationDaoDB implements LocationDao {
             Location location = new Location();
             location.setLocationID(rs.getInt("locationID"));
             location.setName(rs.getString("name"));
-            location.setDescrption(rs.getString("description"));
+            location.setDescription(rs.getString("description"));
             location.setAddress(rs.getString("address"));
             location.setLatitude(rs.getString("latitude"));
             location.setLongitude(rs.getString("longitude"));

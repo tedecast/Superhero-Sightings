@@ -30,7 +30,8 @@ public interface SuperDao {
 
     // Added in to access other objects 
     public List<Super> getSupersForSighting(Sighting sighting);
-
+    
+    // optional, select statements 
     public List<Super> getSupersForSuperpower(Superpower superpower);
 
     public List<Super> getSupersForLocation(Location location);
