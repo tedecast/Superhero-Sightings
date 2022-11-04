@@ -26,7 +26,7 @@ public interface SuperDao {
 
     public void updateSuper(Super superhero);
 
-    public void deleteHeroByID(int superID);
+    public void deleteSuperByID(int superID);
 
     // Added in to access other objects 
     public List<Super> getSupersForSighting(Sighting sighting);
