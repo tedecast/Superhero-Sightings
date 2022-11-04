@@ -25,7 +25,7 @@ public class SuperpowerDaoDB implements SuperpowerDao{
     JdbcTemplate jdbc;
 
     @Override
-    public Superpower getSuperPowerByID(int superpowerID) {
+    public Superpower getSuperpowerByID(int superpowerID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

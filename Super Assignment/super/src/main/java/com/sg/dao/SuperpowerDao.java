@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface SuperpowerDao {
 
-    public Superpower getSuperPowerByID(int superpowerID);
+    public Superpower getSuperpowerByID(int superpowerID);
 
     public List<Superpower> getAllSuperpowers();
 
