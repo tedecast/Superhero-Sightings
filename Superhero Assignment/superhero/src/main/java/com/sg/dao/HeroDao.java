@@ -29,7 +29,7 @@ public interface HeroDao {
     public void deleteHeroByID(int heroID);
 
     // Added in to access other objects 
-    public Hero getHeroesForSighting(Sighting sighting);
+    public List<Hero> getHeroesForSighting(Sighting sighting);
 
     public List<Hero> getHeroesForSuperpower(Superpower superpower);
 
