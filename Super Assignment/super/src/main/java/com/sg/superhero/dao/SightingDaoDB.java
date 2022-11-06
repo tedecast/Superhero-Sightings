@@ -67,10 +67,12 @@ public class SightingDaoDB implements SightingDao {
     @Override
     @Transactional
     public Sighting addSighting(Sighting sighting) {
-        final String INSERT_SIGHTING = "INSERT INTO sighting(date, description)" + "VALUES(?,?)";
+        final String INSERT_SIGHTING = "INSERT INTO sighting(superID, locationID, date, description)" + "VALUES(?,?,?,?)";
         
         this.jdbc.update(INSERT_SIGHTING, 
-                sighting.getDate(), 
+                sighting.getSuperhero().getSuperID(), 
+                sighting.getLocation().getLocationID(), 
+                Timestamp.valueOf(sighting.getDate().atTime(12,0)), 
                 sighting.getDescription());
         
         int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID", Integer.class);
