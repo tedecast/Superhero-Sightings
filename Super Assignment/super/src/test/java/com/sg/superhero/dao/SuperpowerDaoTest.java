@@ -5,6 +5,7 @@
  */
 package com.sg.superhero.dao;
 
+import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Superpower;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -21,6 +23,15 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class SuperpowerDaoTest {
+    
+    @Autowired
+    SuperpowerDao superpowerDao;
+    
+    @Autowired 
+    SuperDao superDao;
+    
+    @Autowired
+    OrganizationDao organizationDao;
     
     public SuperpowerDaoTest() {
     }
@@ -35,6 +46,15 @@ public class SuperpowerDaoTest {
     
     @BeforeEach
     public void setUp() {
+        List<Super> supers = this.superDao.getAllSupers();
+        for (Super superhero : supers) {
+            this.superDao.deleteSuperByID(superhero.getSuperID());
+        }
+        
+        List<Superpower> superpowers = this.superpowerDao.getAllSuperpowers();
+        for (Superpower superpower : superpowers){
+            this.superpowerDao.deleteSuperpowerByID(superpower.getSuperpowerID());
+        }
     }
     
     @AfterEach
