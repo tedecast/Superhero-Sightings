@@ -5,7 +5,9 @@
  */
 package com.sg.superhero.dao;
 
+import com.sg.superhero.dao.OrganizationDaoDB.OrganizationMapper;
 import com.sg.superhero.dao.SightingDaoDB.SightingMapper;
+import com.sg.superhero.dao.SuperpowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
@@ -31,12 +33,30 @@ public class SuperDaoDB implements SuperDao {
     @Autowired
     JdbcTemplate jdbc;
 
+    // Used to get the sighting associated with a super.
+//    private Sighting getSightingForSuper(int sightingID) {
+//        final String SELECT_SIGHTINGS_FOR_SUPER = "SELECT si.* FROM sighting si"
+//                + "JOIN super_sighting ssi ON ssi.sightingID = si.sightingID WHERE ssi.superID = ?";
+//        return this.jdbc.queryForObject(SELECT_SIGHTINGS_FOR_SUPER, new SightingMapper(), sightingID);
+//    }
+//    
+    
+    private List<Sighting> getSightingsForSuper(int sightingID){
+        final String SELECT_SIGHTINGS_FOR_HERO = "SELECT * FROM sighting WHERE superID = ?";
+        List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_FOR_HERO, new SightingMapper(), sightingID);
+        return sightings;
+    }
+    
     @Override
     public Super getSuperByID(int superID) {
         // create private method to return power for hero, pass hero ids, write queries to get the powers
         try {
             final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
-            return this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
+            
+            Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
+            superhero.setSighting(this.getSightingsForSuper(superID));
+            // location?
+            return superhero;
 
         } catch (DataAccessException ex) {
             return null;
@@ -62,6 +82,7 @@ public class SuperDaoDB implements SuperDao {
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERID()", Integer.class);
         superhero.setSuperID(newSuperID);
 
+        this.insertSuperSighting(superhero);
         return superhero;
     }
 
@@ -77,13 +98,28 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getType(),
                 superhero.getName(),
                 superhero.getDescrption());
+
+        final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
+
+        this.jdbc.update(DELETE_SUPER_SIGHTING, superhero.getSuperID());
+        // Insert back after update
+        this.insertSuperSighting(superhero);
     }
 
-    private void insertSighting(Super superhero) {
-        final String INSERT_SIGHTING = "INSERT INTO sighting(sightingID, superID, locationID, date, description) "
-                + "VALUES(?,?,?,?,?)";
+    // Inserts super into sighting
+    private void insertSuperSighting(Super superhero) {
+        final String INSERT_SIGHTING = "INSERT INTO sighting(superID, locationID, date, description) "
+                + "VALUES(?,?,?,?)";
 
-//        for(Sighting sighting : superhero.get)
+        for (Sighting sighting : superhero.getSighting()) {
+            this.jdbc.update(INSERT_SIGHTING,
+                    superhero.getSuperID(),
+                    sighting.getLocation().getLocationID(),
+                    sighting.getDate(),
+                    sighting.getDescription());
+            int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID()", Integer.class);
+            sighting.setSightingID(newSightingID);
+        }
     }
 
     @Override
@@ -99,22 +135,20 @@ public class SuperDaoDB implements SuperDao {
         this.jdbc.update(DELETE_SUPER, superID);
     }
 
+    // Creates lists of supers for corresponding sightings 
+//    private void associateSupersAndSightings(List<Super> supers) {
+//        for (Super superhero : supers) {
+//            superhero.setSighting(this.getSightingsForSuper(superhero.getSuperID()));
+//        }
+//    }
     @Override
     public List<Super> getSupersForSighting(Sighting sighting) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        final String SELECT_SUPERS_FOR_SIGHTINGS = "SELECT * FROM sightings WHERE superID = ?";
 
-    // Used to get all the sightings associated with a super.
-    private Sighting getSightingsForSuper(int sightingID) {
-        final String SELECT_SIGHTINGS_FOR_SUPER = "SELECT si.* FROM sighting si"
-                + "JOIN super_sighting ssi ON ssi.sightingID = si.sightingID WHERE ssi.superID = ?";
-        return this.jdbc.queryForObject(SELECT_SIGHTINGS_FOR_SUPER, new SightingMapper(), sightingID);
-    }
+        List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SIGHTINGS, new SuperMapper(), sighting.getSightingID());
 
-    private void associateSupersAndSightings(List<Super> supers) {
-        for (Super superhero : supers) {
-            superhero.setSighting(this.getSightingsForSuper(superhero.getSuperID()));
-        }
+        //this.associateSupersAndSightings(supers);
+        return supers;
     }
 
     @Override
@@ -127,15 +161,56 @@ public class SuperDaoDB implements SuperDao {
         return supers;
     }
 
+    private List<Organization> getOrganizationsForSuper(int organizationID){
+        final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type"
+                + "FROM superOrganization so "
+                + "JOIN organization o ON so.organizationID = o.organizationID "
+                + "WHERE so.superID = ?";
+        List<Organization> organizations = this.jdbc.query(GET_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
+        for (Organization organization : organizations){
+            organization.setSupers(this.getSupersForOrganization(organization));
+        }
+        return organizations;
+    }
+    
     @Override
     public List<Super> getSupersForLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String GET_SUPERS_FOR_LOCATION = "SELECT s.superID, s.superpowerID, s.type, s.name, s.description "
+                + "FROM sighting si"
+                + "JOIN super s ON si.sightingID = s.superID "
+                + "WHERE si.locationID = ?";
+        
+        List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_LOCATION, new SuperMapper(), location.getLocationID());
+        for (Super superhero : supers){
+            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
+        }
+        return supers;
     }
 
+    private Superpower getSuperpowerForSuper(int superpowerID){
+        try {
+            final String GET_SUPERPOWER = "SELECT sp.superpowerID, sp.name, sp.description "
+                    + "JOIN super s ON sp = s.superpowerID WHERE s.superID = ?";
+            return this.jdbc.queryForObject(GET_SUPERPOWER, new SuperpowerMapper(), superpowerID);
+        } catch (DataAccessException ex){
+            return null;
+        }
+    }
+    
     @Override
     public List<Super> getSupersForOrganization(Organization organization) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.type, s.name, s.description "
+                + "FROM superOrganization so "
+                + "JOIN super s ON so.superID = s.superID "
+                + "WHERE so.organizationID = ?";
+        List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
+        for (Super superhero : supers){
+            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+        }
+        return supers;
     }
+
 
     public static final class SuperMapper implements RowMapper<Super> {
 

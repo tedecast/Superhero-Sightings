@@ -16,7 +16,7 @@ public class Super {
 
     private int superID;
     private Superpower superpower;
-    private Sighting sighting;
+    private List<Sighting> sighting;
     private List<Organization> organization;
     private String type;
     private String name;
@@ -38,11 +38,11 @@ public class Super {
         this.superpower = superpower;
     }
 
-    public Sighting getSighting() {
+    public List<Sighting> getSighting() {
         return sighting;
     }
 
-    public void setSighting(Sighting sighting) {
+    public void setSighting(List<Sighting> sighting) {
         this.sighting = sighting;
     }
 
@@ -80,14 +80,14 @@ public class Super {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this.superID;
-        hash = 53 * hash + Objects.hashCode(this.superpower);
-        hash = 53 * hash + Objects.hashCode(this.sighting);
-        hash = 53 * hash + Objects.hashCode(this.organization);
-        hash = 53 * hash + Objects.hashCode(this.type);
-        hash = 53 * hash + Objects.hashCode(this.name);
-        hash = 53 * hash + Objects.hashCode(this.descrption);
+        int hash = 3;
+        hash = 41 * hash + this.superID;
+        hash = 41 * hash + Objects.hashCode(this.superpower);
+        hash = 41 * hash + Objects.hashCode(this.sighting);
+        hash = 41 * hash + Objects.hashCode(this.organization);
+        hash = 41 * hash + Objects.hashCode(this.type);
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.descrption);
         return hash;
     }
 
