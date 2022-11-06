@@ -89,7 +89,11 @@ public class LocationDaoDB implements LocationDao {
 
     @Override
     public List<Location> getLocationsForSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_LOCATIONS_FOR_SUPER = "SELECT l.* FROM location l "
+                + "JOIN Sighting s ON s.locationID = l.locationID "
+                + "WHERE s.superID = ?";
+        List<Location> locations = this.jdbc.query(SELECT_LOCATIONS_FOR_SUPER, new LocationMapper(), superhero.getSuperID());
+        return locations;
     }
 
     public static final class LocationMapper implements RowMapper<Location> {
