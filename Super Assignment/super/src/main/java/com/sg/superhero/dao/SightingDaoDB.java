@@ -5,9 +5,14 @@
  */
 package com.sg.superhero.dao;
 
+import com.sg.superhero.dao.LocationDaoDB.LocationMapper;
+import com.sg.superhero.dao.OrganizationDaoDB.OrganizationMapper;
+import com.sg.superhero.dao.SuperpowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Location;
+import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
+import com.sg.superhero.entities.Superpower;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -93,6 +98,31 @@ public class SightingDaoDB implements SightingDao {
     @Override
     public List<Sighting> getSightingsBySuper(Super supers) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    private Superpower SuperpowerForSuper(int superpowerID){
+        try {
+            final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
+                    + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
+            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new SuperpowerMapper(), superpowerID);
+        } catch (DataAccessException ex) {
+            return null;
+        }
+    }
+    
+    private List<Organization> getOrganizationsForSuper(int organizationID){
+        final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
+                + "FROM SuperOrganization so "
+                + "JOIN Organization o ON so.organizationID = o.organizationID "
+                + "WHERE so.superID = ?";
+        return this.jdbc.query(SELECT_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
+    }
+    
+    private Location getLocationForSighting(Sighting sighting){
+        final String GET_LOCATION_FOR_SIGHTING = "SELECT l.* FROM Sighting si "
+              + "JOIN Location l ON si.locationId = l.locationID "
+              + "WHERE si.locationID = ?";
+        return this.jdbc.queryForObject(GET_LOCATION_FOR_SIGHTING, new LocationMapper(), sighting.getSightingID());
     }
     
     public static final class SightingMapper implements RowMapper<Sighting> {
