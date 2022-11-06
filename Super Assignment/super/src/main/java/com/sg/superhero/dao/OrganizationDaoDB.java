@@ -63,13 +63,30 @@ public class OrganizationDaoDB implements OrganizationDao {
     }
 
     @Override
+    @Transactional
     public void updateOrganization(Organization organization) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String UPDATE_ORGANIZATION = "UPDATE organization SET name = ?, description = ?, address = ?, "
+                + "contactInfo = ?, type = ? WHERE organizationID = ?";
+        
+        this.jdbc.update(UPDATE_ORGANIZATION, 
+                organization.getOrganizationID(), 
+                organization.getName(), 
+                organization.getDescription(), 
+                organization.getAddress(), 
+                organization.getContactInfo(), 
+                organization.getType());
+        
+//        final String DELETE_SUPER_ORGANIZATION = "DELETE FROM superOrganization WHERE organizationID = ?";
+//        this.jdbc.update(DELETE_SUPER_ORGANIZATION, organization.getOrganizationID());
     }
 
     @Override
     public void deleteOrganizationByID(int organizationID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       final String DELETE_ORGANIZATION_SUPER = "DELETE FROM superOrganization WHERE organizationID = ?";
+       this.jdbc.update(DELETE_ORGANIZATION_SUPER, organizationID);
+       
+       final String DELETE_ORGANIZATION = "DELETE FROM organization where organizationID = ?";
+       this.jdbc.update(DELETE_ORGANIZATION, organizationID);
     }
 
     @Override
