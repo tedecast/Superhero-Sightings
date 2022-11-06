@@ -40,9 +40,11 @@ public class SightingDaoDB implements SightingDao {
     public Sighting getSightingByID(int sightingID) {
         try {
             final String SELECT_SIGHTING_BY_ID = "SELECT * FROM sightingID = ?";
+            
             Sighting sighting = this.jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
             sighting.setSuperhero(this.getSuperForSighting(sighting));
             sighting.setLocation(this.getLocationForSighting(sighting));
+            
             return sighting;
             
         } catch (DataAccessException ex){
@@ -53,7 +55,13 @@ public class SightingDaoDB implements SightingDao {
     @Override
     public List<Sighting> getAllSightings() {
         final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sightings";
-        return this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
+        List<Sighting> sightings = this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
+        
+        for (Sighting sighting: sightings) {
+            sighting.setSuperhero(this.getSuperForSighting(sighting));
+            sighting.setLocation(this.getLocationForSighting(sighting));
+        }
+        return sightings;
     }
 
     @Override
