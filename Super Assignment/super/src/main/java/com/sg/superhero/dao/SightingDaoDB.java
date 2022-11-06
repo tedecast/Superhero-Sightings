@@ -40,8 +40,10 @@ public class SightingDaoDB implements SightingDao {
     public Sighting getSightingByID(int sightingID) {
         try {
             final String SELECT_SIGHTING_BY_ID = "SELECT * FROM sightingID = ?";
-            
-            return this.jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+            Sighting sighting = this.jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+            sighting.setSuperhero(this.getSuperForSighting(sighting));
+            sighting.setLocation(this.getLocationForSighting(sighting));
+            return sighting;
             
         } catch (DataAccessException ex){
             return null;
