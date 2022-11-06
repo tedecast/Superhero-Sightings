@@ -5,6 +5,7 @@
  */
 package com.sg.superhero.dao;
 
+import com.sg.superhero.dao.SightingDaoDB.SightingMapper;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
@@ -60,32 +61,40 @@ public class SuperDaoDB implements SuperDao {
 
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERID()", Integer.class);
         superhero.setSuperID(newSuperID);
-        
+
         return superhero;
     }
 
     @Override
+    @Transactional
     public void updateSuper(Super superhero) {
         final String UPDATE_SUPER = "UPDATE super SET type = ?"
                 + "name = ?, " + "description = ? WHERE superID = ?";
-        
-        this.jdbc.update(UPDATE_SUPER, 
+
+        this.jdbc.update(UPDATE_SUPER,
                 superhero.getSuperID(),
-                superhero.getSuperpower().getSuperpowerID(), 
-                superhero.getType(), 
-                superhero.getName(), 
+                superhero.getSuperpower().getSuperpowerID(),
+                superhero.getType(),
+                superhero.getName(),
                 superhero.getDescrption());
     }
 
+    private void insertSighting(Super superhero) {
+        final String INSERT_SIGHTING = "INSERT INTO sighting(sightingID, superID, locationID, date, description) "
+                + "VALUES(?,?,?,?,?)";
+
+//        for(Sighting sighting : superhero.get)
+    }
+
     @Override
-    @Transactional 
+    @Transactional
     public void deleteSuperByID(int superID) {
         final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
         this.jdbc.update(DELETE_SUPER_SIGHTING, superID);
-        
+
         final String DELETE_SUPER_ORGANIZATION = "DELTE FROM superOrganization WHERE superID = ?";
         this.jdbc.update(DELETE_SUPER_ORGANIZATION, superID);
-        
+
         final String DELETE_SUPER = "DELETE FROM super WHERE superID = ?";
         this.jdbc.update(DELETE_SUPER, superID);
     }
@@ -95,9 +104,27 @@ public class SuperDaoDB implements SuperDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    // Used to get all the sightings associated with a super.
+    private Sighting getSightingsForSuper(int sightingID) {
+        final String SELECT_SIGHTINGS_FOR_SUPER = "SELECT si.* FROM sighting si"
+                + "JOIN super_sighting ssi ON ssi.sightingID = si.sightingID WHERE ssi.superID = ?";
+        return this.jdbc.queryForObject(SELECT_SIGHTINGS_FOR_SUPER, new SightingMapper(), sightingID);
+    }
+
+    private void associateSupersAndSightings(List<Super> supers) {
+        for (Super superhero : supers) {
+            superhero.setSighting(this.getSightingsForSuper(superhero.getSuperID()));
+        }
+    }
+
     @Override
     public List<Super> getSupersForSuperpower(Superpower superpower) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_SUPERS_FOR_SUPERPOWER = "SELECT * FROM super WHERE superpowerID = ?";
+
+        List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SUPERPOWER,
+                new SuperMapper(), superpower.getSuperpowerID());
+
+        return supers;
     }
 
     @Override
