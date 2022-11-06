@@ -78,8 +78,16 @@ public class SuperDaoDB implements SuperDao {
     }
 
     @Override
+    @Transactional 
     public void deleteSuperByID(int superID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
+        this.jdbc.update(DELETE_SUPER_SIGHTING, superID);
+        
+        final String DELETE_SUPER_ORGANIZATION = "DELTE FROM superOrganization WHERE superID = ?";
+        this.jdbc.update(DELETE_SUPER_ORGANIZATION, superID);
+        
+        final String DELETE_SUPER = "DELETE FROM super WHERE superID = ?";
+        this.jdbc.update(DELETE_SUPER, superID);
     }
 
     @Override
