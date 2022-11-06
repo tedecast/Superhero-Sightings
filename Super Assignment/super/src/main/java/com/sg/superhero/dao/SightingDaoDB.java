@@ -7,6 +7,7 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.dao.LocationDaoDB.LocationMapper;
 import com.sg.superhero.dao.OrganizationDaoDB.OrganizationMapper;
+import com.sg.superhero.dao.SuperDaoDB.SuperMapper;
 import com.sg.superhero.dao.SuperpowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
@@ -15,6 +16,7 @@ import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Superpower;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +89,23 @@ public class SightingDaoDB implements SightingDao {
 
     @Override
     public List<Sighting> getSightingsForLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_SIGHTINGS_FOR_LOCATION = "SELECT * FROM Sighting WHERE LocationID = ?";
+        List<Sighting> sighting = this.jdbc.query(SELECT_SIGHTINGS_FOR_LOCATION, new SightingMapper(), location.getLocationID());
+        //this.associateLocationsForSightings(sighting);
+        return sighting;
     }
 
     @Override
     public List<Sighting> getSightingsByDate(LocalDate date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_SIGHTINGS_BY_DATE = "SELECT * FROM Sighting WHERE Date = ?";
+        List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_BY_DATE, new SightingMapper(),
+                Timestamp.valueOf(date.atTime(12,0)));
+        
+        for (Sighting sighting : sightings) {
+            sighting.setSuperhero(this.getSuperForSighting(sighting));
+            sighting.setLocation(this.getLocationForSighting(sighting));
+        }
+        return sightings;
     }
 
     @Override
@@ -100,7 +113,24 @@ public class SightingDaoDB implements SightingDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    private Superpower SuperpowerForSuper(int superpowerID){
+//    private void associateLocationsForSightings(List<Sighting> sightings){
+//        for (Sighting sighting : sightings) {
+//            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
+//        }
+//    }
+    
+    private Super getSuperForSighting(Sighting sighting){
+        final String GET_SUPER_FOR_SIGHTING = "SELECT s.superID, s.superpowerID, s.type, s.name, s.description "
+                + "FROM Sighting si "
+                + "JOIN Super s ON si.superID = s.superID "
+                + "WHERE si.superID = ?";
+        Super superhero = this.jdbc.queryForObject(GET_SUPER_FOR_SIGHTING, new SuperMapper(), sighting.getSightingID());
+        superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+        superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
+        return superhero;    
+    }
+    
+    private Superpower getSuperpowerForSuper(int superpowerID){
         try {
             final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
                     + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
