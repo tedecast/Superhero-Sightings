@@ -83,12 +83,14 @@ public class SightingDaoDB implements SightingDao {
 
     @Override
     public void updateSighting(Sighting sighting) {
-        final String UPDATE_SIGHTING = "UPDATE sighting SET date = ?, description = ? " 
+        final String UPDATE_SIGHTING = "UPDATE sighting SET superID = ?, locationID = ?, date = ?, description = ? " 
                 + "WHERE sightingID = ?";
         
         this.jdbc.update(UPDATE_SIGHTING, 
                 sighting.getSightingID(), 
-                sighting.getDate(), 
+                sighting.getSuperhero().getSuperID(), 
+                sighting.getLocation().getLocationID(), 
+                Timestamp.valueOf(sighting.getDate().atTime(12, 0)), 
                 sighting.getDescription());
     }
 
