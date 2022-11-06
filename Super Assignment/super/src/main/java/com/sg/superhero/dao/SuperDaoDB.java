@@ -40,19 +40,17 @@ public class SuperDaoDB implements SuperDao {
 //        return this.jdbc.queryForObject(SELECT_SIGHTINGS_FOR_SUPER, new SightingMapper(), sightingID);
 //    }
 //    
-    
-    private List<Sighting> getSightingsForSuper(int sightingID){
+    private List<Sighting> getSightingsForSuper(int sightingID) {
         final String SELECT_SIGHTINGS_FOR_HERO = "SELECT * FROM sighting WHERE superID = ?";
         List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_FOR_HERO, new SightingMapper(), sightingID);
         return sightings;
     }
-    
+
     @Override
     public Super getSuperByID(int superID) {
-        // create private method to return power for hero, pass hero ids, write queries to get the powers
         try {
             final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
-            
+
             Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
             superhero.setSighting(this.getSightingsForSuper(superID));
             // location?
@@ -161,43 +159,44 @@ public class SuperDaoDB implements SuperDao {
         return supers;
     }
 
-    private List<Organization> getOrganizationsForSuper(int organizationID){
+    private List<Organization> getOrganizationsForSuper(int organizationID) {
         final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type"
                 + "FROM superOrganization so "
                 + "JOIN organization o ON so.organizationID = o.organizationID "
                 + "WHERE so.superID = ?";
         List<Organization> organizations = this.jdbc.query(GET_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
-        for (Organization organization : organizations){
+        for (Organization organization : organizations) {
             organization.setSupers(this.getSupersForOrganization(organization));
         }
         return organizations;
     }
-    
+
     @Override
     public List<Super> getSupersForLocation(Location location) {
         final String GET_SUPERS_FOR_LOCATION = "SELECT s.superID, s.superpowerID, s.type, s.name, s.description "
                 + "FROM sighting si"
                 + "JOIN super s ON si.sightingID = s.superID "
                 + "WHERE si.locationID = ?";
-        
+
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_LOCATION, new SuperMapper(), location.getLocationID());
-        for (Super superhero : supers){
+        for (Super superhero : supers) {
             superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
             superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
         }
         return supers;
     }
 
-    private Superpower getSuperpowerForSuper(int superpowerID){
+    // create private method to return power for hero, pass hero ids, write queries to get the powers
+    private Superpower getSuperpowerForSuper(int superpowerID) {
         try {
             final String GET_SUPERPOWER = "SELECT sp.superpowerID, sp.name, sp.description "
                     + "JOIN super s ON sp = s.superpowerID WHERE s.superID = ?";
             return this.jdbc.queryForObject(GET_SUPERPOWER, new SuperpowerMapper(), superpowerID);
-        } catch (DataAccessException ex){
+        } catch (DataAccessException ex) {
             return null;
         }
     }
-    
+
     @Override
     public List<Super> getSupersForOrganization(Organization organization) {
         final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.type, s.name, s.description "
@@ -205,12 +204,11 @@ public class SuperDaoDB implements SuperDao {
                 + "JOIN super s ON so.superID = s.superID "
                 + "WHERE so.organizationID = ?";
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
-        for (Super superhero : supers){
+        for (Super superhero : supers) {
             superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
         }
         return supers;
     }
-
 
     public static final class SuperMapper implements RowMapper<Super> {
 
