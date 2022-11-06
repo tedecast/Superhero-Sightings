@@ -108,10 +108,11 @@ public class SightingDaoDB implements SightingDao {
         return sightings;
     }
 
-    @Override
-    public List<Sighting> getSightingsBySuper(Super supers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    // not required I think
+//    @Override
+//    public List<Sighting> getSightingsBySuper(Super supers) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
 //    private void associateLocationsForSightings(List<Sighting> sightings){
 //        for (Sighting sighting : sightings) {
