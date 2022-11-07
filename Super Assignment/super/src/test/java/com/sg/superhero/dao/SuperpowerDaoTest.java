@@ -62,6 +62,7 @@ public class SuperpowerDaoTest {
         
         Superpower fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
         assertEquals(superpower, fromDao);
+        assertNotNull(fromDao);
     }
 
     /**
