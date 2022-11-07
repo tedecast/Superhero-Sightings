@@ -54,7 +54,7 @@ public class SuperpowerDaoDB implements SuperpowerDao {
                 superpower.getName(),
                 superpower.getDescription());
 
-        int newSuperpowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERPOWERID()", Integer.class);
+        int newSuperpowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         superpower.setSuperpowerID(newSuperpowerID);
 
         return superpower;
@@ -62,7 +62,7 @@ public class SuperpowerDaoDB implements SuperpowerDao {
 
     @Override
     public void updateSuperpower(Superpower superpower) {
-        final String UPDATE_SUPERPOWER = "UPDATE superpower SET name = ?, description = ?, WHERE superpowerID = ?";
+        final String UPDATE_SUPERPOWER = "UPDATE superpower SET name = ?, description = ?, WHERE SuperpowerID = ?";
 
         this.jdbc.update(UPDATE_SUPERPOWER,
                 superpower.getSuperpowerID(),
@@ -73,10 +73,10 @@ public class SuperpowerDaoDB implements SuperpowerDao {
     @Override
     @Transactional
     public void deleteSuperpowerByID(int superpowerID) {
-        final String DELETE_SUPER_SUPERPOWER = "DELETE FROM super_superpower WHERE superpowerID = ?";
+        final String DELETE_SUPER_SUPERPOWER = "DELETE FROM Super WHERE SuperpowerID = ?";
         this.jdbc.update(DELETE_SUPER_SUPERPOWER, superpowerID);
 
-        final String DELETE_SUPERPOWER = "DELETE FROM superpower WHERE superpowerID = ?";
+        final String DELETE_SUPERPOWER = "DELETE FROM Superpower WHERE SuperpowerID = ?";
         this.jdbc.update(DELETE_SUPERPOWER, superpowerID);
     }
 

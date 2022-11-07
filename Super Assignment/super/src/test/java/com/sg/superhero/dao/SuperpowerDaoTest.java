@@ -65,7 +65,15 @@ public class SuperpowerDaoTest {
      * Test of getSuperpowerByID method, of class SuperpowerDao.
      */
     @Test
-    public void testGetSuperpowerByID() {
+    public void testAddGetSuperpowerByID() {
+        
+        Superpower superpower = new Superpower();
+        superpower.setName("Water blast");
+        superpower.setDescription("Blasts water at high speed.");
+        superpower = this.superpowerDao.addSuperpower(superpower);
+        
+        Superpower fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        assertEquals(superpower, fromDao);
     }
 
     /**
@@ -73,13 +81,6 @@ public class SuperpowerDaoTest {
      */
     @Test
     public void testGetAllSuperpowers() {
-    }
-
-    /**
-     * Test of addSuperpower method, of class SuperpowerDao.
-     */
-    @Test
-    public void testAddSuperpower() {
     }
 
     /**
