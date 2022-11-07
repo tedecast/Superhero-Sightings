@@ -67,9 +67,9 @@ public class SuperpowerDaoDB implements SuperpowerDao {
                 + "WHERE SuperpowerID = ?";
 
         this.jdbc.update(UPDATE_SUPERPOWER,
-                superpower.getSuperpowerID(),
                 superpower.getName(),
-                superpower.getDescription());
+                superpower.getDescription(),
+                superpower.getSuperpowerID());
     }
 
     @Override

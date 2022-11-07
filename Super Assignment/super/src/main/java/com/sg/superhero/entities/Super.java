@@ -16,7 +16,7 @@ public class Super {
 
     private int superID;
     private Superpower superpower;
-    private List<Sighting> sighting;
+    //private List<Sighting> sighting;
     private List<Organization> organization;
     private String type;
     private String name;

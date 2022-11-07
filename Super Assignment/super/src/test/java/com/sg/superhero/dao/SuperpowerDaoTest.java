@@ -107,6 +107,7 @@ public class SuperpowerDaoTest {
         assertEquals(superpower, fromDao);
         assertNotNull(fromDao);
         
+        superpower.setSuperpowerID(superpower.getSuperpowerID());
         superpower.setName("'Super speed'");
         superpower.setDescription("'Ability to run faster than the speed of light.'");
 
