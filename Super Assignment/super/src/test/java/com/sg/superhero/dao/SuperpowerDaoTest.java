@@ -70,6 +70,27 @@ public class SuperpowerDaoTest {
      */
     @Test
     public void testGetAllSuperpowers() {
+        Superpower power1 = new Superpower();
+        power1.setName("Water blast");
+        power1.setDescription("Blasts water at high speed.");
+        power1 = this.superpowerDao.addSuperpower(power1);
+        
+        Superpower power2 = new Superpower();
+        power2.setName("Super speed");
+        power2.setDescription("Ability to run faster than the speed of light");
+        power2 = this.superpowerDao.addSuperpower(power2);
+        
+        Superpower power3 = new Superpower();
+        power3.setName("Fire");
+        power3.setDescription("Ability to control fire and create fire.");
+        power3 = this.superpowerDao.addSuperpower(power3);
+        
+        List<Superpower> superpowers = this.superpowerDao.getAllSuperpowers();
+        
+        assertEquals(3, superpowers.size());
+        assertTrue(superpowers.contains(power1));
+        assertTrue(superpowers.contains(power2));
+        assertTrue(superpowers.contains(power3));
     }
 
     /**
