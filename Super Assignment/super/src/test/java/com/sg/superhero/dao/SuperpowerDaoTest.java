@@ -23,43 +23,43 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class SuperpowerDaoTest {
-    
+
     @Autowired
     SuperpowerDao superpowerDao;
-    
-    @Autowired 
+
+    @Autowired
     SuperDao superDao;
-    
+
     @Autowired
     OrganizationDao organizationDao;
-    
+
     public SuperpowerDaoTest() {
     }
-    
+
     @BeforeEach
     public void setUp() {
         List<Super> supers = this.superDao.getAllSupers();
         for (Super superhero : supers) {
             this.superDao.deleteSuperByID(superhero.getSuperID());
         }
-        
+
         List<Superpower> superpowers = this.superpowerDao.getAllSuperpowers();
-        for (Superpower superpower : superpowers){
+        for (Superpower superpower : superpowers) {
             this.superpowerDao.deleteSuperpowerByID(superpower.getSuperpowerID());
         }
     }
-    
+
     /**
      * Test of getSuperpowerByID method, of class SuperpowerDao.
      */
     @Test
     public void testAddGetSuperpowerByID() {
-        
+
         Superpower superpower = new Superpower();
         superpower.setName("Water blast");
         superpower.setDescription("Blasts water at high speed.");
         superpower = this.superpowerDao.addSuperpower(superpower);
-        
+
         Superpower fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
         assertEquals(superpower, fromDao);
         assertNotNull(fromDao);
@@ -74,19 +74,19 @@ public class SuperpowerDaoTest {
         power1.setName("Water blast");
         power1.setDescription("Blasts water at high speed.");
         power1 = this.superpowerDao.addSuperpower(power1);
-        
+
         Superpower power2 = new Superpower();
         power2.setName("Super speed");
-        power2.setDescription("Ability to run faster than the speed of light");
+        power2.setDescription("Ability to run faster than the speed of light.");
         power2 = this.superpowerDao.addSuperpower(power2);
-        
+
         Superpower power3 = new Superpower();
         power3.setName("Fire");
         power3.setDescription("Ability to control fire and create fire.");
         power3 = this.superpowerDao.addSuperpower(power3);
-        
+
         List<Superpower> superpowers = this.superpowerDao.getAllSuperpowers();
-        
+
         assertEquals(3, superpowers.size());
         assertTrue(superpowers.contains(power1));
         assertTrue(superpowers.contains(power2));
@@ -98,6 +98,23 @@ public class SuperpowerDaoTest {
      */
     @Test
     public void testUpdateSuperpower() {
+        Superpower superpower = new Superpower();
+        superpower.setName("Water blast");
+        superpower.setDescription("Blasts water at high speed.");
+        superpower = this.superpowerDao.addSuperpower(superpower);
+
+        Superpower fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        assertEquals(superpower, fromDao);
+        assertNotNull(fromDao);
+        
+        superpower.setName("'Super speed'");
+        superpower.setDescription("'Ability to run faster than the speed of light.'");
+
+        this.superpowerDao.updateSuperpower(superpower);
+        assertNotEquals(superpower, fromDao);
+
+        fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        assertEquals(superpower, fromDao);
     }
 
     /**
@@ -127,5 +144,5 @@ public class SuperpowerDaoTest {
         public void deleteSuperpowerByID(int superpowerID) {
         }
     }
-    
+
 }
