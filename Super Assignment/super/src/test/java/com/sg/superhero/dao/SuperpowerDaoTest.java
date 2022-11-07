@@ -36,14 +36,6 @@ public class SuperpowerDaoTest {
     public SuperpowerDaoTest() {
     }
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
     @BeforeEach
     public void setUp() {
         List<Super> supers = this.superDao.getAllSupers();
@@ -57,10 +49,6 @@ public class SuperpowerDaoTest {
         }
     }
     
-    @AfterEach
-    public void tearDown() {
-    }
-
     /**
      * Test of getSuperpowerByID method, of class SuperpowerDao.
      */
