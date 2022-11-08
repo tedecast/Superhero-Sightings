@@ -22,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author Teresa
  */
 @SpringBootTest
-public class SuperpowerDaoTest {
+public class PowerDaoTest {
 
     @Autowired
     PowerDao powerDao;
@@ -33,7 +33,7 @@ public class SuperpowerDaoTest {
     @Autowired
     OrganizationDao organizationDao;
 
-    public SuperpowerDaoTest() {
+    public PowerDaoTest() {
     }
 
     @BeforeEach
@@ -43,17 +43,14 @@ public class SuperpowerDaoTest {
             this.superDao.deleteSuperByID(superhero.getSuperID());
         }
 
-        List<Power> superpowers = this.powerDao.getAllPowers();
-        for (Power superpower : superpowers) {
-            this.powerDao.deletePowerByID(superpower.getPowerID());
+        List<Power> powers = this.powerDao.getAllPowers();
+        for (Power power : powers) {
+            this.powerDao.deletePowerByID(power.getPowerID());
         }
     }
 
-    /**
-     * Test of getSuperpowerByID method, of class PowerDao.
-     */
     @Test
-    public void testAddGetSuperpowerByID() {
+    public void testAddGetPowerByID() {
 
         Power superpower = new Power();
         superpower.setName("Water blast");
@@ -66,10 +63,10 @@ public class SuperpowerDaoTest {
     }
 
     /**
-     * Test of getAllSuperpowers method, of class PowerDao.
+     * Test of getAllPowers method, of class PowerDao.
      */
     @Test
-    public void testGetAllSuperpowers() {
+    public void testGetAllPowers() {
         Power power1 = new Power();
         power1.setName("Water blast");
         power1.setDescription("Blasts water at high speed.");
@@ -85,61 +82,61 @@ public class SuperpowerDaoTest {
         power3.setDescription("Ability to control fire and create fire.");
         power3 = this.powerDao.addPower(power3);
 
-        List<Power> superpowers = this.powerDao.getAllPowers();
+        List<Power> powers = this.powerDao.getAllPowers();
 
-        assertEquals(3, superpowers.size());
-        assertTrue(superpowers.contains(power1));
-        assertTrue(superpowers.contains(power2));
-        assertTrue(superpowers.contains(power3));
+        assertEquals(3, powers.size());
+        assertTrue(powers.contains(power1));
+        assertTrue(powers.contains(power2));
+        assertTrue(powers.contains(power3));
     }
 
     /**
-     * Test of updateSuperpower method, of class PowerDao.
+     * Test of updatePower method, of class PowerDao.
      */
     @Test
-    public void testUpdateSuperpower() {
-        Power superpower = new Power();
-        superpower.setName("Water blast");
-        superpower.setDescription("Blasts water at high speed.");
-        superpower = this.powerDao.addPower(superpower);
+    public void testUpdatePower() {
+        Power power = new Power();
+        power.setName("Water blast");
+        power.setDescription("Blasts water at high speed.");
+        power = this.powerDao.addPower(power);
 
-        Power fromDao = this.powerDao.getPowerByID(superpower.getPowerID());
-        assertEquals(superpower, fromDao);
+        Power fromDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromDao);
         assertNotNull(fromDao);
 
-        superpower.setPowerID(superpower.getPowerID());
-        superpower.setName("'Super speed'");
-        superpower.setDescription("'Ability to run faster than the speed of light.'");
+        power.setPowerID(power.getPowerID());
+        power.setName("Super speed");
+        power.setDescription("Ability to run faster than the speed of light.");
 
-        this.powerDao.updatePower(superpower);
-        assertNotEquals(superpower, fromDao);
+        this.powerDao.updatePower(power);
+        assertNotEquals(power, fromDao);
 
-        fromDao = this.powerDao.getPowerByID(superpower.getPowerID());
-        assertEquals(superpower, fromDao);
+        fromDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromDao);
     }
 
     /**
-     * Test of deleteSuperpowerByID method, of class PowerDao.
+     * Test of deletePowerByID method, of class PowerDao.
      */
     @Test
-    public void testDeleteSuperpowerByID() {
-        Power superpower = new Power();
-        superpower.setName("Water blast");
-        superpower.setDescription("Blasts water at high speed.");
-        superpower = this.powerDao.addPower(superpower);
+    public void testDeletePowerByID() {
+        Power power = new Power();
+        power.setName("Water blast");
+        power.setDescription("Blasts water at high speed.");
+        power = this.powerDao.addPower(power);
         
-        Power fromDao = this.powerDao.getPowerByID(superpower.getPowerID());
-        assertEquals(superpower, fromDao);
+        Power fromDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromDao);
         assertNotNull(fromDao);
         
-        this.powerDao.deletePowerByID(superpower.getPowerID());
+        this.powerDao.deletePowerByID(power.getPowerID());
         
-        fromDao = this.powerDao.getPowerByID(superpower.getPowerID());
+        fromDao = this.powerDao.getPowerByID(power.getPowerID());
         assertNull(fromDao);
 
     }
 
-    public class SuperpowerDaoImpl implements PowerDao {
+    public class PowerDaoImpl implements PowerDao {
 
         public Power getPowerByID(int superpowerID) {
             return null;
