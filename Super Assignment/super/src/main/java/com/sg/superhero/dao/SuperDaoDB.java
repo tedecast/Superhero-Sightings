@@ -47,21 +47,19 @@ public class SuperDaoDB implements SuperDao {
         return sightings;
     }
 
-    @Override
-    public Super getSuperByID(int superID) {
-        try {
-            final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
-
+     @Override
+        public Super getSuperByID(int superID) {
+            try {
+                final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
             Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
-            //superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperpower().getSuperpowerID()));
-            //superhero.setSighting(this.getSightingsForSuper(superID));
-            // location?
-            return superhero;
-
-        } catch (DataAccessException ex) {
+                //superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperpower().getSuperpowerID()));
+                //superhero.setSighting(this.getSightingsForSuper(superID));
+                // location?
+                return superhero;
+            } catch (DataAccessException ex) {
             return null;
+            }
         }
-    }
 
     @Override
     public List<Super> getAllSupers() {
@@ -120,15 +118,15 @@ public class SuperDaoDB implements SuperDao {
     @Override
     @Transactional
     public void updateSuper(Super superhero) {
-        final String UPDATE_SUPER = "UPDATE super SET type = ?"
-                + "name = ?, " + "description = ? WHERE superID = ?";
+        final String UPDATE_SUPER = "UPDATE Super SET SuperpowerID = ?, Type = ?,"
+                + " Name = ?, " + "Description = ? WHERE SuperID = ?";
 
         this.jdbc.update(UPDATE_SUPER,
-                superhero.getSuperID(),
                 superhero.getSuperpower().getSuperpowerID(),
                 superhero.getType(),
                 superhero.getName(),
-                superhero.getDescription());
+                superhero.getDescription(),
+                superhero.getSuperID());
 
         final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
 
