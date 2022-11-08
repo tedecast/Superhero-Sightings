@@ -38,14 +38,6 @@ public class Super {
         this.superpower = superpower;
     }
 
-    public List<Sighting> getSighting() {
-        return sighting;
-    }
-
-    public void setSighting(List<Sighting> sighting) {
-        this.sighting = sighting;
-    }
-
     public List<Organization> getOrganization() {
         return organization;
     }
@@ -81,13 +73,12 @@ public class Super {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + this.superID;
-        hash = 41 * hash + Objects.hashCode(this.superpower);
-        hash = 41 * hash + Objects.hashCode(this.sighting);
-        hash = 41 * hash + Objects.hashCode(this.organization);
-        hash = 41 * hash + Objects.hashCode(this.type);
-        hash = 41 * hash + Objects.hashCode(this.name);
-        hash = 41 * hash + Objects.hashCode(this.descrption);
+        hash = 67 * hash + this.superID;
+        hash = 67 * hash + Objects.hashCode(this.superpower);
+        hash = 67 * hash + Objects.hashCode(this.organization);
+        hash = 67 * hash + Objects.hashCode(this.type);
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.descrption);
         return hash;
     }
 
@@ -118,9 +109,6 @@ public class Super {
         if (!Objects.equals(this.superpower, other.superpower)) {
             return false;
         }
-        if (!Objects.equals(this.sighting, other.sighting)) {
-            return false;
-        }
         if (!Objects.equals(this.organization, other.organization)) {
             return false;
         }
@@ -129,7 +117,7 @@ public class Super {
 
     @Override
     public String toString() {
-        return "Super{" + "superID=" + superID + ", superpower=" + superpower + ", sighting=" + sighting + ", organization=" + organization + ", type=" + type + ", name=" + name + ", descrption=" + descrption + '}';
+        return "Super{" + "superID=" + superID + ", superpower=" + superpower + ", organization=" + organization + ", type=" + type + ", name=" + name + ", descrption=" + descrption + '}';
     }
     
 }

@@ -40,6 +40,7 @@ public class SuperDaoDB implements SuperDao {
 //        return this.jdbc.queryForObject(SELECT_SIGHTINGS_FOR_SUPER, new SightingMapper(), sightingID);
 //    }
 //    
+    // move to sightings
     private List<Sighting> getSightingsForSuper(int sightingID) {
         final String SELECT_SIGHTINGS_FOR_HERO = "SELECT * FROM sighting WHERE superID = ?";
         List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_FOR_HERO, new SightingMapper(), sightingID);
@@ -52,7 +53,7 @@ public class SuperDaoDB implements SuperDao {
             final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
 
             Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
-            superhero.setSighting(this.getSightingsForSuper(superID));
+            //superhero.setSighting(this.getSightingsForSuper(superID));
             // location?
             return superhero;
 
@@ -80,7 +81,7 @@ public class SuperDaoDB implements SuperDao {
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERID()", Integer.class);
         superhero.setSuperID(newSuperID);
 
-        this.insertSuperSighting(superhero);
+        //this.insertSuperSighting(superhero);
         return superhero;
     }
 
@@ -101,24 +102,26 @@ public class SuperDaoDB implements SuperDao {
 
         this.jdbc.update(DELETE_SUPER_SIGHTING, superhero.getSuperID());
         // Insert back after update
-        this.insertSuperSighting(superhero);
+        //this.insertSuperSighting(superhero);
     }
 
+    
+    // Move to sighting
     // Inserts super into sighting
-    private void insertSuperSighting(Super superhero) {
-        final String INSERT_SIGHTING = "INSERT INTO sighting(superID, locationID, date, description) "
-                + "VALUES(?,?,?,?)";
-
-        for (Sighting sighting : superhero.getSighting()) {
-            this.jdbc.update(INSERT_SIGHTING,
-                    superhero.getSuperID(),
-                    sighting.getLocation().getLocationID(),
-                    sighting.getDate(),
-                    sighting.getDescription());
-            int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID()", Integer.class);
-            sighting.setSightingID(newSightingID);
-        }
-    }
+//    private void insertSuperSighting(Super superhero) {
+//        final String INSERT_SIGHTING = "INSERT INTO sighting(superID, locationID, date, description) "
+//                + "VALUES(?,?,?,?)";
+//
+//        for (Sighting sighting : superhero.getSighting()) {
+//            this.jdbc.update(INSERT_SIGHTING,
+//                    superhero.getSuperID(),
+//                    sighting.getLocation().getLocationID(),
+//                    sighting.getDate(),
+//                    sighting.getDescription());
+//            int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID()", Integer.class);
+//            sighting.setSightingID(newSightingID);
+//        }
+//    }
 
     @Override
     @Transactional
