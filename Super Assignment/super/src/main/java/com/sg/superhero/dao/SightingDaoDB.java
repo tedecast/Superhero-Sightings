@@ -54,7 +54,7 @@ public class SightingDaoDB implements SightingDao {
     
     @Override
     public List<Sighting> getAllSightings() {
-        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sightings";
+        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting";
         List<Sighting> sightings = this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
         
         for (Sighting sighting : sightings) {
@@ -75,7 +75,7 @@ public class SightingDaoDB implements SightingDao {
                 Timestamp.valueOf(sighting.getDate().atTime(12, 0)),
                 sighting.getDescription());
         
-        int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID", Integer.class);
+        int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         sighting.setSightingID(newSightingID);
         
         return sighting;
@@ -83,7 +83,7 @@ public class SightingDaoDB implements SightingDao {
     
     @Override
     public void updateSighting(Sighting sighting) {
-        final String UPDATE_SIGHTING = "UPDATE sighting SET superID = ?, locationID = ?, date = ?, description = ? "
+        final String UPDATE_SIGHTING = "UPDATE Sighting SET superID = ?, locationID = ?, date = ?, description = ? "
                 + "WHERE sightingID = ?";
         
         this.jdbc.update(UPDATE_SIGHTING,
@@ -97,7 +97,7 @@ public class SightingDaoDB implements SightingDao {
     @Override
     @Transactional
     public void deleteSightingByID(int sightingID) {
-        final String DELETE_SIGHTING = "DELETE FROM sighting WHERE sightingID = ?";
+        final String DELETE_SIGHTING = "DELETE FROM Sighting WHERE sightingID = ?";
         this.jdbc.update(DELETE_SIGHTING, sightingID);
     }
     

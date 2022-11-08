@@ -5,12 +5,19 @@
  */
 package com.sg.superhero.dao;
 
+import com.sg.superhero.entities.Location;
+import com.sg.superhero.entities.Organization;
+import com.sg.superhero.entities.Sighting;
+import com.sg.superhero.entities.Super;
+import com.sg.superhero.entities.Superpower;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -19,31 +26,59 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class SuperDaoDBTest {
-    
+
+    @Autowired
+    SuperDao superDao;
+
+    @Autowired
+    SuperpowerDao superpowerDao;
+
+    @Autowired
+    OrganizationDao orgDao;
+
+    @Autowired
+    LocationDao locationDao;
+
+    @Autowired
+    SightingDao sightingDao;
+
     public SuperDaoDBTest() {
     }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+
     @BeforeEach
     public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+
+        List<Super> supers = this.superDao.getAllSupers();
+        for (Super superhero : supers) {
+            this.superDao.deleteSuperByID(superhero.getSuperID());
+        }
+
+        List<Superpower> powers = this.superpowerDao.getAllSuperpowers();
+        for (Superpower power : powers) {
+            this.superpowerDao.deleteSuperpowerByID(power.getSuperpowerID());
+        }
+        
+        List<Organization> orgs = this.orgDao.getAllOrganizations();
+        for (Organization org : orgs){
+            this.orgDao.deleteOrganizationByID(org.getOrganizationID());
+        }
+
+        List<Sighting> sightings = this.sightingDao.getAllSightings();
+        for (Sighting sighting : sightings){
+            this.sightingDao.deleteSightingByID(sighting.getSightingID());
+        }
+        
+        List<Location> locations = this.locationDao.getAllLocations();
+        for (Location location : locations){
+            this.locationDao.deleteLocationByID(location.getLocationID());
+        }
     }
 
     /**
      * Test of getSuperByID method, of class SuperDaoDB.
      */
     @Test
-    public void testGetSuperByID() {
+    public void testAddGetSuperByID() {
     }
 
     /**
@@ -51,13 +86,6 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetAllSupers() {
-    }
-
-    /**
-     * Test of addSuper method, of class SuperDaoDB.
-     */
-    @Test
-    public void testAddSuper() {
     }
 
     /**
@@ -101,5 +129,5 @@ public class SuperDaoDBTest {
     @Test
     public void testGetSupersForOrganization() {
     }
-    
+
 }
