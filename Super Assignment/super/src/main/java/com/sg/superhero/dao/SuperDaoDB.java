@@ -47,25 +47,25 @@ public class SuperDaoDB implements SuperDao {
         return sightings;
     }
 
-     @Override
-        public Super getSuperByID(int superID) {
-            try {
-                final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
+    @Override
+    public Super getSuperByID(int superID) {
+        try {
+            final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
             Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
-                //superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperpower().getSuperpowerID()));
-                //superhero.setSighting(this.getSightingsForSuper(superID));
-                // location?
-                return superhero;
-            } catch (DataAccessException ex) {
+            //superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperpower().getSuperpowerID()));
+            //superhero.setSighting(this.getSightingsForSuper(superID));
+            // location?
+            return superhero;
+        } catch (DataAccessException ex) {
             return null;
-            }
         }
+    }
 
     @Override
     public List<Super> getAllSupers() {
         final String GET_ALL_SUPERS = "SELECT * FROM super";
         List<Super> supers = this.jdbc.query(GET_ALL_SUPERS, new SuperMapper());
-                
+
         this.associatePowerOrganization(supers);
 //        for (Super superhero : supers){
 //            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
@@ -74,17 +74,47 @@ public class SuperDaoDB implements SuperDao {
         return supers;
     }
 
+    private void associatePowerOrganization(List<Super> supers) {
+        for (Super superhero : supers) {
+            superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
+            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
+        }
+    }
+
+    // create private method to return power for hero, pass hero ids, write queries to get the powers
+    private Power getPowerForSuper(int powerID) {
+        try {
+            final String GET_POWER = "SELECT p.powerID, p.name, p.description FROM Power p "
+                    + "JOIN Super s ON p.powerID = s.powerID WHERE s.superID = ?";
+            return this.jdbc.queryForObject(GET_POWER, new PowerMapper(), powerID);
+        } catch (DataAccessException ex) {
+            return null;
+        }
+    }
+
+    private List<Organization> getOrganizationsForSuper(int organizationID) {
+        final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type "
+                + "FROM SuperOrganization so "
+                + "JOIN Organization o ON so.organizationID = o.organizationID "
+                + "WHERE so.superID = ?";
+        List<Organization> organizations = this.jdbc.query(GET_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
+        for (Organization organization : organizations) {
+            organization.setSupers(this.getSupersForOrganization(organization));
+        }
+        return organizations;
+    }
+
     @Override
     @Transactional
     public Super addSuper(Super superhero) {
         final String INSERT_SUPER = "INSERT INTO super(PowerID, Type, Name, Description) "
                 + "VALUES(?,?,?,?)";
         //if (superhero.getSuperpower() != null) {
-            this.jdbc.update(INSERT_SUPER,
-                    superhero.getPower().getPowerID(),
-                    superhero.getType(),
-                    superhero.getName(),
-                    superhero.getDescription());
+        this.jdbc.update(INSERT_SUPER,
+                superhero.getPower().getPowerID(),
+                superhero.getType(),
+                superhero.getName(),
+                superhero.getDescription());
 //        } else {
 //            this.jdbc.update(INSERT_SUPER, 
 //                    null,
@@ -101,20 +131,13 @@ public class SuperDaoDB implements SuperDao {
         return superhero;
     }
 
-    private void insertSuperOrganization(Super superhero){
+    private void insertSuperOrganization(Super superhero) {
         final String INSERT_SUPER_ORG = "INSERT INTO SuperOrganization VALUES(?,?)";
         for (Organization organization : superhero.getOrganization()) {
             this.jdbc.update(INSERT_SUPER_ORG, superhero.getSuperID(), organization.getOrganizationID());
         }
     }
-    
-    private void associatePowerOrganization(List<Super> supers){
-        for (Super superhero : supers){
-            superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
-            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
-        }
-    }
-    
+
     @Override
     @Transactional
     public void updateSuper(Super superhero) {
@@ -190,18 +213,6 @@ public class SuperDaoDB implements SuperDao {
         return supers;
     }
 
-    private List<Organization> getOrganizationsForSuper(int organizationID) {
-        final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type "
-                + "FROM superOrganization so "
-                + "JOIN organization o ON so.organizationID = o.organizationID "
-                + "WHERE so.superID = ?";
-        List<Organization> organizations = this.jdbc.query(GET_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
-        for (Organization organization : organizations) {
-            organization.setSupers(this.getSupersForOrganization(organization));
-        }
-        return organizations;
-    }
-
     @Override
     public List<Super> getSupersForLocation(Location location) {
         final String GET_SUPERS_FOR_LOCATION = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
@@ -215,17 +226,6 @@ public class SuperDaoDB implements SuperDao {
             superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
         }
         return supers;
-    }
-
-    // create private method to return power for hero, pass hero ids, write queries to get the powers
-    private Power getPowerForSuper(int powerID) {
-        try {
-            final String GET_POWER = "SELECT p.powerID, p.name, p.description "
-                    + "JOIN super s ON sp = s.powerID WHERE s.superID = ?";
-            return this.jdbc.queryForObject(GET_POWER, new PowerMapper(), powerID);
-        } catch (DataAccessException ex) {
-            return null;
-        }
     }
 
     @Override

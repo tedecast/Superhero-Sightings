@@ -54,8 +54,8 @@ public class PowerDaoDB implements PowerDao {
                 power.getName(),
                 power.getDescription());
 
-        int newSuperpowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        power.setPowerID(newSuperpowerID);
+        int newPowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        power.setPowerID(newPowerID);
 
         return power;
     }

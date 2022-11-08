@@ -114,68 +114,69 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetAllSupers() {
-//        Power superpower1 = new Power();
-//        superpower1.setSuperpowerID(superpower1.getSuperpowerID());
-//        superpower1.setName("Super human");
-//        superpower1.setDescription("Enhanced human abilities.");
-//        superpower1 = this.superpowerDao.addSuperpower(superpower1);
-//
-//        Power fromPowerDao1 = this.superpowerDao.getSuperpowerByID(superpower1.getSuperpowerID());
-//        assertEquals(superpower1, fromPowerDao1);
-//        assertNotNull(fromPowerDao1);
-//
-//        Super superhero1 = new Super();
-//        superhero1.setSuperID(superhero1.getSuperID());
-//        superhero1.setSuperpower(superpower1);
-//        superhero1.setType("Hero");
-//        superhero1.setName("Captain America");
-//        superhero1.setDescription("Super soldier");
-//        superhero1.setOrganization(new ArrayList<Organization>());
-//        superhero1 = this.superDao.addSuper(superhero1);
+        Power power1 = new Power();
+        power1.setPowerID(power1.getPowerID());
+        power1.setName("Super human");
+        power1.setDescription("Enhanced human abilities.");
+        power1 = this.powerDao.addPower(power1);
+
+        Power fromPowerDao1 = this.powerDao.getPowerByID(power1.getPowerID());
+        assertEquals(power1, fromPowerDao1);
+        assertNotNull(fromPowerDao1);
+
+        Super superhero1 = new Super();
+        superhero1.setSuperID(superhero1.getSuperID());
+        superhero1.setPower(power1);
+        superhero1.setType("Hero");
+        superhero1.setName("Captain America");
+        superhero1.setDescription("Super soldier");
+        superhero1.setOrganization(new ArrayList<Organization>());
+        superhero1 = this.superDao.addSuper(superhero1);
+
+        Super fromSuperDao = this.superDao.getSuperByID(superhero1.getSuperID());
+        fromSuperDao.setPower(power1);
 //
 //        Super fromSuperDao1 = this.superDao.getSuperByID(superhero1.getSuperID());
-//        fromSuperDao1.setSuperpower(superpower1);
+//        fromSuperDao1.setPower(power1);
 //        this.superDao.updateSuper(superhero1);
 //
 //        assertNotNull(fromSuperDao1);
-//        assertEquals(superhero1.getSuperpower(), fromPowerDao1);
+//        assertEquals(superhero1.getPower(), fromPowerDao1);
 //        assertEquals(superhero1, fromSuperDao1);
 //        assertTrue(superhero1.equals(fromSuperDao1));
-//
-//        // Super2 
-//        Power superpower2 = new Power();
-//        superpower2.setSuperpowerID(superpower2.getSuperpowerID());
-//        superpower2.setName("Spidey senses");
-//        superpower2.setDescription("Powers that are like a spider-human hybrid");
-//        superpower2 = this.superpowerDao.addSuperpower(superpower2);
-//
-//        Power fromPowerDao2 = this.superpowerDao.getSuperpowerByID(superpower2.getSuperpowerID());
-//        assertEquals(superpower2, fromPowerDao2);
-//        assertNotNull(fromPowerDao2);
-//
-//        Super superhero2 = new Super();
-//        superhero2.setSuperID(superhero2.getSuperID());
-//        superhero2.setSuperpower(superpower2);
-//        superhero2.setType("Hero");
-//        superhero2.setName("Spiderman");
-//        superhero2.setDescription("He can shoot webs out of his wrists like a spider!");
-//        superhero2.setOrganization(new ArrayList<Organization>());
-//        superhero2 = this.superDao.addSuper(superhero2);
-//
-//        Super fromSuperDao2 = this.superDao.getSuperByID(superhero2.getSuperID());
-//        fromSuperDao2.setSuperpower(superpower2);
+
+        // Super2 
+        Power superpower2 = new Power();
+        superpower2.setPowerID(superpower2.getPowerID());
+        superpower2.setName("Spidey senses");
+        superpower2.setDescription("Powers that are like a spider-human hybrid");
+        superpower2 = this.powerDao.addPower(superpower2);
+
+        Power fromPowerDao2 = this.powerDao.getPowerByID(superpower2.getPowerID());
+        assertEquals(superpower2, fromPowerDao2);
+        assertNotNull(fromPowerDao2);
+
+        Super superhero2 = new Super();
+        superhero2.setSuperID(superhero2.getSuperID());
+        superhero2.setPower(superpower2);
+        superhero2.setType("Hero");
+        superhero2.setName("Spiderman");
+        superhero2.setDescription("He can shoot webs out of his wrists like a spider!");
+        superhero2.setOrganization(new ArrayList<Organization>());
+        superhero2 = this.superDao.addSuper(superhero2);
+
+        Super fromSuperDao2 = this.superDao.getSuperByID(superhero2.getSuperID());
+        fromSuperDao2.setPower(superpower2);
 //        this.superDao.updateSuper(superhero2);
-//
 //        assertNotNull(fromSuperDao2);
-//        assertEquals(superhero2.getSuperpower(), fromPowerDao2);
+//        assertEquals(superhero2.getPower(), fromPowerDao2);
 //        assertEquals(superhero2, fromSuperDao2);
 //        assertTrue(superhero2.equals(fromSuperDao2));
-//
-//        List<Super> supers = this.superDao.getAllSupers();
-//
-//        assertEquals(2, supers.size());
-//        assertTrue(supers.contains(superhero1));
-//        assertTrue(supers.contains(superhero2));
+        List<Super> supers = this.superDao.getAllSupers();
+
+        assertEquals(2, supers.size());
+        assertTrue(supers.contains(superhero1));
+        assertTrue(supers.contains(superhero2));
     }
 
     /**
@@ -222,9 +223,9 @@ public class SuperDaoDBTest {
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
         fromSuperDao.setPower(superhero.getPower());
         this.superDao.updateSuper(superhero);
-        
+
         assertNotEquals(superhero, fromSuperDao);
-        
+
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
         fromSuperDao.setPower(superhero.getPower());
         assertEquals(superhero, fromSuperDao);
