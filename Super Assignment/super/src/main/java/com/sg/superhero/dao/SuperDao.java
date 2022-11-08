@@ -32,7 +32,7 @@ public interface SuperDao {
     public List<Super> getSupersForSighting(Sighting sighting);
     
     // optional, select statements 
-    public List<Super> getSupersForSuperpower(Power superpower);
+    public List<Super> getSupersForPower(Power superpower);
 
     public List<Super> getSupersForLocation(Location location);
 

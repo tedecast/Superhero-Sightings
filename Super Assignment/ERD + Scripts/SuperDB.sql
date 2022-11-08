@@ -6,22 +6,22 @@ USE superDB;
 
 CREATE TABLE `Super` (
 	SuperID INT PRIMARY KEY AUTO_INCREMENT, 
-    SuperpowerID INT NOT NULL, 
+    PowerID INT NOT NULL, 
     `Type` VARCHAR (10) NOT NULL, 
     `Name` VARCHAR (50) NOT NULL, 
     `Description`  VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Superpower (
-	SuperpowerID INT PRIMARY KEY AUTO_INCREMENT, 
+CREATE TABLE Power (
+	PowerID INT PRIMARY KEY AUTO_INCREMENT, 
     `Name` VARCHAR(50) NOT NULL, 
     `Description` VARCHAR(255) NOT NULL
 );
 
 ALTER TABLE `Super`
-ADD CONSTRAINT FK_SuperSuperpower
-FOREIGN KEY FK_SuperSuperpower (SuperpowerID)
-REFERENCES Superpower (SuperpowerID);
+ADD CONSTRAINT FK_SuperPower
+FOREIGN KEY FK_SuperPower (PowerID)
+REFERENCES Power (PowerID);
 
 CREATE TABLE Sighting (
 	SightingID INT PRIMARY KEY AUTO_INCREMENT,
@@ -64,7 +64,7 @@ CREATE TABLE SuperOrganization (
     OrganizationID INT NOT NULL, 
     PRIMARY KEY PK_SuperOrganization(SuperID, OrganizationID), 
     CONSTRAINT FK_SuperOrganization_Super FOREIGN KEY (SuperID)
-		REFERENCES Super (SuperID), 
+		REFERENCES `Super` (SuperID), 
 	CONSTRAINT FK_SuperOrganization_Organization FOREIGN KEY (OrganizationID)
 		REFERENCES `Organization` (OrganizationID)
 );

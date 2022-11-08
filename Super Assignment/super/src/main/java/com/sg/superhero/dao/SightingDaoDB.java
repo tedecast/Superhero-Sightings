@@ -7,8 +7,8 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.dao.LocationDaoDB.LocationMapper;
 import com.sg.superhero.dao.OrganizationDaoDB.OrganizationMapper;
+import com.sg.superhero.dao.PowerDaoDB.PowerMapper;
 import com.sg.superhero.dao.SuperDaoDB.SuperMapper;
-import com.sg.superhero.dao.PowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
@@ -147,7 +147,7 @@ public class SightingDaoDB implements SightingDao {
         try {
             final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
                     + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
-            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new SuperpowerMapper(), superpowerID);
+            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), superpowerID);
         } catch (DataAccessException ex) {
             return null;
         }

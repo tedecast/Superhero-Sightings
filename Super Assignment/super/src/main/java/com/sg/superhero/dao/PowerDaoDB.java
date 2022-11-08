@@ -29,9 +29,9 @@ public class PowerDaoDB implements PowerDao {
     @Override
     public Power getPowerByID(int powerID) {
         try {
-            final String GET_SUPERPOWER_BY_ID = "SELECT * FROM superpower WHERE superpowerID = ?";
+            final String GET_POWER_BY_ID = "SELECT * FROM Power WHERE PowerID = ?";
 
-            return this.jdbc.queryForObject(GET_SUPERPOWER_BY_ID, new SuperpowerMapper(), powerID);
+            return this.jdbc.queryForObject(GET_POWER_BY_ID, new PowerMapper(), powerID);
 
         } catch (DataAccessException ex) {
             return null;
@@ -40,17 +40,17 @@ public class PowerDaoDB implements PowerDao {
 
     @Override
     public List<Power> getAllPowers() {
-        final String GET_ALL_SUPERPOWERS = "SELECT * from superpower";
-        return this.jdbc.query(GET_ALL_SUPERPOWERS, new SuperpowerMapper());
+        final String GET_ALL_POWERS = "SELECT * from Power";
+        return this.jdbc.query(GET_ALL_POWERS, new PowerMapper());
     }
 
     @Override
     @Transactional
     public Power addPower(Power power) {
-        final String INSERT_SUPERPOWER = "INSERT INTO superpower(name, description) "
+        final String INSERT_POWER = "INSERT INTO power(name, description) "
                 + "VALUES(?,?)";
 
-        this.jdbc.update(INSERT_SUPERPOWER,
+        this.jdbc.update(INSERT_POWER,
                 power.getName(),
                 power.getDescription());
 
@@ -62,11 +62,11 @@ public class PowerDaoDB implements PowerDao {
 
     @Override
     public void updatePower(Power power) {
-        final String UPDATE_SUPERPOWER = "UPDATE Superpower "
+        final String UPDATE_POWER = "UPDATE Power "
                 + "SET name = ?, description = ? "
-                + "WHERE SuperpowerID = ?";
+                + "WHERE PowerID = ?";
 
-        this.jdbc.update(UPDATE_SUPERPOWER,
+        this.jdbc.update(UPDATE_POWER,
                 power.getName(),
                 power.getDescription(),
                 power.getPowerID());
@@ -74,20 +74,20 @@ public class PowerDaoDB implements PowerDao {
 
     @Override
     @Transactional
-    public void deletePowerByID(int superpowerID) {
-        final String DELETE_SUPER_SUPERPOWER = "DELETE FROM Super WHERE SuperpowerID = ?";
-        this.jdbc.update(DELETE_SUPER_SUPERPOWER, superpowerID);
+    public void deletePowerByID(int powerID) {
+        final String DELETE_SUPER_POWER = "DELETE FROM Super WHERE PowerID = ?";
+        this.jdbc.update(DELETE_SUPER_POWER, powerID);
 
-        final String DELETE_SUPERPOWER = "DELETE FROM Superpower WHERE SuperpowerID = ?";
-        this.jdbc.update(DELETE_SUPERPOWER, superpowerID);
+        final String DELETE_SUPERPOWER = "DELETE FROM Power WHERE PowerID = ?";
+        this.jdbc.update(DELETE_SUPERPOWER, powerID);
     }
 
-    public static final class SuperpowerMapper implements RowMapper<Power> {
+    public static final class PowerMapper implements RowMapper<Power> {
 
         @Override
         public Power mapRow(ResultSet rs, int index) throws SQLException {
             Power superpower = new Power();
-            superpower.setPowerID(rs.getInt("superpowerID"));
+            superpower.setPowerID(rs.getInt("powerID"));
             superpower.setName(rs.getString("name"));
             superpower.setDescription(rs.getString("description"));
 

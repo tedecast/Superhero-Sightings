@@ -5,8 +5,8 @@
  */
 package com.sg.superhero.dao;
 
+import com.sg.superhero.dao.PowerDaoDB.PowerMapper;
 import com.sg.superhero.dao.SuperDaoDB.SuperMapper;
-import com.sg.superhero.dao.PowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Power;
@@ -110,7 +110,7 @@ public class OrganizationDaoDB implements OrganizationDao {
         try {
             final String SELECT_SP_FOR_SUPER = "SELECT sp.superpowerID, sp.name, sp.description FROM Superpower sp "
                     + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
-            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new SuperpowerMapper(), superpowerID);
+            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), superpowerID);
         } catch (DataAccessException ex) {
             return null;
         }
