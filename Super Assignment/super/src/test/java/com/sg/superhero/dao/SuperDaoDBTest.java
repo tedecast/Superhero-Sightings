@@ -165,8 +165,8 @@ public class SuperDaoDBTest {
         superhero2.setOrganization(new ArrayList<Organization>());
         superhero2 = this.superDao.addSuper(superhero2);
 
-        Super fromSuperDao2 = this.superDao.getSuperByID(superhero2.getSuperID());
-        fromSuperDao2.setPower(superpower2);
+//        Super fromSuperDao2 = this.superDao.getSuperByID(superhero2.getSuperID());
+//        fromSuperDao2.setPower(superpower2);
 //        this.superDao.updateSuper(superhero2);
 //        assertNotNull(fromSuperDao2);
 //        assertEquals(superhero2.getPower(), fromPowerDao2);
@@ -236,6 +236,37 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testDeleteSuperByID() {
+
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
+        assertNotNull(fromPowerDao);
+
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+        fromSuperDao.setPower(power);
+
+        assertNotNull(fromSuperDao);
+        assertEquals(superhero.getPower(), fromPowerDao);
+        assertEquals(superhero, fromSuperDao);
+        assertTrue(superhero.equals(fromSuperDao));
+        
+        this.superDao.deleteSuperByID(superhero.getSuperID());
+        fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+        assertNull(fromSuperDao);
     }
 
     /**
