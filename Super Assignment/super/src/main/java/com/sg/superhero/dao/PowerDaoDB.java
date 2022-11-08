@@ -21,17 +21,17 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Teresa
  */
 @Repository
-public class SuperpowerDaoDB implements SuperpowerDao {
+public class PowerDaoDB implements PowerDao {
 
     @Autowired
     JdbcTemplate jdbc;
 
     @Override
-    public Power getSuperpowerByID(int superpowerID) {
+    public Power getPowerByID(int powerID) {
         try {
             final String GET_SUPERPOWER_BY_ID = "SELECT * FROM superpower WHERE superpowerID = ?";
 
-            return this.jdbc.queryForObject(GET_SUPERPOWER_BY_ID, new SuperpowerMapper(), superpowerID);
+            return this.jdbc.queryForObject(GET_SUPERPOWER_BY_ID, new SuperpowerMapper(), powerID);
 
         } catch (DataAccessException ex) {
             return null;
@@ -39,42 +39,42 @@ public class SuperpowerDaoDB implements SuperpowerDao {
     }
 
     @Override
-    public List<Power> getAllSuperpowers() {
+    public List<Power> getAllPowers() {
         final String GET_ALL_SUPERPOWERS = "SELECT * from superpower";
         return this.jdbc.query(GET_ALL_SUPERPOWERS, new SuperpowerMapper());
     }
 
     @Override
     @Transactional
-    public Power addSuperpower(Power superpower) {
+    public Power addPower(Power power) {
         final String INSERT_SUPERPOWER = "INSERT INTO superpower(name, description) "
                 + "VALUES(?,?)";
 
         this.jdbc.update(INSERT_SUPERPOWER,
-                superpower.getName(),
-                superpower.getDescription());
+                power.getName(),
+                power.getDescription());
 
         int newSuperpowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        superpower.setPowerID(newSuperpowerID);
+        power.setPowerID(newSuperpowerID);
 
-        return superpower;
+        return power;
     }
 
     @Override
-    public void updateSuperpower(Power superpower) {
+    public void updatePower(Power power) {
         final String UPDATE_SUPERPOWER = "UPDATE Superpower "
                 + "SET name = ?, description = ? "
                 + "WHERE SuperpowerID = ?";
 
         this.jdbc.update(UPDATE_SUPERPOWER,
-                superpower.getName(),
-                superpower.getDescription(),
-                superpower.getPowerID());
+                power.getName(),
+                power.getDescription(),
+                power.getPowerID());
     }
 
     @Override
     @Transactional
-    public void deleteSuperpowerByID(int superpowerID) {
+    public void deletePowerByID(int superpowerID) {
         final String DELETE_SUPER_SUPERPOWER = "DELETE FROM Super WHERE SuperpowerID = ?";
         this.jdbc.update(DELETE_SUPER_SUPERPOWER, superpowerID);
 

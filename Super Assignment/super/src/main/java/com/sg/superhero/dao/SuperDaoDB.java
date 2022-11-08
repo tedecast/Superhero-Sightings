@@ -7,7 +7,7 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.dao.OrganizationDaoDB.OrganizationMapper;
 import com.sg.superhero.dao.SightingDaoDB.SightingMapper;
-import com.sg.superhero.dao.SuperpowerDaoDB.SuperpowerMapper;
+import com.sg.superhero.dao.PowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;

@@ -12,15 +12,15 @@ import java.util.List;
  *
  * @author Teresa
  */
-public interface SuperpowerDao {
+public interface PowerDao {
 
-    public Power getSuperpowerByID(int superpowerID);
+    public Power getPowerByID(int powerID);
 
-    public List<Power> getAllSuperpowers();
+    public List<Power> getAllPowers();
 
-    public Power addSuperpower(Power superpower);
+    public Power addPower(Power power);
 
-    public void updateSuperpower(Power superpower);
+    public void updatePower(Power power);
 
-    public void deleteSuperpowerByID(int superpowerID);
+    public void deletePowerByID(int powerID);
 }

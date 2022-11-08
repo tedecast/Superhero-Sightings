@@ -27,7 +27,7 @@ public class OrganizationDaoDBTest {
     SuperDao superDao;
 
     @Autowired
-    SuperpowerDao powerDao;
+    PowerDao powerDao;
 
     @Autowired
     OrganizationDao orgDao;
@@ -53,9 +53,9 @@ public class OrganizationDaoDBTest {
             this.superDao.deleteSuperByID(superhero.getSuperID());
         }
 
-        List<Power> powers = this.powerDao.getAllSuperpowers();
+        List<Power> powers = this.powerDao.getAllPowers();
         for (Power power : powers) {
-            this.powerDao.deleteSuperpowerByID(power.getPowerID());
+            this.powerDao.deletePowerByID(power.getPowerID());
         }
     }
 

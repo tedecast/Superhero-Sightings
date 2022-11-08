@@ -32,7 +32,7 @@ public class SuperDaoDBTest {
     SuperDao superDao;
 
     @Autowired
-    SuperpowerDao powerDao;
+    PowerDao powerDao;
 
     @Autowired
     OrganizationDao orgDao;
@@ -54,9 +54,9 @@ public class SuperDaoDBTest {
             this.superDao.deleteSuperByID(superhero.getSuperID());
         }
 
-        List<Power> powers = this.powerDao.getAllSuperpowers();
+        List<Power> powers = this.powerDao.getAllPowers();
         for (Power power : powers) {
-            this.powerDao.deleteSuperpowerByID(power.getPowerID());
+            this.powerDao.deletePowerByID(power.getPowerID());
         }
 
         List<Organization> orgs = this.orgDao.getAllOrganizations();
@@ -85,9 +85,9 @@ public class SuperDaoDBTest {
         superpower.setPowerID(superpower.getPowerID());
         superpower.setName("Super human");
         superpower.setDescription("Enhanced human abilities.");
-        superpower = this.powerDao.addSuperpower(superpower);
+        superpower = this.powerDao.addPower(superpower);
 
-        Power fromPowerDao = this.powerDao.getSuperpowerByID(superpower.getPowerID());
+        Power fromPowerDao = this.powerDao.getPowerByID(superpower.getPowerID());
         assertEquals(superpower, fromPowerDao);
         assertNotNull(fromPowerDao);
 
@@ -187,9 +187,9 @@ public class SuperDaoDBTest {
         power.setPowerID(power.getPowerID());
         power.setName("Super human");
         power.setDescription("Enhanced human abilities.");
-        power = this.powerDao.addSuperpower(power);
+        power = this.powerDao.addPower(power);
 
-        Power fromPowerDao = this.powerDao.getSuperpowerByID(power.getPowerID());
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
         assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
 
