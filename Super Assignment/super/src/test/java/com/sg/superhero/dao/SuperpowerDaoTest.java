@@ -106,7 +106,7 @@ public class SuperpowerDaoTest {
         Superpower fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
         assertEquals(superpower, fromDao);
         assertNotNull(fromDao);
-        
+
         superpower.setSuperpowerID(superpower.getSuperpowerID());
         superpower.setName("'Super speed'");
         superpower.setDescription("'Ability to run faster than the speed of light.'");
@@ -123,6 +123,20 @@ public class SuperpowerDaoTest {
      */
     @Test
     public void testDeleteSuperpowerByID() {
+        Superpower superpower = new Superpower();
+        superpower.setName("Water blast");
+        superpower.setDescription("Blasts water at high speed.");
+        superpower = this.superpowerDao.addSuperpower(superpower);
+        
+        Superpower fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        assertEquals(superpower, fromDao);
+        assertNotNull(fromDao);
+        
+        this.superpowerDao.deleteSuperpowerByID(superpower.getSuperpowerID());
+        
+        fromDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        assertNull(fromDao);
+
     }
 
     public class SuperpowerDaoImpl implements SuperpowerDao {
