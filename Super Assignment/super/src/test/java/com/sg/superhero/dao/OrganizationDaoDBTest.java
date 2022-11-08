@@ -5,12 +5,14 @@
  */
 package com.sg.superhero.dao;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
+import com.sg.superhero.entities.Organization;
+import com.sg.superhero.entities.Super;
+import com.sg.superhero.entities.Superpower;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -19,31 +21,48 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class OrganizationDaoDBTest {
-    
+
+    @Autowired
+    SuperDao superDao;
+
+    @Autowired
+    SuperpowerDao superpowerDao;
+
+    @Autowired
+    OrganizationDao orgDao;
+
+    @Autowired
+    LocationDao locationDao;
+
+    @Autowired
+    SightingDao sightingDao;
+
     public OrganizationDaoDBTest() {
     }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+
     @BeforeEach
     public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+        List<Organization> orgs = this.orgDao.getAllOrganizations();
+        for (Organization org : orgs) {
+            this.orgDao.deleteOrganizationByID(org.getOrganizationID());
+        }
+
+        List<Super> supers = this.superDao.getAllSupers(); 
+            for (Super superhero : supers) {
+                this.superDao.deleteSuperByID(superhero.getSuperID());
+            }
+        
+        List<Superpower> powers = this.superpowerDao.getAllSuperpowers();
+        for (Superpower power : powers){
+            this.superpowerDao.deleteSuperpowerByID(power.getSuperpowerID());
+        }
     }
 
     /**
      * Test of getOrganizationByID method, of class OrganizationDaoDB.
      */
     @Test
-    public void testGetOrganizationByID() {
+    public void testAddGetOrganizationByID() {
     }
 
     /**
@@ -51,13 +70,6 @@ public class OrganizationDaoDBTest {
      */
     @Test
     public void testGetAllOrganizations() {
-    }
-
-    /**
-     * Test of addOrganization method, of class OrganizationDaoDB.
-     */
-    @Test
-    public void testAddOrganization() {
     }
 
     /**
@@ -80,5 +92,5 @@ public class OrganizationDaoDBTest {
     @Test
     public void testGetOrganizationsForSuper() {
     }
-    
+
 }
