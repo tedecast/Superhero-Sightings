@@ -101,9 +101,9 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setPower(power);
+        //fromSuperDao.setPower(power);
 
-        assertNotNull(fromSuperDao);
+        //assertNotNull(fromSuperDao);
         assertEquals(superhero.getPower(), fromPowerDao);
         assertEquals(superhero, fromSuperDao);
         assertTrue(superhero.equals(fromSuperDao));
@@ -133,8 +133,8 @@ public class SuperDaoDBTest {
         superhero1.setOrganization(new ArrayList<Organization>());
         superhero1 = this.superDao.addSuper(superhero1);
 
-        Super fromSuperDao = this.superDao.getSuperByID(superhero1.getSuperID());
-        fromSuperDao.setPower(power1);
+        //Super fromSuperDao = this.superDao.getSuperByID(superhero1.getSuperID());
+        // fromSuperDao.setPower(power1);
 //
 //        Super fromSuperDao1 = this.superDao.getSuperByID(superhero1.getSuperID());
 //        fromSuperDao1.setPower(power1);
@@ -204,7 +204,7 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setPower(power);
+        //fromSuperDao.setPower(power);
         this.superDao.updateSuper(superhero);
 
         assertNotNull(fromSuperDao);
@@ -257,13 +257,13 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setPower(power);
+        //fromSuperDao.setPower(power);
 
         assertNotNull(fromSuperDao);
         assertEquals(superhero.getPower(), fromPowerDao);
         assertEquals(superhero, fromSuperDao);
         assertTrue(superhero.equals(fromSuperDao));
-        
+
         this.superDao.deleteSuperByID(superhero.getSuperID());
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
         assertNull(fromSuperDao);

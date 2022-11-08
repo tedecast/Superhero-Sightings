@@ -52,7 +52,8 @@ public class SuperDaoDB implements SuperDao {
         try {
             final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
             Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
-            //superhero.setPower(this.getPowerForSuper(superhero.getPower().getPowerID()));
+            superhero.setPower(this.getPowerForSuper(superID));
+            superhero.setOrganization(this.getOrganizationsForSuper(superID));
             //superhero.setSighting(this.getSightingsForSuper(superID));
             // location?
             return superhero;
