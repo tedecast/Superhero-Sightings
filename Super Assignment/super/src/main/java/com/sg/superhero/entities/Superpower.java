@@ -17,6 +17,15 @@ public class Superpower {
     private String name;
     private String description;
 
+    public Superpower() {
+    }
+
+    public Superpower(int superpowerID, String name, String description) {
+        this.superpowerID = superpowerID;
+        this.name = name;
+        this.description = description;
+    }
+
     public int getSuperpowerID() {
         return superpowerID;
     }
@@ -43,10 +52,10 @@ public class Superpower {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + this.superpowerID;
-        hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Objects.hashCode(this.description);
+        int hash = 3;
+        hash = 23 * hash + this.superpowerID;
+        hash = 23 * hash + Objects.hashCode(this.name);
+        hash = 23 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -79,4 +88,6 @@ public class Superpower {
         return "Superpower{" + "superpowerID=" + superpowerID + ", name=" + name + ", description=" + description + '}';
     }
 
+   
+ 
 }

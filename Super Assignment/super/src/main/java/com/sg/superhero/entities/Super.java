@@ -5,6 +5,7 @@
  */
 package com.sg.superhero.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,10 +18,13 @@ public class Super {
     private int superID;
     private Superpower superpower;
     //private List<Sighting> sighting;
-    private List<Organization> organization;
+    private List<Organization> organization = new ArrayList<>();
     private String type;
     private String name;
     private String description;
+
+    public Super() {
+    }
 
     public int getSuperID() {
         return superID;
@@ -72,13 +76,13 @@ public class Super {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.superID;
-        hash = 29 * hash + Objects.hashCode(this.superpower);
-        hash = 29 * hash + Objects.hashCode(this.organization);
-        hash = 29 * hash + Objects.hashCode(this.type);
-        hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Objects.hashCode(this.description);
+        int hash = 7;
+        hash = 73 * hash + this.superID;
+        hash = 73 * hash + Objects.hashCode(this.superpower);
+        hash = 73 * hash + Objects.hashCode(this.organization);
+        hash = 73 * hash + Objects.hashCode(this.type);
+        hash = 73 * hash + Objects.hashCode(this.name);
+        hash = 73 * hash + Objects.hashCode(this.description);
         return hash;
     }
 

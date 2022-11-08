@@ -53,6 +53,7 @@ public class SuperDaoDB implements SuperDao {
             final String GET_SUPER_BY_ID = "SELECT * FROM super WHERE superID = ?";
 
             Super superhero = this.jdbc.queryForObject(GET_SUPER_BY_ID, new SuperMapper(), superID);
+            //superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperpower().getSuperpowerID()));
             //superhero.setSighting(this.getSightingsForSuper(superID));
             // location?
             return superhero;
@@ -65,7 +66,14 @@ public class SuperDaoDB implements SuperDao {
     @Override
     public List<Super> getAllSupers() {
         final String GET_ALL_SUPERS = "SELECT * FROM super";
-        return this.jdbc.query(GET_ALL_SUPERS, new SuperMapper());
+        List<Super> supers = this.jdbc.query(GET_ALL_SUPERS, new SuperMapper());
+                
+        this.associateSuperpowerOrganization(supers);
+//        for (Super superhero : supers){
+//            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+//            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
+//        }
+        return supers;
     }
 
     @Override
@@ -101,6 +109,14 @@ public class SuperDaoDB implements SuperDao {
             this.jdbc.update(INSERT_SUPER_ORG, superhero.getSuperID(), organization.getOrganizationID());
         }
     }
+    
+    private void associateSuperpowerOrganization(List<Super> supers){
+        for (Super superhero : supers){
+            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
+        }
+    }
+    
     @Override
     @Transactional
     public void updateSuper(Super superhero) {
@@ -177,7 +193,7 @@ public class SuperDaoDB implements SuperDao {
     }
 
     private List<Organization> getOrganizationsForSuper(int organizationID) {
-        final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type"
+        final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type "
                 + "FROM superOrganization so "
                 + "JOIN organization o ON so.organizationID = o.organizationID "
                 + "WHERE so.superID = ?";

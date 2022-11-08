@@ -10,6 +10,7 @@ import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Superpower;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -57,19 +58,19 @@ public class SuperDaoDBTest {
         for (Superpower power : powers) {
             this.superpowerDao.deleteSuperpowerByID(power.getSuperpowerID());
         }
-        
+
         List<Organization> orgs = this.orgDao.getAllOrganizations();
-        for (Organization org : orgs){
+        for (Organization org : orgs) {
             this.orgDao.deleteOrganizationByID(org.getOrganizationID());
         }
 
         List<Sighting> sightings = this.sightingDao.getAllSightings();
-        for (Sighting sighting : sightings){
+        for (Sighting sighting : sightings) {
             this.sightingDao.deleteSightingByID(sighting.getSightingID());
         }
-        
+
         List<Location> locations = this.locationDao.getAllLocations();
-        for (Location location : locations){
+        for (Location location : locations) {
             this.locationDao.deleteLocationByID(location.getLocationID());
         }
     }
@@ -79,6 +80,34 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testAddGetSuperByID() {
+        
+        Superpower superpower = new Superpower();
+        superpower.setSuperpowerID(superpower.getSuperpowerID());
+        superpower.setName("Super human");
+        superpower.setDescription("Enhanced human abilities.");
+        superpower = this.superpowerDao.addSuperpower(superpower);
+        
+        Superpower fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        assertEquals(superpower, fromPowerDao);
+        assertNotNull(fromPowerDao);
+
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setSuperpower(superpower);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+        this.superDao.getSupersForSuperpower(superpower);
+        
+        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+        fromSuperDao.setSuperpower(superpower);
+        
+        assertNotNull(fromSuperDao);
+        assertEquals(superhero.getSuperpower(), fromPowerDao);
+        assertEquals(superhero, fromSuperDao);
+        assertTrue(superhero.equals(fromSuperDao));
     }
 
     /**
