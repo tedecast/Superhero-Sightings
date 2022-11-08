@@ -101,9 +101,7 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        //fromSuperDao.setPower(power);
 
-        //assertNotNull(fromSuperDao);
         assertEquals(superhero.getPower(), fromPowerDao);
         assertEquals(superhero, fromSuperDao);
         assertTrue(superhero.equals(fromSuperDao));
@@ -133,18 +131,6 @@ public class SuperDaoDBTest {
         superhero1.setOrganization(new ArrayList<Organization>());
         superhero1 = this.superDao.addSuper(superhero1);
 
-        //Super fromSuperDao = this.superDao.getSuperByID(superhero1.getSuperID());
-        // fromSuperDao.setPower(power1);
-//
-//        Super fromSuperDao1 = this.superDao.getSuperByID(superhero1.getSuperID());
-//        fromSuperDao1.setPower(power1);
-//        this.superDao.updateSuper(superhero1);
-//
-//        assertNotNull(fromSuperDao1);
-//        assertEquals(superhero1.getPower(), fromPowerDao1);
-//        assertEquals(superhero1, fromSuperDao1);
-//        assertTrue(superhero1.equals(fromSuperDao1));
-
         // Super2 
         Power superpower2 = new Power();
         superpower2.setPowerID(superpower2.getPowerID());
@@ -165,13 +151,6 @@ public class SuperDaoDBTest {
         superhero2.setOrganization(new ArrayList<Organization>());
         superhero2 = this.superDao.addSuper(superhero2);
 
-//        Super fromSuperDao2 = this.superDao.getSuperByID(superhero2.getSuperID());
-//        fromSuperDao2.setPower(superpower2);
-//        this.superDao.updateSuper(superhero2);
-//        assertNotNull(fromSuperDao2);
-//        assertEquals(superhero2.getPower(), fromPowerDao2);
-//        assertEquals(superhero2, fromSuperDao2);
-//        assertTrue(superhero2.equals(fromSuperDao2));
         List<Super> supers = this.superDao.getAllSupers();
 
         assertEquals(2, supers.size());
@@ -204,7 +183,6 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        //fromSuperDao.setPower(power);
         this.superDao.updateSuper(superhero);
 
         assertNotNull(fromSuperDao);
@@ -257,7 +235,6 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        //fromSuperDao.setPower(power);
 
         assertNotNull(fromSuperDao);
         assertEquals(superhero.getPower(), fromPowerDao);
