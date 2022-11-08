@@ -70,7 +70,7 @@ public class OrganizationDaoDB implements OrganizationDao {
                 organization.getContactInfo(),
                 organization.getType());
         
-        int newOrganizationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ORGANIZATIONID()", Integer.class);
+        int newOrganizationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         organization.setOrganizationID(newOrganizationID);
         
         this.insertSuperOrganization(organization);

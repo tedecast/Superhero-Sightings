@@ -71,20 +71,36 @@ public class SuperDaoDB implements SuperDao {
     @Override
     @Transactional
     public Super addSuper(Super superhero) {
-        final String INSERT_SUPER = "INSERT INTO super(type, name, description) "
-                + "VALUES(?,?,?)";
-        this.jdbc.update(INSERT_SUPER,
-                superhero.getType(),
-                superhero.getName(),
-                superhero.getDescrption());
+        final String INSERT_SUPER = "INSERT INTO super(superpowerID, type, name, description) "
+                + "VALUES(?,?,?,?)";
+        //if (superhero.getSuperpower() != null) {
+            this.jdbc.update(INSERT_SUPER,
+                    superhero.getSuperpower().getSuperpowerID(),
+                    superhero.getType(),
+                    superhero.getName(),
+                    superhero.getDescription());
+//        } else {
+//            this.jdbc.update(INSERT_SUPER, 
+//                    null,
+//                    superhero.getType(),
+//                    superhero.getName(),
+//                    superhero.getDescription());
+//        }
 
-        int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_SUPERID()", Integer.class);
+        int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         superhero.setSuperID(newSuperID);
+        this.insertSuperOrganization(superhero);
 
         //this.insertSuperSighting(superhero);
         return superhero;
     }
 
+    private void insertSuperOrganization(Super superhero){
+        final String INSERT_SUPER_ORG = "INSERT INTO SuperOrganization VALUES(?,?)";
+        for (Organization organization : superhero.getOrganization()) {
+            this.jdbc.update(INSERT_SUPER_ORG, superhero.getSuperID(), organization.getOrganizationID());
+        }
+    }
     @Override
     @Transactional
     public void updateSuper(Super superhero) {
@@ -96,7 +112,7 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getSuperpower().getSuperpowerID(),
                 superhero.getType(),
                 superhero.getName(),
-                superhero.getDescrption());
+                superhero.getDescription());
 
         final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
 
@@ -105,7 +121,6 @@ public class SuperDaoDB implements SuperDao {
         //this.insertSuperSighting(superhero);
     }
 
-    
     // Move to sighting
     // Inserts super into sighting
 //    private void insertSuperSighting(Super superhero) {
@@ -122,14 +137,13 @@ public class SuperDaoDB implements SuperDao {
 //            sighting.setSightingID(newSightingID);
 //        }
 //    }
-
     @Override
     @Transactional
     public void deleteSuperByID(int superID) {
         final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
         this.jdbc.update(DELETE_SUPER_SIGHTING, superID);
 
-        final String DELETE_SUPER_ORGANIZATION = "DELTE FROM superOrganization WHERE superID = ?";
+        final String DELETE_SUPER_ORGANIZATION = "DELETE FROM superOrganization WHERE superID = ?";
         this.jdbc.update(DELETE_SUPER_ORGANIZATION, superID);
 
         final String DELETE_SUPER = "DELETE FROM super WHERE superID = ?";
@@ -222,7 +236,7 @@ public class SuperDaoDB implements SuperDao {
             // need to get list of organizations
             superhero.setType(rs.getString("type"));
             superhero.setName(rs.getString("name"));
-            superhero.setDescrption(rs.getString("description"));
+            superhero.setDescription(rs.getString("description"));
 
             return superhero;
         }

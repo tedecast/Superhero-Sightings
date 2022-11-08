@@ -8,6 +8,7 @@ package com.sg.superhero.dao;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Superpower;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,13 +48,13 @@ public class OrganizationDaoDBTest {
             this.orgDao.deleteOrganizationByID(org.getOrganizationID());
         }
 
-        List<Super> supers = this.superDao.getAllSupers(); 
-            for (Super superhero : supers) {
-                this.superDao.deleteSuperByID(superhero.getSuperID());
-            }
-        
+        List<Super> supers = this.superDao.getAllSupers();
+        for (Super superhero : supers) {
+            this.superDao.deleteSuperByID(superhero.getSuperID());
+        }
+
         List<Superpower> powers = this.superpowerDao.getAllSuperpowers();
-        for (Superpower power : powers){
+        for (Superpower power : powers) {
             this.superpowerDao.deleteSuperpowerByID(power.getSuperpowerID());
         }
     }
@@ -63,6 +64,51 @@ public class OrganizationDaoDBTest {
      */
     @Test
     public void testAddGetOrganizationByID() {
+
+//        Superpower superpower = new Superpower();
+//        superpower.setName("Water blast");
+//        superpower.setDescription("Blasts water at high speed.");
+//        superpower = this.superpowerDao.addSuperpower(superpower);
+//
+//        Superpower fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+//        assertEquals(superpower, fromPowerDao);
+//        assertNotNull(fromPowerDao);
+//
+//        List<Superpower> superpowers = new ArrayList<>();
+//        superpowers.add(superpower);
+//
+//        Super superhero = new Super();
+//        superhero.setSuperpower(superpower);
+//        superhero.setType("Hero");
+//        superhero.setName("Captain America");
+//        superhero.setDescription("Super soldier");
+////        superhero.setOrganization(orgs);
+//        superhero = this.superDao.addSuper(superhero);
+//
+//        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+//        assertEquals(superhero, fromSuperDao);
+//        assertNotNull(fromSuperDao);
+//
+//        List<Super> supers = new ArrayList<>();
+//        supers.add(superhero);
+
+        Organization org = new Organization();
+        org.setName("The Avengers");
+        org.setDescription("Best group of heroes.");
+        org.setAddress("Avengers Tower, New York");
+        org.setContactInfo("avengersoffice@marvel.com");
+        org.setType("Hero");
+
+//        List<Organization> orgs = new ArrayList<>();
+//        orgs.add(org);
+
+        org.setSupers(new ArrayList<Super>());
+        org = this.orgDao.addOrganization(org);
+
+        Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
+        assertEquals(org, fromOrgDao);
+        assertNotNull(org);
+
     }
 
     /**

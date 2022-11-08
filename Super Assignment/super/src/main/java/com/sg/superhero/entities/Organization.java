@@ -5,6 +5,7 @@
  */
 package com.sg.superhero.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class Organization {
     private String address;
     private String contactInfo;
     private String type;
-    private List<Super> supers;
+    private List<Super> supers = new ArrayList<Super>();
 
     public int getOrganizationID() {
         return organizationID;
@@ -78,16 +79,72 @@ public class Organization {
         this.supers = supers;
     }
 
+    
+    
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 29 * hash + this.organizationID;
+//        hash = 29 * hash + Objects.hashCode(this.name);
+//        hash = 29 * hash + Objects.hashCode(this.description);
+//        hash = 29 * hash + Objects.hashCode(this.address);
+//        hash = 29 * hash + Objects.hashCode(this.contactInfo);
+//        hash = 29 * hash + Objects.hashCode(this.type);
+//        hash = 29 * hash + Objects.hashCode(this.supers);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Organization other = (Organization) obj;
+//        if (this.organizationID != other.organizationID) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.name, other.name)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.description, other.description)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.address, other.address)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.contactInfo, other.contactInfo)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.type, other.type)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.supers, other.supers)) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Organization{" + "organizationID=" + organizationID + ", name=" + name + ", description=" + description + ", address=" + address + ", contactInfo=" + contactInfo + ", type=" + type + ", supers=" + supers + '}';
+//    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + this.organizationID;
-        hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Objects.hashCode(this.description);
-        hash = 29 * hash + Objects.hashCode(this.address);
-        hash = 29 * hash + Objects.hashCode(this.contactInfo);
-        hash = 29 * hash + Objects.hashCode(this.type);
-        hash = 29 * hash + Objects.hashCode(this.supers);
+        hash = 53 * hash + this.organizationID;
+        hash = 53 * hash + Objects.hashCode(this.name);
+        hash = 53 * hash + Objects.hashCode(this.description);
+        hash = 53 * hash + Objects.hashCode(this.address);
+        hash = 53 * hash + Objects.hashCode(this.contactInfo);
+        hash = 53 * hash + Objects.hashCode(this.type);
+        hash = 53 * hash + Objects.hashCode(this.supers);
         return hash;
     }
 
@@ -131,7 +188,6 @@ public class Organization {
     public String toString() {
         return "Organization{" + "organizationID=" + organizationID + ", name=" + name + ", description=" + description + ", address=" + address + ", contactInfo=" + contactInfo + ", type=" + type + ", supers=" + supers + '}';
     }
-
     
     
 }

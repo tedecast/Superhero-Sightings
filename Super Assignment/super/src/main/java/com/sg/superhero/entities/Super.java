@@ -20,7 +20,7 @@ public class Super {
     private List<Organization> organization;
     private String type;
     private String name;
-    private String descrption;
+    private String description;
 
     public int getSuperID() {
         return superID;
@@ -62,23 +62,23 @@ public class Super {
         this.name = name;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + this.superID;
-        hash = 67 * hash + Objects.hashCode(this.superpower);
-        hash = 67 * hash + Objects.hashCode(this.organization);
-        hash = 67 * hash + Objects.hashCode(this.type);
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + Objects.hashCode(this.descrption);
+        hash = 29 * hash + this.superID;
+        hash = 29 * hash + Objects.hashCode(this.superpower);
+        hash = 29 * hash + Objects.hashCode(this.organization);
+        hash = 29 * hash + Objects.hashCode(this.type);
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -103,7 +103,7 @@ public class Super {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.descrption, other.descrption)) {
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         if (!Objects.equals(this.superpower, other.superpower)) {
@@ -117,7 +117,7 @@ public class Super {
 
     @Override
     public String toString() {
-        return "Super{" + "superID=" + superID + ", superpower=" + superpower + ", organization=" + organization + ", type=" + type + ", name=" + name + ", descrption=" + descrption + '}';
+        return "Super{" + "superID=" + superID + ", superpower=" + superpower + ", organization=" + organization + ", type=" + type + ", name=" + name + ", description=" + description + '}';
     }
-    
+
 }
