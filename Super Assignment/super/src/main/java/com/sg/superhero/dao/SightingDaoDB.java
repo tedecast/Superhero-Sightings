@@ -138,7 +138,7 @@ public class SightingDaoDB implements SightingDao {
                 + "JOIN Super s ON si.superID = s.superID "
                 + "WHERE si.superID = ?";
         Super superhero = this.jdbc.queryForObject(GET_SUPER_FOR_SIGHTING, new SuperMapper(), sighting.getSightingID());
-        superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+        superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
         superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
         return superhero;        
     }

@@ -16,15 +16,12 @@ import java.util.Objects;
 public class Super {
 
     private int superID;
-    private Power superpower;
+    private Power power;
     //private List<Sighting> sighting;
     private List<Organization> organization = new ArrayList<>();
     private String type;
     private String name;
     private String description;
-
-    public Super() {
-    }
 
     public int getSuperID() {
         return superID;
@@ -34,12 +31,12 @@ public class Super {
         this.superID = superID;
     }
 
-    public Power getSuperpower() {
-        return superpower;
+    public Power getPower() {
+        return power;
     }
 
-    public void setSuperpower(Power superpower) {
-        this.superpower = superpower;
+    public void setPower(Power power) {
+        this.power = power;
     }
 
     public List<Organization> getOrganization() {
@@ -77,12 +74,12 @@ public class Super {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 73 * hash + this.superID;
-        hash = 73 * hash + Objects.hashCode(this.superpower);
-        hash = 73 * hash + Objects.hashCode(this.organization);
-        hash = 73 * hash + Objects.hashCode(this.type);
-        hash = 73 * hash + Objects.hashCode(this.name);
-        hash = 73 * hash + Objects.hashCode(this.description);
+        hash = 37 * hash + this.superID;
+        hash = 37 * hash + Objects.hashCode(this.power);
+        hash = 37 * hash + Objects.hashCode(this.organization);
+        hash = 37 * hash + Objects.hashCode(this.type);
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -110,7 +107,7 @@ public class Super {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.superpower, other.superpower)) {
+        if (!Objects.equals(this.power, other.power)) {
             return false;
         }
         if (!Objects.equals(this.organization, other.organization)) {
@@ -121,7 +118,8 @@ public class Super {
 
     @Override
     public String toString() {
-        return "Super{" + "superID=" + superID + ", superpower=" + superpower + ", organization=" + organization + ", type=" + type + ", name=" + name + ", description=" + description + '}';
+        return "Super{" + "superID=" + superID + ", power=" + power + ", organization=" + organization + ", type=" + type + ", name=" + name + ", description=" + description + '}';
     }
+
 
 }

@@ -124,7 +124,7 @@ public class OrganizationDaoDB implements OrganizationDao {
         
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
         for (Super superhero : supers) {
-            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
         }
         return supers;
     }

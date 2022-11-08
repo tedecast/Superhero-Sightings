@@ -81,19 +81,19 @@ public class SuperDaoDBTest {
     @Test
     public void testAddGetSuperByID() {
 
-        Power superpower = new Power();
-        superpower.setPowerID(superpower.getPowerID());
-        superpower.setName("Super human");
-        superpower.setDescription("Enhanced human abilities.");
-        superpower = this.powerDao.addPower(superpower);
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
 
-        Power fromPowerDao = this.powerDao.getPowerByID(superpower.getPowerID());
-        assertEquals(superpower, fromPowerDao);
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
 
         Super superhero = new Super();
         superhero.setSuperID(superhero.getSuperID());
-        superhero.setSuperpower(superpower);
+        superhero.setPower(power);
         superhero.setType("Hero");
         superhero.setName("Captain America");
         superhero.setDescription("Super soldier");
@@ -101,10 +101,10 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setSuperpower(superpower);
+        fromSuperDao.setPower(power);
 
         assertNotNull(fromSuperDao);
-        assertEquals(superhero.getSuperpower(), fromPowerDao);
+        assertEquals(superhero.getPower(), fromPowerDao);
         assertEquals(superhero, fromSuperDao);
         assertTrue(superhero.equals(fromSuperDao));
     }
@@ -195,7 +195,7 @@ public class SuperDaoDBTest {
 
         Super superhero = new Super();
         superhero.setSuperID(superhero.getSuperID());
-        superhero.setSuperpower(power);
+        superhero.setPower(power);
         superhero.setType("Hero");
         superhero.setName("Captain America");
         superhero.setDescription("Super soldier");
@@ -203,30 +203,30 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setSuperpower(power);
+        fromSuperDao.setPower(power);
         this.superDao.updateSuper(superhero);
 
         assertNotNull(fromSuperDao);
-        assertEquals(superhero.getSuperpower(), fromPowerDao);
+        assertEquals(superhero.getPower(), fromPowerDao);
         assertEquals(superhero, fromSuperDao);
         assertTrue(superhero.equals(fromSuperDao));
 
         // Update Super
         superhero.setSuperID(superhero.getSuperID());
-        superhero.setSuperpower(superhero.getSuperpower());
+        superhero.setPower(superhero.getPower());
         superhero.setType("Hero");
         superhero.setName("Spiderman");
         superhero.setDescription("He can shoot webs out of his wrists like a spider!");
         superhero.setOrganization(new ArrayList<Organization>());
 
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setSuperpower(superhero.getSuperpower());
+        fromSuperDao.setPower(superhero.getPower());
         this.superDao.updateSuper(superhero);
         
         assertNotEquals(superhero, fromSuperDao);
         
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setSuperpower(superhero.getSuperpower());
+        fromSuperDao.setPower(superhero.getPower());
         assertEquals(superhero, fromSuperDao);
     }
 

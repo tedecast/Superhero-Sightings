@@ -66,7 +66,7 @@ public class SuperDaoDB implements SuperDao {
         final String GET_ALL_SUPERS = "SELECT * FROM super";
         List<Super> supers = this.jdbc.query(GET_ALL_SUPERS, new SuperMapper());
                 
-        this.associateSuperpowerOrganization(supers);
+        this.associatePowerOrganization(supers);
 //        for (Super superhero : supers){
 //            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
 //            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
@@ -81,7 +81,7 @@ public class SuperDaoDB implements SuperDao {
                 + "VALUES(?,?,?,?)";
         //if (superhero.getSuperpower() != null) {
             this.jdbc.update(INSERT_SUPER,
-                    superhero.getSuperpower().getPowerID(),
+                    superhero.getPower().getPowerID(),
                     superhero.getType(),
                     superhero.getName(),
                     superhero.getDescription());
@@ -108,9 +108,9 @@ public class SuperDaoDB implements SuperDao {
         }
     }
     
-    private void associateSuperpowerOrganization(List<Super> supers){
+    private void associatePowerOrganization(List<Super> supers){
         for (Super superhero : supers){
-            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
             superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
         }
     }
@@ -122,7 +122,7 @@ public class SuperDaoDB implements SuperDao {
                 + " Name = ?, " + "Description = ? WHERE SuperID = ?";
 
         this.jdbc.update(UPDATE_SUPER,
-                superhero.getSuperpower().getPowerID(),
+                superhero.getPower().getPowerID(),
                 superhero.getType(),
                 superhero.getName(),
                 superhero.getDescription(),
@@ -211,7 +211,7 @@ public class SuperDaoDB implements SuperDao {
 
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_LOCATION, new SuperMapper(), location.getLocationID());
         for (Super superhero : supers) {
-            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
             superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
         }
         return supers;
@@ -236,7 +236,7 @@ public class SuperDaoDB implements SuperDao {
                 + "WHERE so.organizationID = ?";
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
         for (Super superhero : supers) {
-            superhero.setSuperpower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
         }
         return supers;
     }
