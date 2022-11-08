@@ -9,7 +9,7 @@ import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -32,7 +32,7 @@ public class SuperDaoDBTest {
     SuperDao superDao;
 
     @Autowired
-    SuperpowerDao superpowerDao;
+    SuperpowerDao powerDao;
 
     @Autowired
     OrganizationDao orgDao;
@@ -54,9 +54,9 @@ public class SuperDaoDBTest {
             this.superDao.deleteSuperByID(superhero.getSuperID());
         }
 
-        List<Superpower> powers = this.superpowerDao.getAllSuperpowers();
-        for (Superpower power : powers) {
-            this.superpowerDao.deleteSuperpowerByID(power.getSuperpowerID());
+        List<Power> powers = this.powerDao.getAllSuperpowers();
+        for (Power power : powers) {
+            this.powerDao.deleteSuperpowerByID(power.getPowerID());
         }
 
         List<Organization> orgs = this.orgDao.getAllOrganizations();
@@ -81,13 +81,13 @@ public class SuperDaoDBTest {
     @Test
     public void testAddGetSuperByID() {
 
-        Superpower superpower = new Superpower();
-        superpower.setSuperpowerID(superpower.getSuperpowerID());
+        Power superpower = new Power();
+        superpower.setPowerID(superpower.getPowerID());
         superpower.setName("Super human");
         superpower.setDescription("Enhanced human abilities.");
-        superpower = this.superpowerDao.addSuperpower(superpower);
+        superpower = this.powerDao.addSuperpower(superpower);
 
-        Superpower fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+        Power fromPowerDao = this.powerDao.getSuperpowerByID(superpower.getPowerID());
         assertEquals(superpower, fromPowerDao);
         assertNotNull(fromPowerDao);
 
@@ -114,13 +114,13 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetAllSupers() {
-//        Superpower superpower1 = new Superpower();
+//        Power superpower1 = new Power();
 //        superpower1.setSuperpowerID(superpower1.getSuperpowerID());
 //        superpower1.setName("Super human");
 //        superpower1.setDescription("Enhanced human abilities.");
 //        superpower1 = this.superpowerDao.addSuperpower(superpower1);
 //
-//        Superpower fromPowerDao1 = this.superpowerDao.getSuperpowerByID(superpower1.getSuperpowerID());
+//        Power fromPowerDao1 = this.superpowerDao.getSuperpowerByID(superpower1.getSuperpowerID());
 //        assertEquals(superpower1, fromPowerDao1);
 //        assertNotNull(fromPowerDao1);
 //
@@ -143,13 +143,13 @@ public class SuperDaoDBTest {
 //        assertTrue(superhero1.equals(fromSuperDao1));
 //
 //        // Super2 
-//        Superpower superpower2 = new Superpower();
+//        Power superpower2 = new Power();
 //        superpower2.setSuperpowerID(superpower2.getSuperpowerID());
 //        superpower2.setName("Spidey senses");
 //        superpower2.setDescription("Powers that are like a spider-human hybrid");
 //        superpower2 = this.superpowerDao.addSuperpower(superpower2);
 //
-//        Superpower fromPowerDao2 = this.superpowerDao.getSuperpowerByID(superpower2.getSuperpowerID());
+//        Power fromPowerDao2 = this.superpowerDao.getSuperpowerByID(superpower2.getSuperpowerID());
 //        assertEquals(superpower2, fromPowerDao2);
 //        assertNotNull(fromPowerDao2);
 //
@@ -183,19 +183,19 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testUpdateSuper() {
-        Superpower superpower = new Superpower();
-        superpower.setSuperpowerID(superpower.getSuperpowerID());
-        superpower.setName("Super human");
-        superpower.setDescription("Enhanced human abilities.");
-        superpower = this.superpowerDao.addSuperpower(superpower);
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addSuperpower(power);
 
-        Superpower fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
-        assertEquals(superpower, fromPowerDao);
+        Power fromPowerDao = this.powerDao.getSuperpowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
 
         Super superhero = new Super();
         superhero.setSuperID(superhero.getSuperID());
-        superhero.setSuperpower(superpower);
+        superhero.setSuperpower(power);
         superhero.setType("Hero");
         superhero.setName("Captain America");
         superhero.setDescription("Super soldier");
@@ -203,7 +203,7 @@ public class SuperDaoDBTest {
         superhero = this.superDao.addSuper(superhero);
 
         Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setSuperpower(superpower);
+        fromSuperDao.setSuperpower(power);
         this.superDao.updateSuper(superhero);
 
         assertNotNull(fromSuperDao);

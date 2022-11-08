@@ -11,27 +11,21 @@ import java.util.Objects;
  *
  * @author Teresa
  */
-public class Superpower {
+public class Power {
 
-    private int superpowerID;
+    private int PowerID;
     private String name;
     private String description;
 
-    public Superpower() {
+    public Power() {
     }
 
-    public Superpower(int superpowerID, String name, String description) {
-        this.superpowerID = superpowerID;
-        this.name = name;
-        this.description = description;
+    public int getPowerID() {
+        return PowerID;
     }
 
-    public int getSuperpowerID() {
-        return superpowerID;
-    }
-
-    public void setSuperpowerID(int superpowerID) {
-        this.superpowerID = superpowerID;
+    public void setPowerID(int PowerID) {
+        this.PowerID = PowerID;
     }
 
     public String getName() {
@@ -52,10 +46,10 @@ public class Superpower {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + this.superpowerID;
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + Objects.hashCode(this.description);
+        int hash = 7;
+        hash = 29 * hash + this.PowerID;
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -70,8 +64,8 @@ public class Superpower {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Superpower other = (Superpower) obj;
-        if (this.superpowerID != other.superpowerID) {
+        final Power other = (Power) obj;
+        if (this.PowerID != other.PowerID) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
@@ -85,9 +79,7 @@ public class Superpower {
 
     @Override
     public String toString() {
-        return "Superpower{" + "superpowerID=" + superpowerID + ", name=" + name + ", description=" + description + '}';
+        return "Power{" + "PowerID=" + PowerID + ", name=" + name + ", description=" + description + '}';
     }
-
-   
  
 }

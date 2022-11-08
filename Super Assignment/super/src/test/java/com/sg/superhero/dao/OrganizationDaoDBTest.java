@@ -7,7 +7,7 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Super;
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ public class OrganizationDaoDBTest {
     SuperDao superDao;
 
     @Autowired
-    SuperpowerDao superpowerDao;
+    SuperpowerDao powerDao;
 
     @Autowired
     OrganizationDao orgDao;
@@ -53,9 +53,9 @@ public class OrganizationDaoDBTest {
             this.superDao.deleteSuperByID(superhero.getSuperID());
         }
 
-        List<Superpower> powers = this.superpowerDao.getAllSuperpowers();
-        for (Superpower power : powers) {
-            this.superpowerDao.deleteSuperpowerByID(power.getSuperpowerID());
+        List<Power> powers = this.powerDao.getAllSuperpowers();
+        for (Power power : powers) {
+            this.powerDao.deleteSuperpowerByID(power.getPowerID());
         }
     }
 
@@ -65,12 +65,12 @@ public class OrganizationDaoDBTest {
     @Test
     public void testAddGetOrganizationByID() {
 
-//        Superpower superpower = new Superpower();
+//        Power superpower = new Power();
 //        superpower.setName("Water blast");
 //        superpower.setDescription("Blasts water at high speed.");
 //        superpower = this.superpowerDao.addSuperpower(superpower);
 //
-//        Superpower fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
+//        Power fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
 //        assertEquals(superpower, fromPowerDao);
 //        assertNotNull(fromPowerDao);
 //

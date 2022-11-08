@@ -13,7 +13,7 @@ import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -143,7 +143,7 @@ public class SightingDaoDB implements SightingDao {
         return superhero;        
     }
     
-    private Superpower getSuperpowerForSuper(int superpowerID) {
+    private Power getSuperpowerForSuper(int superpowerID) {
         try {
             final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
                     + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";

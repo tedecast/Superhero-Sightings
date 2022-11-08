@@ -12,7 +12,7 @@ import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -81,7 +81,7 @@ public class SuperDaoDB implements SuperDao {
                 + "VALUES(?,?,?,?)";
         //if (superhero.getSuperpower() != null) {
             this.jdbc.update(INSERT_SUPER,
-                    superhero.getSuperpower().getSuperpowerID(),
+                    superhero.getSuperpower().getPowerID(),
                     superhero.getType(),
                     superhero.getName(),
                     superhero.getDescription());
@@ -122,7 +122,7 @@ public class SuperDaoDB implements SuperDao {
                 + " Name = ?, " + "Description = ? WHERE SuperID = ?";
 
         this.jdbc.update(UPDATE_SUPER,
-                superhero.getSuperpower().getSuperpowerID(),
+                superhero.getSuperpower().getPowerID(),
                 superhero.getType(),
                 superhero.getName(),
                 superhero.getDescription(),
@@ -181,11 +181,11 @@ public class SuperDaoDB implements SuperDao {
     }
 
     @Override
-    public List<Super> getSupersForSuperpower(Superpower superpower) {
+    public List<Super> getSupersForSuperpower(Power power) {
         final String SELECT_SUPERS_FOR_SUPERPOWER = "SELECT * FROM super WHERE superpowerID = ?";
 
         List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SUPERPOWER,
-                new SuperMapper(), superpower.getSuperpowerID());
+                new SuperMapper(), power.getPowerID());
 
         return supers;
     }
@@ -218,7 +218,7 @@ public class SuperDaoDB implements SuperDao {
     }
 
     // create private method to return power for hero, pass hero ids, write queries to get the powers
-    private Superpower getSuperpowerForSuper(int superpowerID) {
+    private Power getSuperpowerForSuper(int superpowerID) {
         try {
             final String GET_SUPERPOWER = "SELECT sp.superpowerID, sp.name, sp.description "
                     + "JOIN super s ON sp = s.superpowerID WHERE s.superID = ?";

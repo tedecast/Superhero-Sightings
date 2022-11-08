@@ -5,7 +5,7 @@
  */
 package com.sg.superhero.dao;
 
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.util.List;
 
 /**
@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface SuperpowerDao {
 
-    public Superpower getSuperpowerByID(int superpowerID);
+    public Power getSuperpowerByID(int superpowerID);
 
-    public List<Superpower> getAllSuperpowers();
+    public List<Power> getAllSuperpowers();
 
-    public Superpower addSuperpower(Superpower superpower);
+    public Power addSuperpower(Power superpower);
 
-    public void updateSuperpower(Superpower superpower);
+    public void updateSuperpower(Power superpower);
 
     public void deleteSuperpowerByID(int superpowerID);
 }

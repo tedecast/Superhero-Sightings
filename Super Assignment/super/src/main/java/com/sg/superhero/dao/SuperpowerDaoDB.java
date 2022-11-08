@@ -5,7 +5,7 @@
  */
 package com.sg.superhero.dao;
 
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SuperpowerDaoDB implements SuperpowerDao {
     JdbcTemplate jdbc;
 
     @Override
-    public Superpower getSuperpowerByID(int superpowerID) {
+    public Power getSuperpowerByID(int superpowerID) {
         try {
             final String GET_SUPERPOWER_BY_ID = "SELECT * FROM superpower WHERE superpowerID = ?";
 
@@ -39,14 +39,14 @@ public class SuperpowerDaoDB implements SuperpowerDao {
     }
 
     @Override
-    public List<Superpower> getAllSuperpowers() {
+    public List<Power> getAllSuperpowers() {
         final String GET_ALL_SUPERPOWERS = "SELECT * from superpower";
         return this.jdbc.query(GET_ALL_SUPERPOWERS, new SuperpowerMapper());
     }
 
     @Override
     @Transactional
-    public Superpower addSuperpower(Superpower superpower) {
+    public Power addSuperpower(Power superpower) {
         final String INSERT_SUPERPOWER = "INSERT INTO superpower(name, description) "
                 + "VALUES(?,?)";
 
@@ -55,13 +55,13 @@ public class SuperpowerDaoDB implements SuperpowerDao {
                 superpower.getDescription());
 
         int newSuperpowerID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        superpower.setSuperpowerID(newSuperpowerID);
+        superpower.setPowerID(newSuperpowerID);
 
         return superpower;
     }
 
     @Override
-    public void updateSuperpower(Superpower superpower) {
+    public void updateSuperpower(Power superpower) {
         final String UPDATE_SUPERPOWER = "UPDATE Superpower "
                 + "SET name = ?, description = ? "
                 + "WHERE SuperpowerID = ?";
@@ -69,7 +69,7 @@ public class SuperpowerDaoDB implements SuperpowerDao {
         this.jdbc.update(UPDATE_SUPERPOWER,
                 superpower.getName(),
                 superpower.getDescription(),
-                superpower.getSuperpowerID());
+                superpower.getPowerID());
     }
 
     @Override
@@ -82,12 +82,12 @@ public class SuperpowerDaoDB implements SuperpowerDao {
         this.jdbc.update(DELETE_SUPERPOWER, superpowerID);
     }
 
-    public static final class SuperpowerMapper implements RowMapper<Superpower> {
+    public static final class SuperpowerMapper implements RowMapper<Power> {
 
         @Override
-        public Superpower mapRow(ResultSet rs, int index) throws SQLException {
-            Superpower superpower = new Superpower();
-            superpower.setSuperpowerID(rs.getInt("superpowerID"));
+        public Power mapRow(ResultSet rs, int index) throws SQLException {
+            Power superpower = new Power();
+            superpower.setPowerID(rs.getInt("superpowerID"));
             superpower.setName(rs.getString("name"));
             superpower.setDescription(rs.getString("description"));
 

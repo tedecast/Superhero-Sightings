@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Super {
 
     private int superID;
-    private Superpower superpower;
+    private Power superpower;
     //private List<Sighting> sighting;
     private List<Organization> organization = new ArrayList<>();
     private String type;
@@ -34,11 +34,11 @@ public class Super {
         this.superID = superID;
     }
 
-    public Superpower getSuperpower() {
+    public Power getSuperpower() {
         return superpower;
     }
 
-    public void setSuperpower(Superpower superpower) {
+    public void setSuperpower(Power superpower) {
         this.superpower = superpower;
     }
 

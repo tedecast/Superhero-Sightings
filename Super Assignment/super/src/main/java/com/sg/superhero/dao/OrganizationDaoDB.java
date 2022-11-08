@@ -9,7 +9,7 @@ import com.sg.superhero.dao.SuperDaoDB.SuperMapper;
 import com.sg.superhero.dao.SuperpowerDaoDB.SuperpowerMapper;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Super;
-import com.sg.superhero.entities.Superpower;
+import com.sg.superhero.entities.Power;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -106,7 +106,7 @@ public class OrganizationDaoDB implements OrganizationDao {
         this.jdbc.update(DELETE_ORGANIZATION, organizationID);
     }
     
-    private Superpower getSuperpowerForSuper(int superpowerID) {
+    private Power getSuperpowerForSuper(int superpowerID) {
         try {
             final String SELECT_SP_FOR_SUPER = "SELECT sp.superpowerID, sp.name, sp.description FROM Superpower sp "
                     + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
