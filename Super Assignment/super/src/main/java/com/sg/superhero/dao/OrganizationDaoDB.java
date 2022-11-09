@@ -26,10 +26,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class OrganizationDaoDB implements OrganizationDao {
-    
+
     @Autowired
     JdbcTemplate jdbc;
-    
+
     @Override
     public Organization getOrganizationByID(int organizationID) {
         try {
@@ -41,24 +41,28 @@ public class OrganizationDaoDB implements OrganizationDao {
             return null;
         }
     }
-    
+
     @Override
     public List<Organization> getAllOrganizations() {
         final String SELECT_ALL_ORGANIZATIONS = "SELECT * FROM organization";
-        return this.jdbc.query(SELECT_ALL_ORGANIZATIONS, new OrganizationMapper());
+        List<Organization> organizations = this.jdbc.query(SELECT_ALL_ORGANIZATIONS, new OrganizationMapper());
+        for (Organization organization : organizations) {
+            organization.setSupers(this.getSupersForOrganization(organization));
+        }
+        return organizations;
     }
-    
+
     private void insertSuperOrganization(Organization organization) {
         final String INSERT_SUPER_ORGANIZATION = "INSERT INTO "
                 + "SuperOrganization(superID, organizationID) VALUES (?,?)";
-        
+
         for (Super superhero : organization.getSupers()) {
             this.jdbc.update(INSERT_SUPER_ORGANIZATION,
                     superhero.getSuperID(),
                     organization.getOrganizationID());
         }
     }
-    
+
     @Override
     @Transactional
     public Organization addOrganization(Organization organization) {
@@ -70,21 +74,21 @@ public class OrganizationDaoDB implements OrganizationDao {
                 organization.getAddress(),
                 organization.getContactInfo(),
                 organization.getType());
-        
+
         int newOrganizationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         organization.setOrganizationID(newOrganizationID);
-        
+
         organization.setSupers(this.getSupersForOrganization(organization));
         this.insertSuperOrganization(organization);
-        
+
         return organization;
     }
-    
+
     @Override
     public void updateOrganization(Organization organization) {
         final String UPDATE_ORGANIZATION = "UPDATE organization SET name = ?, description = ?, address = ?, "
                 + "contactInfo = ?, type = ? WHERE organizationID = ?";
-        
+
         this.jdbc.update(UPDATE_ORGANIZATION,
                 organization.getOrganizationID(),
                 organization.getName(),
@@ -92,22 +96,22 @@ public class OrganizationDaoDB implements OrganizationDao {
                 organization.getAddress(),
                 organization.getContactInfo(),
                 organization.getType());
-        
+
         final String DELETE_SUPER_ORGANIZATION = "DELETE FROM superOrganization WHERE organizationID = ?";
         this.jdbc.update(DELETE_SUPER_ORGANIZATION, organization.getOrganizationID());
         this.insertSuperOrganization(organization);
     }
-    
+
     @Override
     @Transactional
     public void deleteOrganizationByID(int organizationID) {
         final String DELETE_ORGANIZATION_SUPER = "DELETE FROM superOrganization WHERE organizationID = ?";
         this.jdbc.update(DELETE_ORGANIZATION_SUPER, organizationID);
-        
+
         final String DELETE_ORGANIZATION = "DELETE FROM organization where organizationID = ?";
         this.jdbc.update(DELETE_ORGANIZATION, organizationID);
     }
-    
+
     private Power getPowerForSuper(int powerID) {
         try {
             final String SELECT_SP_FOR_SUPER = "SELECT p.powerID, p.name, p.description FROM Power p "
@@ -117,13 +121,13 @@ public class OrganizationDaoDB implements OrganizationDao {
             return null;
         }
     }
-    
+
     private List<Super> getSupersForOrganization(Organization organization) {
         final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
                 + "FROM SuperOrganization so "
                 + "JOIN Super s ON so.superID = s.superID "
                 + "WHERE so.organizationID = ?";
-        
+
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
         for (Super superhero : supers) {
             superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
@@ -146,9 +150,9 @@ public class OrganizationDaoDB implements OrganizationDao {
         }
         return organizations;
     }
-    
+
     public static final class OrganizationMapper implements RowMapper<Organization> {
-        
+
         @Override
         public Organization mapRow(ResultSet rs, int index) throws SQLException {
             Organization organization = new Organization();
@@ -161,5 +165,5 @@ public class OrganizationDaoDB implements OrganizationDao {
             return organization;
         }
     }
-    
+
 }
