@@ -257,6 +257,54 @@ public class OrganizationDaoDBTest {
      */
     @Test
     public void testDeleteOrganizationByID() {
+        Power power = new Power();
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
+        assertNotNull(fromPowerDao);
+
+        List<Power> powers = new ArrayList<>();
+        powers.add(power);
+
+        Super superhero = new Super();
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+        assertEquals(superhero, fromSuperDao);
+        assertNotNull(fromSuperDao);
+
+        List<Super> supers = new ArrayList<>();
+        supers.add(superhero);
+
+        Organization org = new Organization();
+        org.setName("The Avengers");
+        org.setDescription("Best group of heroes.");
+        org.setAddress("Avengers Tower, New York");
+        org.setContactInfo("avengersoffice@marvel.com");
+        org.setType("Hero");
+
+        List<Organization> orgs = new ArrayList<>();
+        orgs.add(org);
+
+        org.setSupers(supers);
+        org = this.orgDao.addOrganization(org);
+
+        Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
+        assertEquals(org, fromOrgDao);
+        assertNotNull(org);
+        
+        // Delete organization 
+        this.orgDao.deleteOrganizationByID(org.getOrganizationID());
+        fromOrgDao = orgDao.getOrganizationByID(org.getOrganizationID());
+        assertNull(fromOrgDao);
     }
 
     /**
