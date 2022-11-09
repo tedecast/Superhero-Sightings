@@ -221,7 +221,7 @@ public class SuperDaoDB implements SuperDao {
     public List<Super> getSupersForLocation(Location location) {
         final String GET_SUPERS_FOR_LOCATION = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
                 + "FROM Sighting si "
-                + "JOIN Super s ON si.sightingID = s.superID "
+                + "JOIN Super s ON si.superID = s.superID "
                 + "WHERE si.locationID = ?";
 
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_LOCATION, new SuperMapper(), location.getLocationID());
