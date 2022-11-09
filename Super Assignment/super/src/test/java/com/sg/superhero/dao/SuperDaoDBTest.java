@@ -247,14 +247,6 @@ public class SuperDaoDBTest {
     }
 
     /**
-     * Test of getSupersForSighting method, of class SuperDaoDB.
-     */
-//    @Test
-//    public void testGetSupersForSighting() {
-//
-//    }
-
-    /**
      * Test of getSupersForSuperpower method, of class SuperDaoDB.
      */
     @Test
@@ -272,13 +264,7 @@ public class SuperDaoDBTest {
         power.setName("Super human");
         power.setDescription("Enhanced human abilities.");
         power = this.powerDao.addPower(power);
-
-//        List<Power> powers = new ArrayList<>();
-//        powers.add(power);
-//
-//        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
-//        assertEquals(power, fromPowerDao);
-//        assertNotNull(fromPowerDao);
+        
         Super superhero = new Super();
         superhero.setSuperID(superhero.getSuperID());
         superhero.setPower(power);
@@ -304,13 +290,9 @@ public class SuperDaoDBTest {
         sighting.setDescription("Test description");
         sighting = this.sightingDao.addSighting(sighting);
 
-//        List<Sighting> sightings = new ArrayList<>();
-//        sightings.add(sighting);
         List<Super> supers = this.superDao.getSupersForLocation(location);
         assertEquals(1, supers.size());
         assertTrue(supers.contains(superhero));
-
-        //Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
     }
 
     /**
