@@ -89,13 +89,13 @@ public class OrganizationDaoDB implements OrganizationDao {
         final String UPDATE_ORGANIZATION = "UPDATE organization SET name = ?, description = ?, address = ?, "
                 + "contactInfo = ?, type = ? WHERE organizationID = ?";
 
-        this.jdbc.update(UPDATE_ORGANIZATION,
-                organization.getOrganizationID(),
+        this.jdbc.update(UPDATE_ORGANIZATION,   
                 organization.getName(),
                 organization.getDescription(),
                 organization.getAddress(),
                 organization.getContactInfo(),
-                organization.getType());
+                organization.getType(), 
+                organization.getOrganizationID());
 
         final String DELETE_SUPER_ORGANIZATION = "DELETE FROM superOrganization WHERE organizationID = ?";
         this.jdbc.update(DELETE_SUPER_ORGANIZATION, organization.getOrganizationID());
