@@ -10,6 +10,7 @@ import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Power;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -80,7 +81,6 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testAddGetSuperByID() {
-
         Power power = new Power();
         power.setPowerID(power.getPowerID());
         power.setName("Super human");
@@ -205,7 +205,7 @@ public class SuperDaoDBTest {
         assertNotEquals(superhero, fromSuperDao);
 
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        fromSuperDao.setPower(superhero.getPower());
+        //fromSuperDao.setPower(superhero.getPower());
         assertEquals(superhero, fromSuperDao);
     }
 
@@ -251,6 +251,7 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetSupersForSighting() {
+
     }
 
     /**
@@ -258,6 +259,7 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetSupersForSuperpower() {
+
     }
 
     /**
@@ -265,6 +267,50 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetSupersForLocation() {
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+//        List<Power> powers = new ArrayList<>();
+//        powers.add(power);
+//
+//        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+//        assertEquals(power, fromPowerDao);
+//        assertNotNull(fromPowerDao);
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
+
+        Sighting sighting = new Sighting();
+        sighting.setSuperhero(superhero);
+        sighting.setLocation(location);
+        LocalDate date = LocalDate.of(2022, 07, 29);
+        sighting.setDate(date);
+        sighting.setDescription("Test description");
+        sighting = this.sightingDao.addSighting(sighting);
+
+//        List<Sighting> sightings = new ArrayList<>();
+//        sightings.add(sighting);
+        List<Super> supers = this.superDao.getSupersForLocation(location);
+        assertEquals(0, supers.size());
+        assertTrue(supers.contains(superhero));
+
+        //Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
     }
 
     /**

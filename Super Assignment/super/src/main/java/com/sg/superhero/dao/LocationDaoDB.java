@@ -58,7 +58,7 @@ public class LocationDaoDB implements LocationDao {
                 location.getLatitude(), 
                 location.getLongitude());
         
-        int newLocationID = this.jdbc.queryForObject("SELECT LAST_INSERT_LOCATIONID()", Integer.class);
+        int newLocationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         location.setLocationID(newLocationID);
         return location;
     }
@@ -80,7 +80,7 @@ public class LocationDaoDB implements LocationDao {
     @Override
     @Transactional
     public void deleteLocationByID(int locationID) {
-        final String DELETE_SIGHTING_LOCATION = "DELETE FROM sighting_location WHERE locationID = ?";
+        final String DELETE_SIGHTING_LOCATION = "DELETE FROM Sighting WHERE locationID = ?";
         this.jdbc.update(DELETE_SIGHTING_LOCATION, locationID);
         
         final String DELETE_LOCATION = "DELETE FROM location WHERE locationID = ?";

@@ -196,7 +196,7 @@ public class SuperDaoDB implements SuperDao {
 //    }
     @Override
     public List<Super> getSupersForSighting(Sighting sighting) {
-        final String SELECT_SUPERS_FOR_SIGHTINGS = "SELECT * FROM sightings WHERE superID = ?";
+        final String SELECT_SUPERS_FOR_SIGHTINGS = "SELECT * FROM sighting WHERE superID = ?";
 
         List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SIGHTINGS, new SuperMapper(), sighting.getSightingID());
 
@@ -217,11 +217,12 @@ public class SuperDaoDB implements SuperDao {
     @Override
     public List<Super> getSupersForLocation(Location location) {
         final String GET_SUPERS_FOR_LOCATION = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
-                + "FROM sighting si"
-                + "JOIN super s ON si.sightingID = s.superID "
+                + "FROM Sighting si "
+                + "JOIN Super s ON si.sightingID = s.superID "
                 + "WHERE si.locationID = ?";
 
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_LOCATION, new SuperMapper(), location.getLocationID());
+        // attribute?
         for (Super superhero : supers) {
             superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
             superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
