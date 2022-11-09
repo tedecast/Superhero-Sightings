@@ -102,7 +102,7 @@ public class OrganizationDaoDBTest {
 //        List<Organization> orgs = new ArrayList<>();
 //        orgs.add(org);
 
-        org.setSupers(new ArrayList<Super>());
+        org.setSupers(new ArrayList<>());
         org = this.orgDao.addOrganization(org);
 
         Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());

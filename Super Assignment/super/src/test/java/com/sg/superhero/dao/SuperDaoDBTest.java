@@ -249,10 +249,10 @@ public class SuperDaoDBTest {
     /**
      * Test of getSupersForSighting method, of class SuperDaoDB.
      */
-    @Test
-    public void testGetSupersForSighting() {
-
-    }
+//    @Test
+//    public void testGetSupersForSighting() {
+//
+//    }
 
     /**
      * Test of getSupersForSuperpower method, of class SuperDaoDB.
@@ -307,7 +307,7 @@ public class SuperDaoDBTest {
 //        List<Sighting> sightings = new ArrayList<>();
 //        sightings.add(sighting);
         List<Super> supers = this.superDao.getSupersForLocation(location);
-        assertEquals(0, supers.size());
+        assertEquals(1, supers.size());
         assertTrue(supers.contains(superhero));
 
         //Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());

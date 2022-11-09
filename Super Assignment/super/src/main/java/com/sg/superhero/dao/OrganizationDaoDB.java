@@ -34,8 +34,9 @@ public class OrganizationDaoDB implements OrganizationDao {
     public Organization getOrganizationByID(int organizationID) {
         try {
             final String SELECT_ORGANIZATION_BY_ID = "SELECT * FROM organization WHERE organizationID = ?";
-            
-            return this.jdbc.queryForObject(SELECT_ORGANIZATION_BY_ID, new OrganizationMapper(), organizationID);
+            Organization organization = this.jdbc.queryForObject(SELECT_ORGANIZATION_BY_ID, new OrganizationMapper(), organizationID);
+            organization.setSupers(this.getSupersForOrganization(organization));
+            return organization;
         } catch (DataAccessException ex) {
             return null;
         }
@@ -73,6 +74,7 @@ public class OrganizationDaoDB implements OrganizationDao {
         int newOrganizationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         organization.setOrganizationID(newOrganizationID);
         
+        organization.setSupers(this.getSupersForOrganization(organization));
         this.insertSuperOrganization(organization);
         
         return organization;
@@ -106,25 +108,25 @@ public class OrganizationDaoDB implements OrganizationDao {
         this.jdbc.update(DELETE_ORGANIZATION, organizationID);
     }
     
-    private Power getSuperpowerForSuper(int superpowerID) {
+    private Power getPowerForSuper(int powerID) {
         try {
-            final String SELECT_SP_FOR_SUPER = "SELECT sp.superpowerID, sp.name, sp.description FROM Superpower sp "
-                    + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
-            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), superpowerID);
+            final String SELECT_SP_FOR_SUPER = "SELECT p.powerID, p.name, p.description FROM Power p "
+                    + "JOIN Super s ON p.PowerID = s.powerID WHERE s.powerID = ?";
+            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), powerID);
         } catch (DataAccessException ex) {
             return null;
         }
     }
     
     private List<Super> getSupersForOrganization(Organization organization) {
-        final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.superpowerID, s.type, s.name, s.description "
+        final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
                 + "FROM SuperOrganization so "
                 + "JOIN Super s ON so.superID = s.superID "
                 + "WHERE so.organizationID = ?";
         
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
         for (Super superhero : supers) {
-            superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
+            superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
         }
         return supers;
     }

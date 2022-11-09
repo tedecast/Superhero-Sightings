@@ -194,15 +194,15 @@ public class SuperDaoDB implements SuperDao {
 //            superhero.setSighting(this.getSightingsForSuper(superhero.getSuperID()));
 //        }
 //    }
-    @Override
-    public List<Super> getSupersForSighting(Sighting sighting) {
-        final String SELECT_SUPERS_FOR_SIGHTINGS = "SELECT * FROM sighting WHERE superID = ?";
-
-        List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SIGHTINGS, new SuperMapper(), sighting.getSightingID());
-
-        //this.associateSupersAndSightings(supers);
-        return supers;
-    }
+//    @Override
+//    public List<Super> getSupersForSighting(Sighting sighting) {
+//        final String SELECT_SUPERS_FOR_SIGHTINGS = "SELECT * FROM sighting WHERE superID = ?";
+//
+//        List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SIGHTINGS, new SuperMapper(), sighting.getSightingID());
+//
+//        //this.associateSupersAndSightings(supers);
+//        return supers;
+//    }
 
     @Override
     public List<Super> getSupersForPower(Power power) {

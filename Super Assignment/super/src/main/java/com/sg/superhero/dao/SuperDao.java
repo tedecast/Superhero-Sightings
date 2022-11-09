@@ -28,8 +28,8 @@ public interface SuperDao {
 
     public void deleteSuperByID(int superID);
 
-    // Added in to access other objects 
-    public List<Super> getSupersForSighting(Sighting sighting);
+//    // Added in to access other objects 
+//    public List<Super> getSupersForSighting(Sighting sighting);
     
     // optional, select statements 
     public List<Super> getSupersForPower(Power superpower);
