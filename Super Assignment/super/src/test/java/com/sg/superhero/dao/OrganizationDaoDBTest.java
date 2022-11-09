@@ -65,17 +65,17 @@ public class OrganizationDaoDBTest {
     @Test
     public void testAddGetOrganizationByID() {
 
-//        Power superpower = new Power();
-//        superpower.setName("Water blast");
-//        superpower.setDescription("Blasts water at high speed.");
-//        superpower = this.superpowerDao.addSuperpower(superpower);
-//
-//        Power fromPowerDao = this.superpowerDao.getSuperpowerByID(superpower.getSuperpowerID());
-//        assertEquals(superpower, fromPowerDao);
-//        assertNotNull(fromPowerDao);
-//
-//        List<Superpower> superpowers = new ArrayList<>();
-//        superpowers.add(superpower);
+        Power power = new Power();
+        power.setName("Water blast");
+        power.setDescription("Blasts water at high speed.");
+        power = this.powerDao.addPower(power);
+
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
+        assertNotNull(fromPowerDao);
+
+        List<Power> powers = new ArrayList<>();
+        powers.add(power);
 //
 //        Super superhero = new Super();
 //        superhero.setSuperpower(superpower);

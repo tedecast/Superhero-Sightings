@@ -17,8 +17,7 @@ public class Super {
 
     private int superID;
     private Power power;
-    //private List<Sighting> sighting;
-    private List<Organization> organization = new ArrayList<>();
+    private List<Organization> organization;
     private String type;
     private String name;
     private String description;
@@ -73,7 +72,7 @@ public class Super {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 37 * hash + this.superID;
         hash = 37 * hash + Objects.hashCode(this.power);
         hash = 37 * hash + Objects.hashCode(this.organization);
@@ -120,6 +119,5 @@ public class Super {
     public String toString() {
         return "Super{" + "superID=" + superID + ", power=" + power + ", organization=" + organization + ", type=" + type + ", name=" + name + ", description=" + description + '}';
     }
-
-
+  
 }
