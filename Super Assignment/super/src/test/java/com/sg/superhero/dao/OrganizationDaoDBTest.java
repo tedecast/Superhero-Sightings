@@ -66,8 +66,8 @@ public class OrganizationDaoDBTest {
     public void testAddGetOrganizationByID() {
 
         Power power = new Power();
-        power.setName("Water blast");
-        power.setDescription("Blasts water at high speed.");
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
         power = this.powerDao.addPower(power);
 
         Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
@@ -76,7 +76,7 @@ public class OrganizationDaoDBTest {
 
         List<Power> powers = new ArrayList<>();
         powers.add(power);
-        
+
         Super superhero = new Super();
         superhero.setPower(power);
         superhero.setType("Hero");
@@ -91,7 +91,7 @@ public class OrganizationDaoDBTest {
 
         List<Super> supers = new ArrayList<>();
         supers.add(superhero);
-        
+
         Organization org = new Organization();
         org.setName("The Avengers");
         org.setDescription("Best group of heroes.");
@@ -105,10 +105,10 @@ public class OrganizationDaoDBTest {
         org.setSupers(supers);
         org = this.orgDao.addOrganization(org);
 
-//        Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
-//        assertEquals(org, fromOrgDao);
-//        assertNotNull(org);
-//        
+        Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
+        assertEquals(org, fromOrgDao);
+        assertNotNull(org);
+
 //        superhero.setOrganization(orgs);
 //        superhero = this.superDao.addSuper(superhero);
 //        
@@ -121,6 +121,67 @@ public class OrganizationDaoDBTest {
      */
     @Test
     public void testGetAllOrganizations() {
+        Power power = new Power();
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
+        assertNotNull(fromPowerDao);
+
+        List<Power> powers = new ArrayList<>();
+        powers.add(power);
+
+        Super superhero = new Super();
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+        assertEquals(superhero, fromSuperDao);
+        assertNotNull(fromSuperDao);
+
+        List<Super> supers = new ArrayList<>();
+        supers.add(superhero);
+
+        // Organization 1
+        Organization org1 = new Organization();
+        org1.setName("The Avengers");
+        org1.setDescription("Best group of heroes.");
+        org1.setAddress("Avengers Tower, New York");
+        org1.setContactInfo("avengersoffice@marvel.com");
+        org1.setType("Hero");
+
+        List<Organization> orgs = new ArrayList<>();
+        orgs.add(org1);
+
+        org1.setSupers(supers);
+        org1 = this.orgDao.addOrganization(org1);
+
+        Organization fromOrgDao = this.orgDao.getOrganizationByID(org1.getOrganizationID());
+        assertEquals(org1, fromOrgDao);
+        assertNotNull(org1);
+
+        // Organization 2
+        Organization org2 = new Organization();
+        org2.setName("Arkham Asylum");
+        org2.setDescription("This is where the bad guys get locked up.");
+        org2.setAddress("Gotham City");
+        org2.setContactInfo("arkhamasylum@dc.com");
+        org2.setType("Villians");
+
+        orgs.add(org2);
+
+        org2.setSupers(supers);
+        org2 = this.orgDao.addOrganization(org2);
+
+        Organization fromOrgDao2 = this.orgDao.getOrganizationByID(org2.getOrganizationID());
+        assertEquals(org2, fromOrgDao2);
+        assertNotNull(org2);
     }
 
     /**
