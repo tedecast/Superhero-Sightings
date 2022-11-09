@@ -110,8 +110,10 @@ public class OrganizationDaoDBTest {
         assertNotNull(org);
 
 //        superhero.setOrganization(orgs);
-//        superhero = this.superDao.addSuper(superhero);
+//        this.superDao.updateSuper(superhero);
 //        
+//        assertNotEquals(superhero, fromSuperDao);
+//
 //        fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
 //        assertEquals(superhero, fromSuperDao);
     }
@@ -242,13 +244,12 @@ public class OrganizationDaoDBTest {
         org.setDescription("This is where the bad guys get locked up.");
         org.setAddress("Gotham City");
         org.setContactInfo("arkhamasylum@dc.com");
-        org.setType("Villain"); 
+        org.setType("Villain");
         this.orgDao.updateOrganization(org);
         assertNotEquals(org, fromOrgDao);
-        
+
         fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
         assertEquals(org, fromOrgDao);
-
     }
 
     /**

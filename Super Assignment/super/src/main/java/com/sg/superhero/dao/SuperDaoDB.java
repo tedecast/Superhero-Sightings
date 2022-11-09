@@ -152,9 +152,9 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getDescription(),
                 superhero.getSuperID());
 
-        final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
-
-        this.jdbc.update(DELETE_SUPER_SIGHTING, superhero.getSuperID());
+//        final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
+//
+//        this.jdbc.update(DELETE_SUPER_SIGHTING, superhero.getSuperID());
         // Insert back after update
         //this.insertSuperSighting(superhero);
     }
