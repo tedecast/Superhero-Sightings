@@ -89,12 +89,12 @@ public class OrganizationDaoDB implements OrganizationDao {
         final String UPDATE_ORGANIZATION = "UPDATE organization SET name = ?, description = ?, address = ?, "
                 + "contactInfo = ?, type = ? WHERE organizationID = ?";
 
-        this.jdbc.update(UPDATE_ORGANIZATION,   
+        this.jdbc.update(UPDATE_ORGANIZATION,
                 organization.getName(),
                 organization.getDescription(),
                 organization.getAddress(),
                 organization.getContactInfo(),
-                organization.getType(), 
+                organization.getType(),
                 organization.getOrganizationID());
 
         final String DELETE_SUPER_ORGANIZATION = "DELETE FROM superOrganization WHERE organizationID = ?";
@@ -135,16 +135,16 @@ public class OrganizationDaoDB implements OrganizationDao {
         return supers;
     }
 
-//    private void associateSupers(List<Organization> organizations) {
-//        for (Organization organization : organizations) {
-//            organization.setSupers(this.getOrganizationsForSuper(organization.getOrganizationID()));
-//        }
-//    }
     @Override
     public List<Organization> getOrganizationsForSuper(Super superhero) {
-        final String SELECT_ORG_FOR_SUPER = "SELECT o.* FROM organization o JOIN "
-                + "SuperOrganization so ON so.organizationID = o.organizationID WHERE so.superID = ?";
-        List<Organization> organizations = this.jdbc.query(SELECT_ORG_FOR_SUPER, new OrganizationMapper(), superhero.getSuperID());
+        final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
+                + "FROM SuperOrganization so "
+                + "JOIN Organization o ON o.organizationID = o.organizationID "
+                + "WHERE so.superID = ?";
+
+        List<Organization> organizations = this.jdbc.query(SELECT_ORG_FOR_SUPER,
+                new OrganizationMapper(), superhero.getSuperID());
+        
         for (Organization organization : organizations) {
             organization.setSupers(this.getSupersForOrganization(organization));
         }

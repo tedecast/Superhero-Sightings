@@ -300,7 +300,7 @@ public class OrganizationDaoDBTest {
         Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
         assertEquals(org, fromOrgDao);
         assertNotNull(org);
-        
+
         // Delete organization 
         this.orgDao.deleteOrganizationByID(org.getOrganizationID());
         fromOrgDao = orgDao.getOrganizationByID(org.getOrganizationID());
@@ -312,6 +312,62 @@ public class OrganizationDaoDBTest {
      */
     @Test
     public void testGetOrganizationsForSuper() {
+        Power power = new Power();
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+//        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+//        assertEquals(power, fromPowerDao);
+//        assertNotNull(fromPowerDao);
+        List<Power> powers = new ArrayList<>();
+        powers.add(power);
+
+        Super superhero = new Super();
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        List<Super> supers = new ArrayList<>();
+        supers.add(superhero);
+
+//        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+//        assertEquals(superhero, fromSuperDao);
+//        assertNotNull(fromSuperDao);
+        Organization org = new Organization();
+        org.setName("The Avengers");
+        org.setDescription("Best group of heroes.");
+        org.setAddress("Avengers Tower, New York");
+        org.setContactInfo("avengersoffice@marvel.com");
+        org.setType("Hero");
+        org.setSupers(supers);
+        org = this.orgDao.addOrganization(org);
+//        
+//        Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
+//        assertEquals(org, fromOrgDao);
+//        assertNotNull(org);
+
+//        superhero.getOrganization().add(org);
+//        this.superDao.updateSuper(superhero);
+//        assertNotEquals(superhero, fromSuperDao);
+//        fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
+//        assertEquals(superhero, fromSuperDao);
+        superhero.getOrganization().add(org);
+        this.superDao.updateSuper(superhero);
+
+        org.getSupers().add(superhero);
+        // 1 for list
+        this.orgDao.updateOrganization(org);
+
+        //assertNotEquals(org, orgDao);
+        List<Organization> orgDao = this.orgDao.getOrganizationsForSuper(superhero);
+
+        assertEquals(1, orgDao.size());
+        assertTrue(orgDao.contains(org));
+
     }
 
 }

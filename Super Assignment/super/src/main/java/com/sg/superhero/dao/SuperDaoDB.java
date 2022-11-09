@@ -151,7 +151,10 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getName(),
                 superhero.getDescription(),
                 superhero.getSuperID());
-
+        
+        final String DELETE_SUPER_ORGANIZATION = "DELETE FROM SuperOrganization WHERE superID = ?";
+        this.jdbc.update(DELETE_SUPER_ORGANIZATION, superhero.getSuperID());
+        this.insertSuperOrganization(superhero);
 //        final String DELETE_SUPER_SIGHTING = "DELETE FROM sighting WHERE superID = ?";
 //
 //        this.jdbc.update(DELETE_SUPER_SIGHTING, superhero.getSuperID());
