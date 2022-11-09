@@ -172,7 +172,7 @@ public class OrganizationDaoDBTest {
         org2.setDescription("This is where the bad guys get locked up.");
         org2.setAddress("Gotham City");
         org2.setContactInfo("arkhamasylum@dc.com");
-        org2.setType("Villians");
+        org2.setType("Villain");
 
         orgs.add(org2);
 
@@ -182,6 +182,10 @@ public class OrganizationDaoDBTest {
         Organization fromOrgDao2 = this.orgDao.getOrganizationByID(org2.getOrganizationID());
         assertEquals(org2, fromOrgDao2);
         assertNotNull(org2);
+        
+        assertEquals(2,orgs.size());
+        assertTrue(orgs.contains(org1));
+        assertTrue(orgs.contains(org2));
     }
 
     /**
