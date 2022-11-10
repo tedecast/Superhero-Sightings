@@ -336,8 +336,6 @@ public class OrganizationDaoDBTest {
         List<Organization> organizations = new ArrayList<>();
         organizations.add(org);
 
-//        superhero.setOrganization(organizations);
-//        this.superDao.updateSuper(superhero);
         // Organization 2
         Organization org2 = new Organization();
         org2.setName("Test 2");
@@ -352,7 +350,8 @@ public class OrganizationDaoDBTest {
 
         superhero.setOrganization(organizations);
         this.superDao.updateSuper(superhero);
-
+        
+        // Test
         List<Organization> orgs = this.orgDao.getOrganizationsForSuper(superhero);
         assertEquals(2, orgs.size());
         
@@ -361,7 +360,5 @@ public class OrganizationDaoDBTest {
         
         assertEquals("Test 2", orgs.get(1).getName());
         assertEquals("Villain", orgs.get(1).getType());
-
     }
-
 }
