@@ -378,12 +378,13 @@ public class SightingDaoDBTest {
         sighting2.setSuperhero(superhero);
         sighting2.setLocation(location);
         sighting2.setDate(date);
-        sighting2.setDescription("Test description");
+        sighting2.setDescription("Test description 2");
         sighting2 = this.sightingDao.addSighting(sighting2);
 
         List<Sighting> sightings = this.sightingDao.getSightingsForLocation(location);
         assertTrue(sightings.contains(sighting));
         assertTrue(sightings.contains(sighting2));
+        assertEquals(2, sightings.size());
 
     }
 
