@@ -327,6 +327,8 @@ public class SightingDaoDBTest {
         assertEquals(sighting, fromDao);
         
         this.sightingDao.deleteSightingByID(sighting.getSightingID());
+        
+        fromDao = this.sightingDao.getSightingByID(sighting.getSightingID());
         assertNull(fromDao);
     }
 
