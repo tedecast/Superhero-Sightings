@@ -306,6 +306,7 @@ public class OrganizationDaoDBTest {
      */
     @Test
     public void testGetOrganizationsForSuper() {
+        // Super 1
         Power power = new Power();
         power.setName("Super human");
         power.setDescription("Enhanced human abilities.");
@@ -322,6 +323,7 @@ public class OrganizationDaoDBTest {
         List<Super> supers = new ArrayList<>();
         supers.add(superhero);
 
+        // Organization 1
         Organization org = new Organization();
         org.setName("The Avengers");
         org.setDescription("Best group of heroes.");
@@ -334,13 +336,31 @@ public class OrganizationDaoDBTest {
         List<Organization> organizations = new ArrayList<>();
         organizations.add(org);
 
+//        superhero.setOrganization(organizations);
+//        this.superDao.updateSuper(superhero);
+        // Organization 2
+        Organization org2 = new Organization();
+        org2.setName("Test 2");
+        org2.setDescription("Test description 2");
+        org2.setAddress("Test address");
+        org2.setContactInfo("test@email.com");
+        org2.setType("Villain");
+        org2.setSupers(supers);
+        org2 = this.orgDao.addOrganization(org2);
+
+        organizations.add(org2);
+
         superhero.setOrganization(organizations);
         this.superDao.updateSuper(superhero);
 
         List<Organization> orgs = this.orgDao.getOrganizationsForSuper(superhero);
-        assertEquals(1, orgs.size());
+        assertEquals(2, orgs.size());
+        
         assertEquals("The Avengers", orgs.get(0).getName());
         assertEquals("Hero", orgs.get(0).getType());
+        
+        assertEquals("Test 2", orgs.get(1).getName());
+        assertEquals("Villain", orgs.get(1).getType());
 
     }
 
