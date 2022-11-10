@@ -69,12 +69,3 @@ CREATE TABLE SuperOrganization (
 		REFERENCES `Organization` (OrganizationID)
 );
 
-
-USE SuperDBTest;
-
-SELECT * from location;
-SELECT * from organization;
-SELECT * from power;
-SELECT * from sighting;
-SELECT * from super;
-SELECT * from superorganization;
