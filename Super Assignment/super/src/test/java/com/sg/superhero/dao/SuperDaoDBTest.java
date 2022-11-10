@@ -294,7 +294,7 @@ public class SuperDaoDBTest {
         power.setName("Super human");
         power.setDescription("Enhanced human abilities.");
         power = this.powerDao.addPower(power);
-        
+
         // Superhero1
         Super superhero = new Super();
         superhero.setSuperID(superhero.getSuperID());
@@ -304,7 +304,7 @@ public class SuperDaoDBTest {
         superhero.setDescription("Super soldier");
         superhero.setOrganization(new ArrayList<Organization>());
         superhero = this.superDao.addSuper(superhero);
-        
+
         // Superhero2
         Super superhero2 = new Super();
         superhero2.setSuperID(superhero2.getSuperID());
@@ -331,14 +331,20 @@ public class SuperDaoDBTest {
 
         List<Organization> orgs = new ArrayList<>();
         orgs.add(org);
-        
+
         superhero.setOrganization(orgs);
         this.superDao.updateSuper(superhero);
         superhero2.setOrganization(orgs);
         this.superDao.updateSuper(superhero2);
-        
+
+//        List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
+//        assertEquals(2, superOrgs.size());
+//        assertTrue(superOrgs.contains(orgs));
+
         List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
         assertEquals(2, superOrgs.size());
-        assertTrue(superOrgs.contains(orgs));
+        // assertTrue(orgs.contains(org));
+        assertEquals("Captain America", superOrgs.get(0).getName());
+        assertEquals("Spiderman", superOrgs.get(1).getName());
     }
 }
