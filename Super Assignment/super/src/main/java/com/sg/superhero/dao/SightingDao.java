@@ -30,7 +30,6 @@ public interface SightingDao {
     // Added in to access Location object
     public List<Sighting> getSightingsForLocation(Location location);
     
-    public List<Sighting> getSightingsByDate (LocalDate date);
-
+    public List<Sighting> getSightingsByDate(LocalDate date);
 
 }
