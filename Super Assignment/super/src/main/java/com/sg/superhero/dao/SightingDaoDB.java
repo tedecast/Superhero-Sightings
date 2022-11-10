@@ -113,11 +113,11 @@ public class SightingDaoDB implements SightingDao {
                 + "WHERE sightingID = ?";
 
         this.jdbc.update(UPDATE_SIGHTING,
-                sighting.getSightingID(),
                 sighting.getSuperhero().getSuperID(),
                 sighting.getLocation().getLocationID(),
                 Timestamp.valueOf(sighting.getDate().atTime(12, 0)),
-                sighting.getDescription());
+                sighting.getDescription(),
+                sighting.getSightingID());
     }
 
     @Override
@@ -158,7 +158,6 @@ public class SightingDaoDB implements SightingDao {
 //            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
 //        }
 //    }
-
     private List<Organization> getOrganizationsForSuper(int organizationID) {
         final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
                 + "FROM SuperOrganization so "
