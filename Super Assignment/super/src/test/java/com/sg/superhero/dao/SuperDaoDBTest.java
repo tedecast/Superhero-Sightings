@@ -332,8 +332,13 @@ public class SuperDaoDBTest {
         List<Organization> orgs = new ArrayList<>();
         orgs.add(org);
         
-//        List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
-//        assertEquals(2, superOrgs.size());
-//        assertTrue(superOrgs.contains(orgs));
+        superhero.setOrganization(orgs);
+        this.superDao.updateSuper(superhero);
+        superhero2.setOrganization(orgs);
+        this.superDao.updateSuper(superhero2);
+        
+        List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
+        assertEquals(2, superOrgs.size());
+        assertTrue(superOrgs.contains(orgs));
     }
 }

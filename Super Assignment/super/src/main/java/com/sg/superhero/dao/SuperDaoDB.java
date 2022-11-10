@@ -225,16 +225,17 @@ public class SuperDaoDB implements SuperDao {
 
     @Override
     public List<Super> getSupersForOrganization(Organization organization) {
-        final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.type, s.name, s.description "
+        final String GET_SUPERS_FOR_ORG = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
                 + "FROM SuperOrganization so "
                 + "JOIN Super s ON so.superID = s.superID "
                 + "WHERE so.organizationID = ?";
+        
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
         for (Super superhero : supers) {
             superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
-            superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
-           // this.insertSuperOrganization(superhero);
+            //superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
         }
+         
         return supers;
     }
 

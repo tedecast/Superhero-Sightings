@@ -144,11 +144,20 @@ public class OrganizationDaoDB implements OrganizationDao {
 
         List<Organization> organizations = this.jdbc.query(SELECT_ORG_FOR_SUPER,
                 new OrganizationMapper(), superhero.getSuperID());
-        
+
         for (Organization organization : organizations) {
             organization.setSupers(this.getSupersForOrganization(organization));
+//             this.associatePowerOrganization(organization.getSupers());
         }
+       
         return organizations;
+    }
+
+    private void associatePowerOrganization(List<Super> supers) {
+        for (Super superhero : supers) {
+            superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
+            superhero.setOrganization(this.getOrganizationsForSuper(superhero));
+        }
     }
 
     public static final class OrganizationMapper implements RowMapper<Organization> {
