@@ -10,6 +10,8 @@ import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Power;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -141,7 +143,7 @@ public class LocationDaoDBTest {
         location.setLongitude("20.30");
         this.locationDao.updateLocation(location);
         assertNotEquals(location, fromDao);
-        
+
         fromDao = this.locationDao.getLocationByID(location.getLocationID());
         assertEquals(location, fromDao);
     }
@@ -151,6 +153,44 @@ public class LocationDaoDBTest {
      */
     @Test
     public void testDeleteLocationByID() {
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
+
+        Sighting sighting = new Sighting();
+        sighting.setSuperhero(superhero);
+        sighting.setLocation(location);
+        LocalDate date = LocalDate.of(2022, 07, 29);
+        sighting.setDate(date);
+        sighting.setDescription("Test description");
+        sighting = this.sightingDao.addSighting(sighting);
+        
+        this.locationDao.deleteLocationByID(location.getLocationID());
+        
+        Sighting fromSightingDao = this.sightingDao.getSightingByID(sighting.getSightingID());
+        assertNull(fromSightingDao);
+        
+        Location fromLocationDao = this.locationDao.getLocationByID(location.getLocationID());
+        assertNull(fromLocationDao);
     }
 
     /**
