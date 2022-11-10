@@ -132,7 +132,7 @@ public class SightingDaoDB implements SightingDao {
         this.associateLocationsForSightings(sighting);
         return sighting;
     }
-    
+
     private void associateLocationsForSightings(List<Sighting> sightings) {
         for (Sighting sighting : sightings) {
             sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
@@ -143,13 +143,9 @@ public class SightingDaoDB implements SightingDao {
     @Override
     public List<Sighting> getSightingsByDate(LocalDate date) {
         final String SELECT_SIGHTINGS_BY_DATE = "SELECT * FROM Sighting WHERE Date = ?";
-        List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_BY_DATE, new SightingMapper(),
-                Timestamp.valueOf(date.atTime(12, 0)));
+        List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_BY_DATE, new SightingMapper(), date);
 
-        for (Sighting sighting : sightings) {
-            sighting.setSuperhero(this.getSuperForSighting(sighting.getSightingID()));
-            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
-        }
+        this.associateLocationsForSightings(sightings);
         return sightings;
     }
 
