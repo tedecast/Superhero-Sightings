@@ -83,10 +83,7 @@ public class SightingDaoDB implements SightingDao {
         final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting";
         List<Sighting> sightings = this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
 
-        for (Sighting sighting : sightings) {
-            sighting.setSuperhero(this.getSuperForSighting(sighting.getSightingID()));
-            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
-        }
+        this.associateLocationsForSightings(sightings);
         return sightings;
     }
 

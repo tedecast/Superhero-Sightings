@@ -385,8 +385,6 @@ public class SightingDaoDBTest {
         assertEquals(2, sightings.size());
         assertTrue(sightings.contains(sighting));
         assertTrue(sightings.contains(sighting2));
-        
-
     }
 
     /**
@@ -438,10 +436,10 @@ public class SightingDaoDBTest {
         sighting2.setDescription("Test description 2");
         sighting2 = this.sightingDao.addSighting(sighting2);
         
-//        List<Sighting> sightings = this.sightingDao.getSightingsByDate(date);
-//        assertEquals(2, sightings.size());
-//        assertTrue(sightings.contains(sighting));
-//        assertTrue(sightings.contains(sighting2));
+        List<Sighting> sightings = this.sightingDao.getSightingsByDate(date);
+        assertEquals(2, sightings.size());
+        assertTrue(sightings.contains(sighting));
+        assertTrue(sightings.contains(sighting2));
     }
 
 }
