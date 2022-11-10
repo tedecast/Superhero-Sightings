@@ -393,6 +393,54 @@ public class SightingDaoDBTest {
      */
     @Test
     public void testGetSightingsByDate() {
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
+        assertEquals(power, fromPowerDao);
+        assertNotNull(fromPowerDao);
+
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
+
+        // Sighting 1 
+        Sighting sighting = new Sighting();
+        sighting.setSuperhero(superhero);
+        sighting.setLocation(location);
+        LocalDate date = LocalDate.of(2022, 07, 29);
+        sighting.setDate(date);
+        sighting.setDescription("Test description");
+        sighting = this.sightingDao.addSighting(sighting);
+
+        // Sighting 2
+        Sighting sighting2 = new Sighting();
+        sighting2.setSuperhero(superhero);
+        sighting2.setLocation(location);
+        sighting2.setDate(date);
+        sighting2.setDescription("Test description 2");
+        sighting2 = this.sightingDao.addSighting(sighting2);
+        
+//        List<Sighting> sightings = this.sightingDao.getSightingsByDate(date);
+//        assertEquals(2, sightings.size());
+//        assertTrue(sightings.contains(sighting));
+//        assertTrue(sightings.contains(sighting2));
     }
 
 }
