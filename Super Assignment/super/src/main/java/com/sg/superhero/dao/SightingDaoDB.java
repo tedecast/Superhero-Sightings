@@ -32,60 +32,96 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class SightingDaoDB implements SightingDao {
-    
+
     @Autowired
     JdbcTemplate jdbc;
-    
-    @Override
-    public Sighting getSightingByID(int sightingID) {
+
+    private Power getPowerForSuper(int powerID) {
         try {
-            final String SELECT_SIGHTING_BY_ID = "SELECT * FROM sightingID = ?";
-            
-            Sighting sighting = this.jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
-            sighting.setSuperhero(this.getSuperForSighting(sighting));
-            sighting.setLocation(this.getLocationForSighting(sighting));
-            
-            return sighting;
-            
+            final String GET_POWER = "SELECT p.powerID, p.name, p.description FROM Power p "
+                    + "JOIN Super s ON p.powerID = s.powerID WHERE s.superID = ?";
+            return this.jdbc.queryForObject(GET_POWER, new PowerMapper(), powerID);
         } catch (DataAccessException ex) {
             return null;
         }
     }
-    
+
+//    private Power getSuperpowerForSuper(int superpowerID) {
+//        try {
+//            final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
+//                    + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
+//            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), superpowerID);
+//        } catch (DataAccessException ex) {
+//            return null;
+//        }
+//    }
+
+    private Super getSuperForSightings(int sightingID) {
+        final String GET_SUPER_FOR_SIGHTING = "SELECT s.* FROM Super s "
+                + "JOIN Sighting si ON si.superID = s.superID "
+                + "WHERE si.sightingID = ?";
+        Super superhero = this.jdbc.queryForObject(GET_SUPER_FOR_SIGHTING, new SuperMapper(), sightingID);
+        superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
+        superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
+        return superhero;
+    }
+
+    private Location getLocationForSightings(int sightingID) {
+        final String SELECT_LOCATION_FOR_SIGHTING = "SELECT l.* FROM Location l "
+                + "JOIN Sighting s ON s.LocationId = l.LocationId WHERE s.SightingId = ?";
+        return jdbc.queryForObject(SELECT_LOCATION_FOR_SIGHTING, new LocationDaoDB.LocationMapper(), sightingID);
+    }
+
+    @Override
+    public Sighting getSightingByID(int sightingID) {
+        try {
+            final String SELECT_SIGHTING_BY_ID = "SELECT * FROM Sighting WHERE SightingID = ?";
+
+            Sighting sighting = this.jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+            sighting.setSuperhero(this.getSuperForSightings(sightingID));
+            sighting.setLocation(this.getLocationForSightings(sightingID));
+
+            return sighting;
+
+        } catch (DataAccessException ex) {
+            return null;
+        }
+    }
+
     @Override
     public List<Sighting> getAllSightings() {
         final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting";
         List<Sighting> sightings = this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
-        
+
         for (Sighting sighting : sightings) {
             sighting.setSuperhero(this.getSuperForSighting(sighting));
             sighting.setLocation(this.getLocationForSighting(sighting));
         }
         return sightings;
     }
-    
+
     @Override
     @Transactional
     public Sighting addSighting(Sighting sighting) {
         final String INSERT_SIGHTING = "INSERT INTO sighting(superID, locationID, date, description)" + "VALUES(?,?,?,?)";
-        
+
         this.jdbc.update(INSERT_SIGHTING,
                 sighting.getSuperhero().getSuperID(),
                 sighting.getLocation().getLocationID(),
                 Timestamp.valueOf(sighting.getDate().atTime(12, 0)),
                 sighting.getDescription());
-        
+
         int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         sighting.setSightingID(newSightingID);
-        
+
         return sighting;
     }
-    
+
     @Override
     public void updateSighting(Sighting sighting) {
         final String UPDATE_SIGHTING = "UPDATE Sighting SET superID = ?, locationID = ?, date = ?, description = ? "
                 + "WHERE sightingID = ?";
-        
+
         this.jdbc.update(UPDATE_SIGHTING,
                 sighting.getSightingID(),
                 sighting.getSuperhero().getSuperID(),
@@ -93,14 +129,14 @@ public class SightingDaoDB implements SightingDao {
                 Timestamp.valueOf(sighting.getDate().atTime(12, 0)),
                 sighting.getDescription());
     }
-    
+
     @Override
     @Transactional
     public void deleteSightingByID(int sightingID) {
         final String DELETE_SIGHTING = "DELETE FROM Sighting WHERE sightingID = ?";
         this.jdbc.update(DELETE_SIGHTING, sightingID);
     }
-    
+
     @Override
     public List<Sighting> getSightingsForLocation(Location location) {
         final String SELECT_SIGHTINGS_FOR_LOCATION = "SELECT * FROM Sighting WHERE LocationID = ?";
@@ -108,13 +144,13 @@ public class SightingDaoDB implements SightingDao {
         //this.associateLocationsForSightings(sighting);
         return sighting;
     }
-    
+
     @Override
     public List<Sighting> getSightingsByDate(LocalDate date) {
         final String SELECT_SIGHTINGS_BY_DATE = "SELECT * FROM Sighting WHERE Date = ?";
         List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_BY_DATE, new SightingMapper(),
                 Timestamp.valueOf(date.atTime(12, 0)));
-        
+
         for (Sighting sighting : sightings) {
             sighting.setSuperhero(this.getSuperForSighting(sighting));
             sighting.setLocation(this.getLocationForSighting(sighting));
@@ -138,21 +174,11 @@ public class SightingDaoDB implements SightingDao {
                 + "JOIN Super s ON si.superID = s.superID "
                 + "WHERE si.superID = ?";
         Super superhero = this.jdbc.queryForObject(GET_SUPER_FOR_SIGHTING, new SuperMapper(), sighting.getSightingID());
-        superhero.setPower(this.getSuperpowerForSuper(superhero.getSuperID()));
+        superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
         superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
-        return superhero;        
+        return superhero;
     }
-    
-    private Power getSuperpowerForSuper(int superpowerID) {
-        try {
-            final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
-                    + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
-            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), superpowerID);
-        } catch (DataAccessException ex) {
-            return null;
-        }
-    }
-    
+
     private List<Organization> getOrganizationsForSuper(int organizationID) {
         final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
                 + "FROM SuperOrganization so "
@@ -160,23 +186,23 @@ public class SightingDaoDB implements SightingDao {
                 + "WHERE so.superID = ?";
         return this.jdbc.query(SELECT_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
     }
-    
+
     private Location getLocationForSighting(Sighting sighting) {
         final String GET_LOCATION_FOR_SIGHTING = "SELECT l.* FROM Sighting si "
                 + "JOIN Location l ON si.locationId = l.locationID "
                 + "WHERE si.locationID = ?";
         return this.jdbc.queryForObject(GET_LOCATION_FOR_SIGHTING, new LocationMapper(), sighting.getSightingID());
     }
-    
+
     public static final class SightingMapper implements RowMapper<Sighting> {
-        
+
         @Override
         public Sighting mapRow(ResultSet rs, int index) throws SQLException {
             Sighting sighting = new Sighting();
             sighting.setSightingID(rs.getInt("sightingID"));
             sighting.setDate(rs.getDate("date").toLocalDate());
             sighting.setDescription(rs.getString("description"));
-            
+
             return sighting;
         }
     }
