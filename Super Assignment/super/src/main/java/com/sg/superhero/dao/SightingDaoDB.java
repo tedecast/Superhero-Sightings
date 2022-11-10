@@ -158,16 +158,6 @@ public class SightingDaoDB implements SightingDao {
 //            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
 //        }
 //    }
-//    private Super getSuperForSighting(Sighting sighting) {
-//        final String GET_SUPER_FOR_SIGHTING = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
-//                + "FROM Sighting si "
-//                + "JOIN Super s ON si.superID = s.superID "
-//                + "WHERE si.superID = ?";
-//        Super superhero = this.jdbc.queryForObject(GET_SUPER_FOR_SIGHTING, new SuperMapper(), sighting.getSightingID());
-//        superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
-//        superhero.setOrganization(this.getOrganizationsForSuper(superhero.getSuperID()));
-//        return superhero;
-//    }
 
     private List<Organization> getOrganizationsForSuper(int organizationID) {
         final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
@@ -176,13 +166,6 @@ public class SightingDaoDB implements SightingDao {
                 + "WHERE so.superID = ?";
         return this.jdbc.query(SELECT_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
     }
-
-//    private Location getLocationForSighting(Sighting sighting) {
-//        final String GET_LOCATION_FOR_SIGHTING = "SELECT l.* FROM Sighting si "
-//                + "JOIN Location l ON si.locationId = l.locationID "
-//                + "WHERE si.locationID = ?";
-//        return this.jdbc.queryForObject(GET_LOCATION_FOR_SIGHTING, new LocationMapper(), sighting.getSightingID());
-//    }
 
     public static final class SightingMapper implements RowMapper<Sighting> {
 
