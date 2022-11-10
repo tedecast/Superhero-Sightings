@@ -123,8 +123,9 @@ public class SightingDaoDB implements SightingDao {
     @Override
     @Transactional
     public void deleteSightingByID(int sightingID) {
-        final String DELETE_SIGHTING = "DELETE FROM Sighting WHERE sightingID = ?";
+        final String DELETE_SIGHTING = "DELETE FROM Sighting WHERE SightingID = ?;";
         this.jdbc.update(DELETE_SIGHTING, sightingID);
+        
     }
 
     @Override

@@ -68,3 +68,13 @@ CREATE TABLE SuperOrganization (
 	CONSTRAINT FK_SuperOrganization_Organization FOREIGN KEY (OrganizationID)
 		REFERENCES `Organization` (OrganizationID)
 );
+
+
+USE SuperDBTest;
+
+SELECT * from location;
+SELECT * from organization;
+SELECT * from power;
+SELECT * from sighting;
+SELECT * from super;
+SELECT * from superorganization;
