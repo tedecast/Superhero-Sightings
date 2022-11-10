@@ -108,8 +108,8 @@ public class LocationDaoDBTest {
         location2.setName("Test name 2");
         location2.setDescription("Test description 2");
         location2.setAddress("Test address 2");
-        location2.setLatitude("11.500");
-        location2.setLongitude("20.300");
+        location2.setLatitude("11.50");
+        location2.setLongitude("20.30");
         this.locationDao.addLocation(location2);
 
         List<Location> locations = this.locationDao.getAllLocations();
@@ -123,6 +123,27 @@ public class LocationDaoDBTest {
      */
     @Test
     public void testUpdateLocation() {
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
+
+        Location fromDao = this.locationDao.getLocationByID(location.getLocationID());
+        assertEquals(location, fromDao);
+
+        location.setName("Test name 2");
+        location.setDescription("Test description 2");
+        location.setAddress("Test address 2");
+        location.setLatitude("11.50");
+        location.setLongitude("20.30");
+        this.locationDao.updateLocation(location);
+        assertNotEquals(location, fromDao);
+        
+        fromDao = this.locationDao.getLocationByID(location.getLocationID());
+        assertEquals(location, fromDao);
     }
 
     /**

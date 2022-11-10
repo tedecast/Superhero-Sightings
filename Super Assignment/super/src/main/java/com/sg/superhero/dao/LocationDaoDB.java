@@ -31,10 +31,10 @@ public class LocationDaoDB implements LocationDao {
     public Location getLocationByID(int locationID) {
         try {
             final String SELECT_LOCATION_BY_ID = "SELECT * FROM location WHERE locationID = ?";
-            
+
             return this.jdbc.queryForObject(SELECT_LOCATION_BY_ID, new LocationMapper(), locationID);
-            
-        } catch (DataAccessException ex){
+
+        } catch (DataAccessException ex) {
             return null;
         }
     }
@@ -48,16 +48,16 @@ public class LocationDaoDB implements LocationDao {
     @Override
     @Transactional
     public Location addLocation(Location location) {
-        final String INSERT_LOCATION = "INSERT INTO location (name, description, address, latitude, longitude)" 
+        final String INSERT_LOCATION = "INSERT INTO location (name, description, address, latitude, longitude)"
                 + "VALUES(?,?,?,?,?)";
-        
-        this.jdbc.update(INSERT_LOCATION, 
-                location.getName(), 
-                location.getDescription(), 
-                location.getAddress(), 
-                location.getLatitude(), 
+
+        this.jdbc.update(INSERT_LOCATION,
+                location.getName(),
+                location.getDescription(),
+                location.getAddress(),
+                location.getLatitude(),
                 location.getLongitude());
-        
+
         int newLocationID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         location.setLocationID(newLocationID);
         return location;
@@ -67,14 +67,14 @@ public class LocationDaoDB implements LocationDao {
     public void updateLocation(Location location) {
         final String UPDATE_LOCATION = "UPDATE location SET name = ?, description = ?, address = ?, latitude = ?, longitude = ?"
                 + "WHERE locationID = ?";
-        
-        this.jdbc.update(UPDATE_LOCATION, 
-                location.getLocationID(), 
+
+        this.jdbc.update(UPDATE_LOCATION,
                 location.getName(),
                 location.getDescription(),
-                location.getAddress(), 
-                location.getLatitude(), 
-                location.getLongitude());
+                location.getAddress(),
+                location.getLatitude(),
+                location.getLongitude(),
+                location.getLocationID());
     }
 
     @Override
@@ -82,7 +82,7 @@ public class LocationDaoDB implements LocationDao {
     public void deleteLocationByID(int locationID) {
         final String DELETE_SIGHTING_LOCATION = "DELETE FROM Sighting WHERE locationID = ?";
         this.jdbc.update(DELETE_SIGHTING_LOCATION, locationID);
-        
+
         final String DELETE_LOCATION = "DELETE FROM location WHERE locationID = ?";
         this.jdbc.update(DELETE_LOCATION, locationID);
     }
