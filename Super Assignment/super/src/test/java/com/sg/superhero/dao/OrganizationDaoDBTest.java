@@ -330,20 +330,18 @@ public class OrganizationDaoDBTest {
         org.setType("Hero");
         org.setSupers(supers);
         org = this.orgDao.addOrganization(org);
-        
+
         List<Organization> organizations = new ArrayList<>();
         organizations.add(org);
-        
+
         superhero.setOrganization(organizations);
         this.superDao.updateSuper(superhero);
 
-        org.getSupers().add(superhero);
-        // 1 for list
-        this.orgDao.updateOrganization(org);
-
         List<Organization> orgs = this.orgDao.getOrganizationsForSuper(superhero);
         assertEquals(1, orgs.size());
-        assertTrue(orgs.contains(org));
+        // assertTrue(orgs.contains(org));
+        assertEquals("The Avengers", orgs.get(0).getName());
+        assertEquals("Hero", orgs.get(0).getType());
 
     }
 
