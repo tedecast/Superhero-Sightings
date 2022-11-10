@@ -40,7 +40,7 @@ public class LocationDaoDBTest {
     SightingDao sightingDao;
 
     public LocationDaoDBTest() {
-        
+
     }
 
     @BeforeEach
@@ -76,7 +76,17 @@ public class LocationDaoDBTest {
      * Test of getLocationByID method, of class LocationDaoDB.
      */
     @Test
-    public void testGetLocationByID() {
+    public void testAddGetLocationByID() {
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
+
+        Location fromDao = this.locationDao.getLocationByID(location.getLocationID());
+        assertEquals(location, fromDao);
     }
 
     /**
@@ -84,13 +94,28 @@ public class LocationDaoDBTest {
      */
     @Test
     public void testGetAllLocations() {
-    }
+        // Location 1
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
 
-    /**
-     * Test of addLocation method, of class LocationDaoDB.
-     */
-    @Test
-    public void testAddLocation() {
+        //Location 2
+        Location location2 = new Location();
+        location2.setName("Test name 2");
+        location2.setDescription("Test description 2");
+        location2.setAddress("Test address 2");
+        location2.setLatitude("11.500");
+        location2.setLongitude("20.300");
+        this.locationDao.addLocation(location2);
+
+        List<Location> locations = this.locationDao.getAllLocations();
+        assertEquals(2, locations.size());
+        assertTrue(locations.contains(location));
+        assertTrue(locations.contains(location2));
     }
 
     /**
