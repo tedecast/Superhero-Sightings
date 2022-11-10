@@ -31,8 +31,6 @@ public interface SightingDao {
     public List<Sighting> getSightingsForLocation(Location location);
     
     public List<Sighting> getSightingsByDate (LocalDate date);
-    
-    // might not need, double check.
-    //public List<Sighting> getSightingsBySuper (Super supers);
+
 
 }
