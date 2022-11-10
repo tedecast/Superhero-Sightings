@@ -339,7 +339,6 @@ public class OrganizationDaoDBTest {
 
         List<Organization> orgs = this.orgDao.getOrganizationsForSuper(superhero);
         assertEquals(1, orgs.size());
-        // assertTrue(orgs.contains(org));
         assertEquals("The Avengers", orgs.get(0).getName());
         assertEquals("Hero", orgs.get(0).getType());
 

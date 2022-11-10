@@ -337,13 +337,8 @@ public class SuperDaoDBTest {
         superhero2.setOrganization(orgs);
         this.superDao.updateSuper(superhero2);
 
-//        List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
-//        assertEquals(2, superOrgs.size());
-//        assertTrue(superOrgs.contains(orgs));
-
         List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
         assertEquals(2, superOrgs.size());
-        // assertTrue(orgs.contains(org));
         assertEquals("Captain America", superOrgs.get(0).getName());
         assertEquals("Spiderman", superOrgs.get(1).getName());
     }
