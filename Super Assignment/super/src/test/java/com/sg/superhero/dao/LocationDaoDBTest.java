@@ -183,12 +183,12 @@ public class LocationDaoDBTest {
         sighting.setDate(date);
         sighting.setDescription("Test description");
         sighting = this.sightingDao.addSighting(sighting);
-        
+
         this.locationDao.deleteLocationByID(location.getLocationID());
-        
+
         Sighting fromSightingDao = this.sightingDao.getSightingByID(sighting.getSightingID());
         assertNull(fromSightingDao);
-        
+
         Location fromLocationDao = this.locationDao.getLocationByID(location.getLocationID());
         assertNull(fromLocationDao);
     }
@@ -198,6 +198,39 @@ public class LocationDaoDBTest {
      */
     @Test
     public void testGetLocationsForSuper() {
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+
+        Location location = new Location();
+        location.setName("Test name");
+        location.setDescription("Test description");
+        location.setAddress("Test address");
+        location.setLatitude("11.5");
+        location.setLongitude("20.3");
+        this.locationDao.addLocation(location);
+
+        Sighting sighting = new Sighting();
+        sighting.setSuperhero(superhero);
+        sighting.setLocation(location);
+        LocalDate date = LocalDate.of(2022, 07, 29);
+        sighting.setDate(date);
+        sighting.setDescription("Test description");
+        sighting = this.sightingDao.addSighting(sighting);
+        
+        List<Location> locations = this.locationDao.getLocationsForSuper(superhero);
+        assertTrue(locations.contains(location));
     }
 
 }
