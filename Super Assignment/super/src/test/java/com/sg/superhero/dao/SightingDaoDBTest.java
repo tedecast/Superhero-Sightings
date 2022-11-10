@@ -382,9 +382,10 @@ public class SightingDaoDBTest {
         sighting2 = this.sightingDao.addSighting(sighting2);
 
         List<Sighting> sightings = this.sightingDao.getSightingsForLocation(location);
+        assertEquals(2, sightings.size());
         assertTrue(sightings.contains(sighting));
         assertTrue(sightings.contains(sighting2));
-        assertEquals(2, sightings.size());
+        
 
     }
 
