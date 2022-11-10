@@ -256,7 +256,7 @@ public class SuperDaoDBTest {
         power.setName("Super human");
         power.setDescription("Enhanced human abilities.");
         power = this.powerDao.addPower(power);
-        
+
         Super superhero = new Super();
         superhero.setSuperID(superhero.getSuperID());
         superhero.setPower(power);
@@ -292,6 +292,50 @@ public class SuperDaoDBTest {
      */
     @Test
     public void testGetSupersForOrganization() {
-    }
+        Power power = new Power();
+        power.setPowerID(power.getPowerID());
+        power.setName("Super human");
+        power.setDescription("Enhanced human abilities.");
+        power = this.powerDao.addPower(power);
+        
+        // Superhero1
+        Super superhero = new Super();
+        superhero.setSuperID(superhero.getSuperID());
+        superhero.setPower(power);
+        superhero.setType("Hero");
+        superhero.setName("Captain America");
+        superhero.setDescription("Super soldier");
+        superhero.setOrganization(new ArrayList<Organization>());
+        superhero = this.superDao.addSuper(superhero);
+        
+        // Superhero2
+        Super superhero2 = new Super();
+        superhero2.setSuperID(superhero2.getSuperID());
+        superhero2.setPower(power);
+        superhero2.setType("Hero");
+        superhero2.setName("Spiderman");
+        superhero2.setDescription("He can shoot webs out of his wrists like a spider!");
+        superhero2.setOrganization(new ArrayList<Organization>());
+        superhero2 = this.superDao.addSuper(superhero2);
 
+        List<Super> supers = new ArrayList<>();
+        supers.add(superhero);
+        supers.add(superhero2);
+
+        // Organization 1
+        Organization org = new Organization();
+        org.setName("The Avengers");
+        org.setDescription("Best group of heroes.");
+        org.setAddress("Avengers Tower, New York");
+        org.setContactInfo("avengersoffice@marvel.com");
+        org.setType("Hero");
+        org.setSupers(supers);
+        org = this.orgDao.addOrganization(org);
+
+        List<Organization> orgs = new ArrayList<>();
+        orgs.add(org);
+        
+        List<Super> superOrgs = this.superDao.getSupersForOrganization(org);
+        assertEquals(2, superOrgs.size());
+    }
 }
