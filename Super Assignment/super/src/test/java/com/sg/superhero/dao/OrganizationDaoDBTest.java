@@ -73,9 +73,9 @@ public class OrganizationDaoDBTest {
         Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
         assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
-
-        List<Power> powers = new ArrayList<>();
-        powers.add(power);
+//
+//        List<Power> powers = new ArrayList<>();
+//        powers.add(power);
 
         Super superhero = new Super();
         superhero.setPower(power);
@@ -131,9 +131,6 @@ public class OrganizationDaoDBTest {
         Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
         assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
-
-        List<Power> powers = new ArrayList<>();
-        powers.add(power);
 
         Super superhero = new Super();
         superhero.setPower(power);
@@ -204,9 +201,6 @@ public class OrganizationDaoDBTest {
         Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
         assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
-
-        List<Power> powers = new ArrayList<>();
-        powers.add(power);
 
         Super superhero = new Super();
         superhero.setPower(power);
@@ -317,12 +311,6 @@ public class OrganizationDaoDBTest {
         power.setDescription("Enhanced human abilities.");
         power = this.powerDao.addPower(power);
 
-//        Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
-//        assertEquals(power, fromPowerDao);
-//        assertNotNull(fromPowerDao);
-        List<Power> powers = new ArrayList<>();
-        powers.add(power);
-
         Super superhero = new Super();
         superhero.setPower(power);
         superhero.setType("Hero");
@@ -334,9 +322,6 @@ public class OrganizationDaoDBTest {
         List<Super> supers = new ArrayList<>();
         supers.add(superhero);
 
-//        Super fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-//        assertEquals(superhero, fromSuperDao);
-//        assertNotNull(fromSuperDao);
         Organization org = new Organization();
         org.setName("The Avengers");
         org.setDescription("Best group of heroes.");
@@ -345,28 +330,23 @@ public class OrganizationDaoDBTest {
         org.setType("Hero");
         org.setSupers(supers);
         org = this.orgDao.addOrganization(org);
-//        
-//        Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
-//        assertEquals(org, fromOrgDao);
-//        assertNotNull(org);
-
-//        superhero.getOrganization().add(org);
-//        this.superDao.updateSuper(superhero);
-//        assertNotEquals(superhero, fromSuperDao);
-//        fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-//        assertEquals(superhero, fromSuperDao);
-        superhero.getOrganization().add(org);
+        
+        List<Organization> organizations = new ArrayList<>();
+        organizations.add(org);
+        superhero.setOrganization(organizations);
         this.superDao.updateSuper(superhero);
+        
+        Super fromSuperDao = superDao.getSuperByID(superhero.getSuperID());
+        assertEquals(fromSuperDao, superhero);
 
         org.getSupers().add(superhero);
         // 1 for list
         this.orgDao.updateOrganization(org);
 
         //assertNotEquals(org, orgDao);
-        List<Organization> orgDao = this.orgDao.getOrganizationsForSuper(superhero);
-
-        assertEquals(1, orgDao.size());
-        assertTrue(orgDao.contains(org));
+        List<Organization> orgs = this.orgDao.getOrganizationsForSuper(superhero);
+        assertEquals(1, orgs.size());
+        assertTrue(orgs.contains(org));
 
     }
 

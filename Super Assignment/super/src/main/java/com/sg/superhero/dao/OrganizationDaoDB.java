@@ -138,8 +138,8 @@ public class OrganizationDaoDB implements OrganizationDao {
     @Override
     public List<Organization> getOrganizationsForSuper(Super superhero) {
         final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
-                + "FROM SuperOrganization so "
-                + "JOIN Organization o ON o.organizationID = o.organizationID "
+                + "FROM Organization o "
+                + "JOIN SuperOrganization so ON o.organizationID = so.organizationID "
                 + "WHERE so.superID = ?";
 
         List<Organization> organizations = this.jdbc.query(SELECT_ORG_FOR_SUPER,

@@ -151,7 +151,7 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getName(),
                 superhero.getDescription(),
                 superhero.getSuperID());
-        
+
         final String DELETE_SUPER_ORGANIZATION = "DELETE FROM SuperOrganization WHERE superID = ?";
         this.jdbc.update(DELETE_SUPER_ORGANIZATION, superhero.getSuperID());
         this.insertSuperOrganization(superhero);
@@ -206,16 +206,6 @@ public class SuperDaoDB implements SuperDao {
 //        //this.associateSupersAndSightings(supers);
 //        return supers;
 //    }
-
-    @Override
-    public List<Super> getSupersForPower(Power power) {
-        final String SELECT_SUPERS_FOR_POWER = "SELECT * FROM super WHERE PowerID = ?";
-
-        List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_POWER,
-                new SuperMapper(), power.getPowerID());
-
-        return supers;
-    }
 
     @Override
     public List<Super> getSupersForLocation(Location location) {

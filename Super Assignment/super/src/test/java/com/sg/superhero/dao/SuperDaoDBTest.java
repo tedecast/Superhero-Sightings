@@ -132,19 +132,19 @@ public class SuperDaoDBTest {
         superhero1 = this.superDao.addSuper(superhero1);
 
         // Super2 
-        Power superpower2 = new Power();
-        superpower2.setPowerID(superpower2.getPowerID());
-        superpower2.setName("Spidey senses");
-        superpower2.setDescription("Powers that are like a spider-human hybrid");
-        superpower2 = this.powerDao.addPower(superpower2);
+        Power power2 = new Power();
+        power2.setPowerID(power2.getPowerID());
+        power2.setName("Spidey senses");
+        power2.setDescription("Powers that are like a spider-human hybrid");
+        power2 = this.powerDao.addPower(power2);
 
-        Power fromPowerDao2 = this.powerDao.getPowerByID(superpower2.getPowerID());
-        assertEquals(superpower2, fromPowerDao2);
+        Power fromPowerDao2 = this.powerDao.getPowerByID(power2.getPowerID());
+        assertEquals(power2, fromPowerDao2);
         assertNotNull(fromPowerDao2);
 
         Super superhero2 = new Super();
         superhero2.setSuperID(superhero2.getSuperID());
-        superhero2.setPower(superpower2);
+        superhero2.setPower(power2);
         superhero2.setType("Hero");
         superhero2.setName("Spiderman");
         superhero2.setDescription("He can shoot webs out of his wrists like a spider!");
@@ -244,14 +244,6 @@ public class SuperDaoDBTest {
         this.superDao.deleteSuperByID(superhero.getSuperID());
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
         assertNull(fromSuperDao);
-    }
-
-    /**
-     * Test of getSupersForSuperpower method, of class SuperDaoDB.
-     */
-    @Test
-    public void testGetSupersForSuperpower() {
-
     }
 
     /**
