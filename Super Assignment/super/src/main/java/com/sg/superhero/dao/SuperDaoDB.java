@@ -7,10 +7,8 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.dao.OrganizationDaoDB.OrganizationMapper;
 import com.sg.superhero.dao.PowerDaoDB.PowerMapper;
-import com.sg.superhero.dao.SightingDaoDB.SightingMapper;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
-import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Power;
 import java.sql.ResultSet;
@@ -32,53 +30,6 @@ public class SuperDaoDB implements SuperDao {
 
     @Autowired
     JdbcTemplate jdbc;
-
-    // Used to get the sighting associated with a super.
-//    private Sighting getSightingForSuper(int sightingID) {
-//        final String SELECT_SIGHTINGS_FOR_SUPER = "SELECT si.* FROM sighting si"
-//                + "JOIN super_sighting ssi ON ssi.sightingID = si.sightingID WHERE ssi.superID = ?";
-//        return this.jdbc.queryForObject(SELECT_SIGHTINGS_FOR_SUPER, new SightingMapper(), sightingID);
-//    }
-//    
-    // move to sightings
-    private List<Sighting> getSightingsForSuper(int sightingID) {
-        final String SELECT_SIGHTINGS_FOR_HERO = "SELECT * FROM sighting WHERE superID = ?";
-        List<Sighting> sightings = this.jdbc.query(SELECT_SIGHTINGS_FOR_HERO, new SightingMapper(), sightingID);
-        return sightings;
-    }
-    
-        // Move to sighting
-    // Inserts super into sighting
-//    private void insertSuperSighting(Super superhero) {
-//        final String INSERT_SIGHTING = "INSERT INTO sighting(superID, locationID, date, description) "
-//                + "VALUES(?,?,?,?)";
-//
-//        for (Sighting sighting : superhero.getSighting()) {
-//            this.jdbc.update(INSERT_SIGHTING,
-//                    superhero.getSuperID(),
-//                    sighting.getLocation().getLocationID(),
-//                    sighting.getDate(),
-//                    sighting.getDescription());
-//            int newSightingID = this.jdbc.queryForObject("SELECT LAST_INSERT_SIGHTINGID()", Integer.class);
-//            sighting.setSightingID(newSightingID);
-//        }
-//    }
-      // Creates lists of supers for corresponding sightings 
-//    private void associateSupersAndSightings(List<Super> supers) {
-//        for (Super superhero : supers) {
-//            superhero.setSighting(this.getSightingsForSuper(superhero.getSuperID()));
-//        }
-//    }
-//    @Override
-//    public List<Super> getSupersForSighting(Sighting sighting) {
-//        final String SELECT_SUPERS_FOR_SIGHTINGS = "SELECT * FROM sighting WHERE superID = ?";
-//
-//        List<Super> supers = this.jdbc.query(SELECT_SUPERS_FOR_SIGHTINGS, new SuperMapper(), sighting.getSightingID());
-//
-//        //this.associateSupersAndSightings(supers);
-//        return supers;
-//    }
-
 
     @Override
     public Super getSuperByID(int superID) {
@@ -145,9 +96,8 @@ public class SuperDaoDB implements SuperDao {
         
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         superhero.setSuperID(newSuperID);
+        
         this.insertSuperOrganization(superhero);
-
-        //this.insertSuperSighting(superhero);
         return superhero;
     }
 

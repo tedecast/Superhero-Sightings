@@ -73,9 +73,6 @@ public class OrganizationDaoDBTest {
         Power fromPowerDao = this.powerDao.getPowerByID(power.getPowerID());
         assertEquals(power, fromPowerDao);
         assertNotNull(fromPowerDao);
-//
-//        List<Power> powers = new ArrayList<>();
-//        powers.add(power);
 
         Super superhero = new Super();
         superhero.setPower(power);
@@ -108,14 +105,6 @@ public class OrganizationDaoDBTest {
         Organization fromOrgDao = this.orgDao.getOrganizationByID(org.getOrganizationID());
         assertEquals(org, fromOrgDao);
         assertNotNull(org);
-
-//        superhero.setOrganization(orgs);
-//        this.superDao.updateSuper(superhero);
-//        
-//        assertNotEquals(superhero, fromSuperDao);
-//
-//        fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-//        assertEquals(superhero, fromSuperDao);
     }
 
     /**
