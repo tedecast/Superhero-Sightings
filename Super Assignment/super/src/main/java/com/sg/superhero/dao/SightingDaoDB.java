@@ -148,12 +148,7 @@ public class SightingDaoDB implements SightingDao {
         this.associateLocationsForSightings(sightings);
         return sightings;
     }
-
-    // not required I think
-//    @Override
-//    public List<Sighting> getSightingsBySuper(Super supers) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    
     private List<Organization> getOrganizationsForSuper(int organizationID) {
         final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
                 + "FROM SuperOrganization so "
