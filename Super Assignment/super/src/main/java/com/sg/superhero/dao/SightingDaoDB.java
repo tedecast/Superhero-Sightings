@@ -46,16 +46,6 @@ public class SightingDaoDB implements SightingDao {
         }
     }
 
-//    private Power getSuperpowerForSuper(int superpowerID) {
-//        try {
-//            final String SELECT_SP_FOR_SUPER = "SELECT sp.* FROM Superpower sp "
-//                    + "JOIN Super s ON sp.superpowerID = s.superpowerID WHERE s.superpowerID = ?";
-//            return this.jdbc.queryForObject(SELECT_SP_FOR_SUPER, new PowerMapper(), superpowerID);
-//        } catch (DataAccessException ex) {
-//            return null;
-//        }
-//    }
-
     private Super getSuperForSightings(int sightingID) {
         final String GET_SUPER_FOR_SIGHTING = "SELECT s.* FROM Super s "
                 + "JOIN Sighting si ON si.superID = s.superID "
