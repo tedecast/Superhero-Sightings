@@ -278,7 +278,7 @@ public class SightingDaoDBTest {
 
         this.sightingDao.updateSighting(sighting);
         assertNotEquals(sighting, fromDao);
-        
+
         fromDao = this.sightingDao.getSightingByID(sighting.getSightingID());
         assertEquals(sighting, fromDao);
     }
@@ -325,9 +325,9 @@ public class SightingDaoDBTest {
 
         Sighting fromDao = this.sightingDao.getSightingByID(sighting.getSightingID());
         assertEquals(sighting, fromDao);
-        
+
         this.sightingDao.deleteSightingByID(sighting.getSightingID());
-        
+
         fromDao = this.sightingDao.getSightingByID(sighting.getSightingID());
         assertNull(fromDao);
     }
@@ -356,7 +356,6 @@ public class SightingDaoDBTest {
         superhero.setOrganization(new ArrayList<Organization>());
         superhero = this.superDao.addSuper(superhero);
 
-        // Sighting 1 
         Location location = new Location();
         location.setName("Test name");
         location.setDescription("Test description");
@@ -365,6 +364,7 @@ public class SightingDaoDBTest {
         location.setLongitude("20.3");
         this.locationDao.addLocation(location);
 
+        // Sighting 1 
         Sighting sighting = new Sighting();
         sighting.setSuperhero(superhero);
         sighting.setLocation(location);
@@ -373,10 +373,18 @@ public class SightingDaoDBTest {
         sighting.setDescription("Test description");
         sighting = this.sightingDao.addSighting(sighting);
 
-        Sighting fromDao = this.sightingDao.getSightingByID(sighting.getSightingID());
-        assertEquals(sighting, fromDao);
-        
-        
+        // Sighting 2
+        Sighting sighting2 = new Sighting();
+        sighting2.setSuperhero(superhero);
+        sighting2.setLocation(location);
+        sighting2.setDate(date);
+        sighting2.setDescription("Test description");
+        sighting2 = this.sightingDao.addSighting(sighting2);
+
+        List<Sighting> sightings = this.sightingDao.getSightingsForLocation(location);
+        assertTrue(sightings.contains(sighting));
+        assertTrue(sightings.contains(sighting2));
+
     }
 
     /**

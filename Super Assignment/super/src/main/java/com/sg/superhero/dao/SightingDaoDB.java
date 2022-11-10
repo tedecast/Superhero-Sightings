@@ -125,15 +125,22 @@ public class SightingDaoDB implements SightingDao {
     public void deleteSightingByID(int sightingID) {
         final String DELETE_SIGHTING = "DELETE FROM Sighting WHERE SightingID = ?";
         this.jdbc.update(DELETE_SIGHTING, sightingID);
-        
+
     }
 
     @Override
     public List<Sighting> getSightingsForLocation(Location location) {
         final String SELECT_SIGHTINGS_FOR_LOCATION = "SELECT * FROM Sighting WHERE LocationID = ?";
         List<Sighting> sighting = this.jdbc.query(SELECT_SIGHTINGS_FOR_LOCATION, new SightingMapper(), location.getLocationID());
-        //this.associateLocationsForSightings(sighting);
+        this.associateLocationsForSightings(sighting);
         return sighting;
+    }
+    
+    private void associateLocationsForSightings(List<Sighting> sightings) {
+        for (Sighting sighting : sightings) {
+            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
+            sighting.setSuperhero(this.getSuperForSighting(sighting.getSightingID()));
+        }
     }
 
     @Override
@@ -153,11 +160,6 @@ public class SightingDaoDB implements SightingDao {
 //    @Override
 //    public List<Sighting> getSightingsBySuper(Super supers) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//    private void associateLocationsForSightings(List<Sighting> sightings){
-//        for (Sighting sighting : sightings) {
-//            sighting.setLocation(this.getLocationForSighting(sighting.getSightingID()));
-//        }
 //    }
     private List<Organization> getOrganizationsForSuper(int organizationID) {
         final String SELECT_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactInfo, o.type "
