@@ -151,6 +151,7 @@ public class OrganizationDaoDB implements OrganizationDao {
        
         return organizations;
     }
+    
     public static final class OrganizationMapper implements RowMapper<Organization> {
 
         @Override

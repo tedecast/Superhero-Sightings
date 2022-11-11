@@ -7,7 +7,6 @@ package com.sg.superhero.dao;
 
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Sighting;
-import com.sg.superhero.entities.Super;
 import java.time.LocalDate;
 import java.util.List;
 

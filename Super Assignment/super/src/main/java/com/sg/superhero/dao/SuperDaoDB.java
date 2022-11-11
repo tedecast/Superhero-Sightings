@@ -61,22 +61,22 @@ public class SuperDaoDB implements SuperDao {
     }
 
 
-    private Power getPowerForSuper(int powerID) {
+    private Power getPowerForSuper(int superID) {
         try {
             final String GET_POWER = "SELECT p.powerID, p.name, p.description FROM Power p "
                     + "JOIN Super s ON p.powerID = s.powerID WHERE s.superID = ?";
-            return this.jdbc.queryForObject(GET_POWER, new PowerMapper(), powerID);
+            return this.jdbc.queryForObject(GET_POWER, new PowerMapper(), superID);
         } catch (DataAccessException ex) {
             return null;
         }
     }
 
-    private List<Organization> getOrganizationsForSuper(int organizationID) {
+    private List<Organization> getOrganizationsForSuper(int superID) {
         final String GET_ORG_FOR_SUPER = "SELECT o.organizationID, o.name, o.description, o.address, o.contactinfo, o.type "
                 + "FROM SuperOrganization so "
                 + "JOIN Organization o ON so.organizationID = o.organizationID "
                 + "WHERE so.superID = ?";
-        List<Organization> organizations = this.jdbc.query(GET_ORG_FOR_SUPER, new OrganizationMapper(), organizationID);
+        List<Organization> organizations = this.jdbc.query(GET_ORG_FOR_SUPER, new OrganizationMapper(), superID);
         for (Organization organization : organizations) {
             organization.setSupers(this.getSupersForOrganization(organization));
         }

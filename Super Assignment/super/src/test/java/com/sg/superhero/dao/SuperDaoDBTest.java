@@ -202,7 +202,6 @@ public class SuperDaoDBTest {
         assertNotEquals(superhero, fromSuperDao);
 
         fromSuperDao = this.superDao.getSuperByID(superhero.getSuperID());
-        //fromSuperDao.setPower(superhero.getPower());
         assertEquals(superhero, fromSuperDao);
     }
 

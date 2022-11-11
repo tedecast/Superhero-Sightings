@@ -8,8 +8,6 @@ package com.sg.superhero.dao;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Organization;
-import com.sg.superhero.entities.Sighting;
-import com.sg.superhero.entities.Power;
 import java.util.List;
 
 /**
