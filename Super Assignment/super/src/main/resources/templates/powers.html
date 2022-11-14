@@ -55,8 +55,8 @@
                             <label for="powerDescription" class="col-3 col-form-label">
                                 Power Description</label>
                             <div class="col-9">
-                                <textarea class="form-control" rows="3" placeholder="Description For Power"
-                                          id="powerDescription" required/></textarea>
+                                <input type="text" name="powerDescription" 
+                                       id="powerDescription" class="form-control"/>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-1">Add Power</button>
@@ -77,7 +77,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="power : ${powers}">
-                                <td th:text="${power.powerid}">Power ID</td>
+                                <td th:text="${power.powerID}">Power ID</td>
                                 <td th:text="${power.name}">Name</td>
                                 <td th:text="${power.description}">Description</td>
                                 <td>Edit</td>
