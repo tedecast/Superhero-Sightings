@@ -60,27 +60,23 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="superDescription" class="col-3 col-form-label">
-                                Super Description</label>
+                            <label for="superDescription" class="col-3 col-form-label">Description</label>
                             <div class="col-9">
-                                <textarea class="form-control" rows="3" placeholder="Description For Super"
-                                          id="superDescription" required/></textarea>
+                                 <input type="text" name="superDescription" 
+                                       id="superDescription" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="powerName" class="col-3 col-form-label">
-                                Power Name</label>
+                            <label for="power" class="col-3 col-form-label">
+                                Power</label>
                             <div class="col-9">
-                                <input type="text" name="powerName" 
-                                       id="powerName" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="powerDescription" class="col-3 col-form-label">
-                                Power Description</label>
-                            <div class="col-9">
-                                <textarea class="form-control" rows="3" placeholder="Description For Power"
-                                          id="powerDescription" required/></textarea>
+                                <select id="power" name="powerID" class="form-control" >
+                                    <option th:each="power : ${powers}" 
+                                            th:value="${power.powerID}" 
+                                            th:text="${power.name + ': ' 
+                                                + power.description}">
+                                        Choose Power</option>
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-1">Add Super</button>

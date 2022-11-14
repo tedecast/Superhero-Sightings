@@ -45,7 +45,9 @@ public class SuperController {
     @GetMapping("supers")
     public String displaySupers(Model model) {
         List<Super> supers = this.superDao.getAllSupers();
+        List<Power> powers = this.powerDao.getAllPowers();
         model.addAttribute("supers", supers);
+        model.addAttribute("powers", powers);
         return "supers";
     }
 
