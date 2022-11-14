@@ -71,4 +71,26 @@ public class PowerController {
 
         return "redirect:/powers";
     }
+
+    @GetMapping("editPower")
+    public String editPower(HttpServletRequest request, Model model) {
+        int powerID = Integer.parseInt(request.getParameter("powerID"));
+        Power power = this.powerDao.getPowerByID(powerID);
+
+        model.addAttribute("power", power);
+        return "editPower";
+    }
+
+    @PostMapping("editPower")
+    public String performEditPower (HttpServletRequest request) {
+        int powerID = Integer.parseInt(request.getParameter("powerID"));
+        Power power = this.powerDao.getPowerByID(powerID);
+
+        power.setName(request.getParameter("powerName"));
+        power.setDescription(request.getParameter("powerDescription"));
+
+        this.powerDao.updatePower(power);
+
+        return "redirect:/powers";
+    }
 }
