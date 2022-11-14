@@ -26,13 +26,13 @@
                     <a href="powers" class="btn btn-outline-primary btn-lg">Powers</a>
                 </div>
                 <div class="col text-center m-3">
+                    <a href="organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
+                </div>
+                <div class="col text-center m-3">
                     <a href="sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
                 </div>
                 <div class="col text-center m-3">
                     <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
-                </div>
-                <div class="col text-center m-3">
-                    <a href="orgs" class="btn btn-outline-primary btn-lg">Organizations</a>
                 </div>
             </div>
 
@@ -74,8 +74,7 @@
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
                                             th:text="${power.name + ': ' 
-                                                + power.description}">
-                                        Choose Power</option>
+                                                + power.description}">Power</option>
                                 </select>
                             </div>
                         </div>

@@ -52,25 +52,15 @@ public class SuperController {
     }
 
     @PostMapping("addSuper")
-    public String addSuper(HttpServletRequest request) {
+    public String addSuper(Super superhero, HttpServletRequest request) {
 
-        String powerName = request.getParameter("powerName");
-        String powerDescription = request.getParameter("powerDescription");
-
-        Power power = new Power();
-        power.setPowerID(power.getPowerID());
-        power.setName(powerName);
-        power.setDescription(powerDescription);
-        this.powerDao.addPower(power);
-        
+        String powerID = request.getParameter("powerID");
+        superhero.setPower(this.powerDao.getPowerByID(Integer.parseInt(powerID)));
         
         String type = request.getParameter("superType");
         String superName = request.getParameter("superName");
         String superDescription = request.getParameter("superDescription");
 
-        Super superhero = new Super();
-        superhero.setSuperID(superhero.getSuperID());
-        superhero.setPower(power);
         superhero.setType(type);
         superhero.setName(superName);
         superhero.setDescription(superDescription);
