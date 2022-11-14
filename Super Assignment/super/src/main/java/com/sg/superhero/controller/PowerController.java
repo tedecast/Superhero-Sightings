@@ -11,7 +11,6 @@ import com.sg.superhero.dao.PowerDao;
 import com.sg.superhero.dao.SightingDao;
 import com.sg.superhero.dao.SuperDao;
 import com.sg.superhero.entities.Power;
-import com.sg.superhero.entities.Super;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PowerController {
 
     @Autowired
-    SuperDao superDao;
-
-    @Autowired
     PowerDao powerDao;
-
-    @Autowired
-    OrganizationDao orgDao;
-
-    @Autowired
-    LocationDao locationDao;
-
-    @Autowired
-    SightingDao sightingDao;
 
     @GetMapping("powers")
     public String displayPowers(Model model) {
