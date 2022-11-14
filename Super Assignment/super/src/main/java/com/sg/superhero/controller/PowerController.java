@@ -48,9 +48,9 @@ public class PowerController {
         model.addAttribute("powers", powers);
         return "powers";
     }
-    
+
     @PostMapping("addPower")
-    public String addSuper(HttpServletRequest request) {
+    public String addPower(HttpServletRequest request) {
 
         String powerName = request.getParameter("powerName");
         String powerDescription = request.getParameter("powerDescription");
@@ -58,10 +58,17 @@ public class PowerController {
         Power power = new Power();
         power.setName(powerName);
         power.setDescription(powerDescription);
-        
+
         this.powerDao.addPower(power);
 
         return "redirect:/powers";
     }
 
+    @GetMapping("deletePower")
+    public String deletePower(HttpServletRequest request) {
+        int powerID = Integer.parseInt(request.getParameter("powerID"));
+        this.powerDao.deletePowerByID(powerID);
+
+        return "redirect:/powers";
+    }
 }
