@@ -12,10 +12,12 @@ import com.sg.superhero.dao.SightingDao;
 import com.sg.superhero.dao.SuperDao;
 import com.sg.superhero.entities.Organization;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -45,4 +47,26 @@ public class OrganizationController {
         model.addAttribute("organizations", orgs);
         return "organizations";
     }
+    
+    @PostMapping("addOrganization")
+    public String addStudent(HttpServletRequest request) {
+        
+        String orgName = request.getParameter("orgName");
+        String orgDescription = request.getParameter("orgDescription");
+        String orgAddress = request.getParameter("orgAddress");
+        String contactInfo = request.getParameter("contactInfo");
+        String orgType = request.getParameter("orgType");
+        
+        Organization org = new Organization();
+        org.setName(orgName);
+        org.setDescription(orgDescription);
+        org.setAddress(orgAddress);
+        org.setContactInfo(contactInfo);
+        org.setType(orgType);
+        
+        this.orgDao.addOrganization(org);
+        
+        return "redirect:/organizations";
+    }
+    
 }
