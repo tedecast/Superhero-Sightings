@@ -35,6 +35,53 @@
                     <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
                 </div>
             </div>
+            <!--Add Organizations-->
+            <div class="row m-4 border border-dark">
+                <div class="col-3 text-center m-3">
+                    <span class="h3">Add Organization</span>
+                </div>
+                <div class="col-7 text-center m-3">
+                    <form action="addOrganization" method="POST">
+                        <div class="form-group row">
+                            <label for="orgType" class="col-3 col-form-label">Type</label>
+                                <select id="orgType" name="orgType" class="ml-3 mb-1 text-center" required>
+                                    <option disabled selected value="type">Choose Type</option>
+                                    <option value="Hero">Hero</option>
+                                    <option value ="Villain">Villain</option>
+                                </select>
+                        </div>
+                        <div class="form-group row">
+                            <label for="orgName" class="col-3 col-form-label">Name</label>
+                            <div class="col-9">
+                                <input type="text" name="orgName" 
+                                       id="orgName" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="orgDescription" class="col-3 col-form-label">Description</label>
+                            <div class="col-9">
+                                <input type="text" name="orgDescription" 
+                                       id="orgDescription" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="orgAddress" class="col-3 col-form-label">Address</label>
+                            <div class="col-9">
+                                <input type="text" name="orgAddress" 
+                                       id="orgAddress" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="contactInfo" class="col-3 col-form-label">Contact Info.</label>
+                            <div class="col-9">
+                                <input type="text" name="contactInfo" 
+                                       id="contactInfo" class="form-control"/>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Organization</button>
+                    </form>
+                </div>
+            </div>
             <!--Table for Organizations-->
             <div class="row m-4 border border-dark">
                 <div class="col text-center m-3">
@@ -42,21 +89,21 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Type</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Address</th>
                                 <th>Contact Info</th>
-                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="org : ${organizations}">
                                 <td th:text="${org.organizationID}">ID</td>
+                                <td th:text="${org.type}">Type</td>
                                 <td th:text="${org.name}">Name</td>
                                 <td th:text="${org.description}">Description</td>
                                 <td th:text="${org.address}">Address</td>
                                 <td th:text="${org.contactInfo}">Contact Info.</td>
-                                <td th:text="${org.type}">Type</td>
                                 <td>Edit</td>
                                 <td>Delete</td>
                             </tr>
