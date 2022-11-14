@@ -8,7 +8,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-        <title>Supers</title>
+        <title>Powers</title>
     </head>
     <body>
         <!-- Main Body of Page -->
@@ -39,34 +39,10 @@
             <!--Add Super-->
             <div class="row m-4 border border-dark">
                 <div class="col-3 text-center m-3">
-                    <span class="h3">Add Super</span>
+                    <span class="h3">Add Power</span>
                 </div>
                 <div class="col-7 text-center m-3">
-                    <form action="addSuper" method="POST">     
-                        <div class="form-group row">
-                            <label for="superType" class="col-3 col-form-label">Type</label>
-                                <select id="superType" name="superType" class="ml-3 mb-1 text-center" required>
-                                    <option disabled selected value="type">Choose Type</option>
-                                    <option value="Hero">Hero</option>
-                                    <option value ="Villain">Villain</option>
-                                </select>
-                        </div>
-                        <div class="form-group row">
-                            <label for="superName" class="col-3 col-form-label">
-                                Super Name</label>
-                            <div class="col-9">
-                                <input type="text" name="superName" 
-                                       id="superName" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="superDescription" class="col-3 col-form-label">
-                                Super Description</label>
-                            <div class="col-9">
-                                <textarea class="form-control" rows="3" placeholder="Description For Super"
-                                          id="superDescription" required/></textarea>
-                            </div>
-                        </div>
+                    <form action="addPower" method="POST">     
                         <div class="form-group row">
                             <label for="powerName" class="col-3 col-form-label">
                                 Power Name</label>
@@ -83,7 +59,7 @@
                                           id="powerDescription" required/></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-1">Add Super</button>
+                        <button type="submit" class="btn btn-primary mt-1">Add Power</button>
                     </form>
                 </div>
             </div>
@@ -94,20 +70,16 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Super ID</th>
                                 <th>Power ID</th>
-                                <th>Type</th>
                                 <th>Name</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="superhero : ${supers}">
-                                <td th:text="${superherp.superid}">Super ID</td>
-                                <td th:text="${superhero.powerid}">Power ID</td>
-                                <td th:text="${superhero.type}">Type</td>
-                                <td th:text="${superhero.name}">Name</td>
-                                <td th:text="${superhero.description}">Description</td>
+                            <tr th:each="power : ${powers}">
+                                <td th:text="${power.powerid}">Power ID</td>
+                                <td th:text="${power.name}">Name</td>
+                                <td th:text="${power.description}">Description</td>
                                 <td>Edit</td>
                                 <td>Delete</td>
                             </tr>
