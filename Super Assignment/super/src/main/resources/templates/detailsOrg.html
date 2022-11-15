@@ -35,6 +35,39 @@
                     <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
                 </div>
             </div>
+            <!--Start of Details-->
+            <div class="row m-4 border border-dark">
+                <!--ID-->
+                <div class="col-6 text-right font-weight-bold">ID:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${organization.organizationID}">Display ID</span>
+                </div>
+                <!--Type-->
+                <div class="col-6 text-right font-weight-bold">Type:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${organization.type}">Display Type</span>
+                </div>
+                <!--Name-->
+                <div class="col-6 text-right font-weight-bold">Name:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${organization.name}">Display Name</span>
+                </div>
+                <!--Description-->
+                <div class="col-6 text-right font-weight-bold">Description:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${organization.description}">Display Description</span>
+                </div>
+                <!--Address-->
+                <div class="col-6 text-right font-weight-bold">Address:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${organization.address}">Display Address</span>
+                </div>
+                <!--Contact Info-->
+                <div class="col-6 text-right font-weight-bold">Contact Info:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${organization.contactInfo}">Display Contact Info.</span>
+                </div>
+            </div>
         </div>
         <!-- End main body -->
 
