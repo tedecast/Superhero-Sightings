@@ -45,9 +45,8 @@
                         <div class="form-group row">
                             <label for="orgType" class="col-3 col-form-label">Type</label>
                             <select id="orgType" name="orgType" class="ml-3 mb-1 text-center" required>
-                                <option th:value="${organization.type}" th:text="${organization.type}" th:selected="${organization.type}">Type</option>
-                                <option value="Hero">Hero</option>
-                                <option value="Villain">Villain</option>
+                                <option th:selected="${organization.type.equals('Hero')}" value="Hero">Hero</option>
+                                <option th:selected="${organization.type.equals('Villain')}" value="Villain">Villain</option>
                             </select>
                         </div>
                         <div class="form-group row">
