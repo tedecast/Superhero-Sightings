@@ -174,32 +174,32 @@ public class SuperServiceImpl implements SuperService {
 
     @Override
     public List<Sighting> getAllSightings() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.sightingDao.getAllSightings();
     }
 
     @Override
     public Sighting addSighting(Sighting sighting) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.sightingDao.addSighting(sighting);
     }
 
     @Override
     public void updateSighting(Sighting sighting) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.sightingDao.updateSighting(sighting);
     }
 
     @Override
     public void deleteSightingByID(int sightingID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.sightingDao.deleteSightingByID(sightingID);
     }
 
     @Override
     public List<Sighting> getSightingsForLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.sightingDao.getSightingsForLocation(location);
     }
 
     @Override
     public List<Sighting> getSightingsByDate(LocalDate date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.sightingDao.getSightingsByDate(date);
     }
 
 }
