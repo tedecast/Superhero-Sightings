@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class OrganizationController {
-    
+
     @Autowired
     SuperDao superDao;
 
@@ -40,33 +40,40 @@ public class OrganizationController {
 
     @Autowired
     SightingDao sightingDao;
-    
+
     @GetMapping("organizations")
     public String displayOrganizations(Model model) {
         List<Organization> orgs = this.orgDao.getAllOrganizations();
         model.addAttribute("organizations", orgs);
         return "organizations";
     }
-    
+
     @PostMapping("addOrganization")
     public String addStudent(HttpServletRequest request) {
-        
+
         String orgName = request.getParameter("orgName");
         String orgDescription = request.getParameter("orgDescription");
         String orgAddress = request.getParameter("orgAddress");
         String contactInfo = request.getParameter("contactInfo");
         String orgType = request.getParameter("orgType");
-        
+
         Organization org = new Organization();
         org.setName(orgName);
         org.setDescription(orgDescription);
         org.setAddress(orgAddress);
         org.setContactInfo(contactInfo);
         org.setType(orgType);
-        
+
         this.orgDao.addOrganization(org);
+
+        return "redirect:/organizations";
+    }
+
+    @GetMapping("deleteOrg")
+    public String deleteOrganization (HttpServletRequest request) {
+        int orgID = Integer.parseInt(request.getParameter("organizationID"));
+        this.orgDao.deleteOrganizationByID(orgID);
         
         return "redirect:/organizations";
     }
-    
 }

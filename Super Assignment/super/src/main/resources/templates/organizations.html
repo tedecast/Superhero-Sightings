@@ -105,7 +105,7 @@
                                 <td th:text="${org.address}">Address</td>
                                 <td th:text="${org.contactInfo}">Contact Info.</td>
                                 <td>Edit</td>
-                                <td>Delete</td>
+                                <td><a href="#" th:href="@{/deleteOrg(organizationID=${org.organizationID})}">Delete</a></td>
                             </tr>
                         </tbody>
                     </table>
