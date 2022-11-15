@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  * @author Teresa
  */
 @Service
-public class SuperServiceImpl implements SuperService{
+public class SuperServiceImpl implements SuperService {
 
     @Autowired
     SuperDao superDao;
@@ -41,8 +41,7 @@ public class SuperServiceImpl implements SuperService{
 
     @Autowired
     SightingDao sightingDao;
-    
-    
+
 //    Power
     @Override
     public Power getPowerByID(int powerID) {
@@ -56,7 +55,7 @@ public class SuperServiceImpl implements SuperService{
 
     @Override
     public Power addPower(Power power) {
-       return this.powerDao.addPower(power);
+        return this.powerDao.addPower(power);
     }
 
     @Override
@@ -68,7 +67,7 @@ public class SuperServiceImpl implements SuperService{
     public void deletePowerByID(int powerID) {
         this.powerDao.deletePowerByID(powerID);
     }
-    
+
 //    Super
     @Override
     public Super getSuperByID(int superID) {
@@ -135,7 +134,7 @@ public class SuperServiceImpl implements SuperService{
     public List<Organization> getOrganizationsForSuper(Super superhero) {
         return this.orgDao.getOrganizationsForSuper(superhero);
     }
-    
+
 //    Location
     @Override
     public Location getLocationByID(int locationID) {
@@ -144,33 +143,33 @@ public class SuperServiceImpl implements SuperService{
 
     @Override
     public List<Location> getAllLocations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.locationDao.getAllLocations();
     }
 
     @Override
     public Location addLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.locationDao.addLocation(location);
     }
 
     @Override
     public void updateLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.locationDao.updateLocation(location);
     }
 
     @Override
     public void deleteLocationByID(int locationID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.locationDao.deleteLocationByID(locationID);
     }
 
     @Override
     public List<Location> getLocationsForSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.locationDao.getLocationsForSuper(superhero);
     }
 
 //    Sighting
     @Override
     public Sighting getSightingByID(int sightingID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.sightingDao.getSightingByID(sightingID);
     }
 
     @Override
