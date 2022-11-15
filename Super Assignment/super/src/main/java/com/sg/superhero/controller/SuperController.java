@@ -13,6 +13,7 @@ import com.sg.superhero.dao.SuperDao;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Power;
 import com.sg.superhero.entities.Super;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,10 @@ public class SuperController {
         superhero.setType(type);
         superhero.setName(superName);
         superhero.setDescription(superDescription);
+//        List<Organization> organizations= new ArrayList<>();
+//        superhero.setOrganization(organizations);
+        //String orgID = request.getParameter("orgID");
+        //superhero.setOrganization(this.orgDao.getOrganizationByID(orgID));
 
         this.superDao.addSuper(superhero);
 
