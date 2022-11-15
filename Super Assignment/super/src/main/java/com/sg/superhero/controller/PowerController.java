@@ -5,12 +5,8 @@
  */
 package com.sg.superhero.controller;
 
-import com.sg.superhero.dao.LocationDao;
-import com.sg.superhero.dao.OrganizationDao;
-import com.sg.superhero.dao.PowerDao;
-import com.sg.superhero.dao.SightingDao;
-import com.sg.superhero.dao.SuperDao;
 import com.sg.superhero.entities.Power;
+import com.sg.superhero.service.SuperService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +23,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PowerController {
 
     @Autowired
-    PowerDao powerDao;
+    SuperService service;
 
     @GetMapping("powers")
     public String displayPowers(Model model) {
-        List<Power> powers = this.powerDao.getAllPowers();
+        List<Power> powers = this.service.getAllPowers();
         model.addAttribute("powers", powers);
         return "powers";
     }
@@ -46,7 +42,7 @@ public class PowerController {
         power.setName(powerName);
         power.setDescription(powerDescription);
 
-        this.powerDao.addPower(power);
+        this.service.addPower(power);
 
         return "redirect:/powers";
     }
@@ -54,7 +50,7 @@ public class PowerController {
     @GetMapping("deletePower")
     public String deletePower(HttpServletRequest request) {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
-        this.powerDao.deletePowerByID(powerID);
+        this.service.deletePowerByID(powerID);
 
         return "redirect:/powers";
     }
@@ -62,7 +58,7 @@ public class PowerController {
     @GetMapping("editPower")
     public String editPower(HttpServletRequest request, Model model) {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
-        Power power = this.powerDao.getPowerByID(powerID);
+        Power power = this.service.getPowerByID(powerID);
 
         model.addAttribute("power", power);
         return "editPower";
@@ -71,12 +67,12 @@ public class PowerController {
     @PostMapping("editPower")
     public String performEditPower (HttpServletRequest request) {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
-        Power power = this.powerDao.getPowerByID(powerID);
+        Power power = this.service.getPowerByID(powerID);
 
         power.setName(request.getParameter("powerName"));
         power.setDescription(request.getParameter("powerDescription"));
 
-        this.powerDao.updatePower(power);
+        this.service.updatePower(power);
 
         return "redirect:/powers";
     }
