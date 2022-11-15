@@ -101,4 +101,14 @@ public class OrganizationController {
 
         return "redirect:/organizations";
     }
+    
+    @GetMapping("detailsOrg")
+    public String displayDetailsOrganization (HttpServletRequest request, Model model){
+        int orgID = Integer.parseInt(request.getParameter("organizationID"));
+        
+        Organization organization = this.orgDao.getOrganizationByID(orgID);
+        model.addAttribute("organization", organization);
+        
+        return "organizations";
+    }
 }
