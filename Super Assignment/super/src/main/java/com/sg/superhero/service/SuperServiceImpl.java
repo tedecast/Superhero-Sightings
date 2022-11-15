@@ -72,37 +72,37 @@ public class SuperServiceImpl implements SuperService{
 //    Super
     @Override
     public Super getSuperByID(int superID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.superDao.getSuperByID(superID);
     }
 
     @Override
     public List<Super> getAllSupers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.superDao.getAllSupers();
     }
 
     @Override
     public Super addSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.superDao.addSuper(superhero);
     }
 
     @Override
     public void updateSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.superDao.updateSuper(superhero);
     }
 
     @Override
     public void deleteSuperByID(int superID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.superDao.deleteSuperByID(superID);
     }
 
     @Override
     public List<Super> getSupersForLocation(Location location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.superDao.getSupersForLocation(location);
     }
 
     @Override
     public List<Super> getSupersForOrganization(Organization organization) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.superDao.getSupersForOrganization(organization);
     }
 
 //    Organization
