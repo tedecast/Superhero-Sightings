@@ -76,4 +76,13 @@ public class OrganizationController {
         
         return "redirect:/organizations";
     }
+    
+    @GetMapping("editOrg")
+    public String editPower(HttpServletRequest request, Model model) {
+        int orgID = Integer.parseInt(request.getParameter("organizationID"));
+        Organization org = this.orgDao.getOrganizationByID(orgID);
+
+        model.addAttribute("organization", org);
+        return "editOrg";
+    }
 }

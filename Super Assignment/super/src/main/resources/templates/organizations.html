@@ -104,7 +104,7 @@
                                 <td th:text="${org.description}">Description</td>
                                 <td th:text="${org.address}">Address</td>
                                 <td th:text="${org.contactInfo}">Contact Info.</td>
-                                <td>Edit</td>
+                                <td><a href="#" th:href="@{/editOrg(organizationID=${org.organizationID})}">Edit</a></td>
                                 <td><a href="#" th:href="@{/deleteOrg(organizationID=${org.organizationID})}">Delete</a></td>
                             </tr>
                         </tbody>
