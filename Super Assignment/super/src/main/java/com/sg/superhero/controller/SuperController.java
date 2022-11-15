@@ -64,4 +64,13 @@ public class SuperController {
 
         return "redirect:/supers";
     }
+
+    @GetMapping("editSuper")
+    public String editSuper(HttpServletRequest request, Model model) {
+        int superID = Integer.parseInt(request.getParameter("superID"));
+        Super superhero = this.service.getSuperByID(superID);
+        
+        model.addAttribute("superhero", superhero);
+        return "editSuper";
+    }
 }
