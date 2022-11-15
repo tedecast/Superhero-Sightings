@@ -46,9 +46,8 @@
                         <div class="form-group row">
                             <label for="superType" class="col-3 col-form-label">Type</label>
                             <select id="superType" name="superType" class="ml-3 mb-1 text-center" required>
-                                <option disabled selected value="type">Choose Type</option>
-                                <option value="Hero">Hero</option>
-                                <option value ="Villain">Villain</option>
+                                <option th:selected="${superhero.type.equals('Hero')}" value="Hero">Hero</option>
+                                <option th:selected="${superhero.type.equals('Villain')}" value="Villain">Villain</option>
                             </select>
                         </div>
                         <div class="form-group row">
