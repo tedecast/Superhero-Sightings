@@ -93,6 +93,6 @@ public class OrganizationController {
         Organization organization = this.service.getOrganizationByID(orgID);
         model.addAttribute("organization", organization);
         
-        return "organizations";
+        return "detailsOrg";
     }
 }
