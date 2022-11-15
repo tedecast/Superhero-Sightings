@@ -85,4 +85,20 @@ public class OrganizationController {
         model.addAttribute("organization", org);
         return "editOrg";
     }
+    
+    @PostMapping("editOrg")
+    public String performEditOrganization (HttpServletRequest request) {
+        int orgID = Integer.parseInt(request.getParameter("organizationID"));
+        Organization org = this.orgDao.getOrganizationByID(orgID);
+
+        org.setName(request.getParameter("orgName"));
+        org.setDescription(request.getParameter("orgDescription"));
+        org.setAddress(request.getParameter("orgAddress"));
+        org.setContactInfo(request.getParameter("contactInfo"));
+        org.setType(request.getParameter("orgType"));
+
+        this.orgDao.updateOrganization(org);
+
+        return "redirect:/organizations";
+    }
 }
