@@ -5,12 +5,8 @@
  */
 package com.sg.superhero.controller;
 
-import com.sg.superhero.dao.LocationDao;
-import com.sg.superhero.dao.OrganizationDao;
-import com.sg.superhero.dao.PowerDao;
-import com.sg.superhero.dao.SightingDao;
-import com.sg.superhero.dao.SuperDao;
 import com.sg.superhero.entities.Organization;
+import com.sg.superhero.service.SuperService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,23 +23,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class OrganizationController {
 
     @Autowired
-    SuperDao superDao;
-
-    @Autowired
-    PowerDao powerDao;
-
-    @Autowired
-    OrganizationDao orgDao;
-
-    @Autowired
-    LocationDao locationDao;
-
-    @Autowired
-    SightingDao sightingDao;
+    SuperService service;
 
     @GetMapping("organizations")
     public String displayOrganizations(Model model) {
-        List<Organization> orgs = this.orgDao.getAllOrganizations();
+        List<Organization> orgs = this.service.getAllOrganizations();
         model.addAttribute("organizations", orgs);
         return "organizations";
     }
@@ -64,7 +48,7 @@ public class OrganizationController {
         org.setContactInfo(contactInfo);
         org.setType(orgType);
 
-        this.orgDao.addOrganization(org);
+        this.service.addOrganization(org);
 
         return "redirect:/organizations";
     }
@@ -72,7 +56,7 @@ public class OrganizationController {
     @GetMapping("deleteOrg")
     public String deleteOrganization (HttpServletRequest request) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
-        this.orgDao.deleteOrganizationByID(orgID);
+        this.service.deleteOrganizationByID(orgID);
         
         return "redirect:/organizations";
     }
@@ -80,7 +64,7 @@ public class OrganizationController {
     @GetMapping("editOrg")
     public String editPower(HttpServletRequest request, Model model) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
-        Organization org = this.orgDao.getOrganizationByID(orgID);
+        Organization org = this.service.getOrganizationByID(orgID);
 
         model.addAttribute("organization", org);
         return "editOrg";
@@ -89,7 +73,7 @@ public class OrganizationController {
     @PostMapping("editOrg")
     public String performEditOrganization (HttpServletRequest request) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
-        Organization org = this.orgDao.getOrganizationByID(orgID);
+        Organization org = this.service.getOrganizationByID(orgID);
 
         org.setName(request.getParameter("orgName"));
         org.setDescription(request.getParameter("orgDescription"));
@@ -97,7 +81,7 @@ public class OrganizationController {
         org.setContactInfo(request.getParameter("contactInfo"));
         org.setType(request.getParameter("orgType"));
 
-        this.orgDao.updateOrganization(org);
+        this.service.updateOrganization(org);
 
         return "redirect:/organizations";
     }
@@ -106,7 +90,7 @@ public class OrganizationController {
     public String displayDetailsOrganization (HttpServletRequest request, Model model){
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         
-        Organization organization = this.orgDao.getOrganizationByID(orgID);
+        Organization organization = this.service.getOrganizationByID(orgID);
         model.addAttribute("organization", organization);
         
         return "organizations";
