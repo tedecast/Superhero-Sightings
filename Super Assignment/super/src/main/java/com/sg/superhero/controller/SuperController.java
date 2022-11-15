@@ -10,6 +10,7 @@ import com.sg.superhero.dao.OrganizationDao;
 import com.sg.superhero.dao.PowerDao;
 import com.sg.superhero.dao.SightingDao;
 import com.sg.superhero.dao.SuperDao;
+import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Power;
 import com.sg.superhero.entities.Super;
 import java.util.List;
@@ -46,8 +47,10 @@ public class SuperController {
     public String displaySupers(Model model) {
         List<Super> supers = this.superDao.getAllSupers();
         List<Power> powers = this.powerDao.getAllPowers();
+        List<Organization> orgs = this.orgDao.getAllOrganizations();
         model.addAttribute("supers", supers);
         model.addAttribute("powers", powers);
+        model.addAttribute("organizations", orgs);
         return "supers";
     }
 
