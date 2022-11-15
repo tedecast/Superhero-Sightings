@@ -6,7 +6,7 @@ USE superDBTest;
 
 CREATE TABLE `Super` (
 	SuperID INT PRIMARY KEY AUTO_INCREMENT, 
-    PowerID INT NOT NULL, 
+    PowerID INT NULL, 
     `Type` VARCHAR (10) NOT NULL, 
     `Name` VARCHAR (50) NOT NULL, 
     `Description`  VARCHAR(255) NOT NULL
@@ -55,7 +55,7 @@ CREATE TABLE `Organization` (
     `Name` VARCHAR(50) NOT NULL, 
     `Description` VARCHAR(255) NOT NULL, 
     Address VARCHAR(255) NOT NULL, 
-    ContactInfo VARCHAR(100) NOT NULL, 
+    ContactInfo VARCHAR(100) NULL, 
     `Type` VARCHAR(10) NOT NULL
 );
 
