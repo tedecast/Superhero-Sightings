@@ -108,38 +108,38 @@ public class SuperServiceImpl implements SuperService{
 //    Organization
     @Override
     public Organization getOrganizationByID(int organizationID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orgDao.getOrganizationByID(organizationID);
     }
 
     @Override
     public List<Organization> getAllOrganizations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orgDao.getAllOrganizations();
     }
 
     @Override
     public Organization addOrganization(Organization organization) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orgDao.addOrganization(organization);
     }
 
     @Override
     public void updateOrganization(Organization organization) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.orgDao.updateOrganization(organization);
     }
 
     @Override
     public void deleteOrganizationByID(int organizationID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.deleteOrganizationByID(organizationID);
     }
 
     @Override
     public List<Organization> getOrganizationsForSuper(Super superhero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orgDao.getOrganizationsForSuper(superhero);
     }
     
 //    Location
     @Override
     public Location getLocationByID(int locationID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.locationDao.getLocationByID(locationID);
     }
 
     @Override
