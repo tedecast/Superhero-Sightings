@@ -5,14 +5,10 @@
  */
 package com.sg.superhero.controller;
 
-import com.sg.superhero.dao.LocationDao;
-import com.sg.superhero.dao.OrganizationDao;
-import com.sg.superhero.dao.PowerDao;
-import com.sg.superhero.dao.SightingDao;
-import com.sg.superhero.dao.SuperDao;
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.entities.Power;
 import com.sg.superhero.entities.Super;
+import com.sg.superhero.service.SuperService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -30,25 +26,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SuperController {
 
     @Autowired
-    SuperDao superDao;
-
-    @Autowired
-    PowerDao powerDao;
-
-    @Autowired
-    OrganizationDao orgDao;
-
-    @Autowired
-    LocationDao locationDao;
-
-    @Autowired
-    SightingDao sightingDao;
+    SuperService service;
 
     @GetMapping("supers")
     public String displaySupers(Model model) {
-        List<Super> supers = this.superDao.getAllSupers();
-        List<Power> powers = this.powerDao.getAllPowers();
-        List<Organization> orgs = this.orgDao.getAllOrganizations();
+        List<Super> supers = this.service.getAllSupers();
+        List<Power> powers = this.service.getAllPowers();
+        List<Organization> orgs = this.service.getAllOrganizations();
         model.addAttribute("supers", supers);
         model.addAttribute("powers", powers);
         model.addAttribute("organizations", orgs);
@@ -59,7 +43,7 @@ public class SuperController {
     public String addSuper(Super superhero, HttpServletRequest request) {
 
         String powerID = request.getParameter("powerID");
-        superhero.setPower(this.powerDao.getPowerByID(Integer.parseInt(powerID)));
+        superhero.setPower(this.service.getPowerByID(Integer.parseInt(powerID)));
 
         String type = request.getParameter("superType");
         String superName = request.getParameter("superName");
@@ -72,11 +56,11 @@ public class SuperController {
         String[] orgIDs = request.getParameterValues("organizationID");
         List<Organization> orgs = new ArrayList<>();
         for (String orgID : orgIDs) {
-            orgs.add(this.orgDao.getOrganizationByID(Integer.parseInt(orgID)));
+            orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
         }
         superhero.setOrganization(orgs);
 
-        this.superDao.addSuper(superhero);
+        this.service.addSuper(superhero);
 
         return "redirect:/supers";
     }
