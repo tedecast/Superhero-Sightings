@@ -67,6 +67,14 @@
                 <div class="col-6 text-left">
                     <span th:text="${organization.contactInfo}">Display Contact Info.</span>
                 </div>
+                <!--List of Supers-->
+                <div class="col-6 text-right font-weight-bold">Members:</div>
+                <div class="col-6 text-left">
+                    <span th:each="super : ${organization.supers}">
+                        <span th:text="${super.name}">Display Super</span>
+                        <br/>
+                    </span>
+                </div>
             </div>
         </div>
         <!-- End main body -->
