@@ -70,7 +70,13 @@ public class SuperController {
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
         
+        List<Power> powers = this.service.getAllPowers();
+        List<Organization> orgs = this.service.getAllOrganizations();
+        
         model.addAttribute("superhero", superhero);
+        model.addAttribute("powers", powers);
+        model.addAttribute("organizations", orgs);
+        
         return "editSuper";
     }
 }
