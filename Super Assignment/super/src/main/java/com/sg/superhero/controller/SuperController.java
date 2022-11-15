@@ -60,7 +60,7 @@ public class SuperController {
 
         String powerID = request.getParameter("powerID");
         superhero.setPower(this.powerDao.getPowerByID(Integer.parseInt(powerID)));
-        
+
         String type = request.getParameter("superType");
         String superName = request.getParameter("superName");
         String superDescription = request.getParameter("superDescription");
@@ -68,10 +68,13 @@ public class SuperController {
         superhero.setType(type);
         superhero.setName(superName);
         superhero.setDescription(superDescription);
-//        List<Organization> organizations= new ArrayList<>();
-//        superhero.setOrganization(organizations);
-        //String orgID = request.getParameter("orgID");
-        //superhero.setOrganization(this.orgDao.getOrganizationByID(orgID));
+
+        String[] orgIDs = request.getParameterValues("organizationID");
+        List<Organization> orgs = new ArrayList<>();
+        for (String orgID : orgIDs) {
+            orgs.add(this.orgDao.getOrganizationByID(Integer.parseInt(orgID)));
+        }
+        superhero.setOrganization(orgs);
 
         this.superDao.addSuper(superhero);
 
