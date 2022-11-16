@@ -62,7 +62,7 @@ public class OrganizationController {
     }
     
     @GetMapping("/edit/editOrg")
-    public String editPower(HttpServletRequest request, Model model) {
+    public String editOrganization(HttpServletRequest request, Model model) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
