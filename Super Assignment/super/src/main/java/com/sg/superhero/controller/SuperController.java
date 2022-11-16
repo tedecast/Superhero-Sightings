@@ -79,10 +79,12 @@ public class SuperController {
         Super superhero = this.service.getSuperByID(superID);
         List<Power> powers = this.service.getAllPowers();
         List<Organization> orgs = this.service.getAllOrganizations();
+        List<Organization> superOrgs = this.service.getOrganizationsForSuper(superhero);
 
         model.addAttribute("superhero", superhero);
         model.addAttribute("powers", powers);
         model.addAttribute("organizations", orgs);
+        model.addAttribute("superOrgs", superOrgs);
 
         return "editSuper";
     }

@@ -86,8 +86,7 @@
                                     <option th:each="organization : ${organizations}" 
                                             th:value="${organization.organizationID}" 
                                             th:text="${organization.type + ': ' + organization.name}"
-                                            th:selected="${organization.supers.contains('${superhero}')}">Organization</option>
-                                    <option th:text="${superhero.organization}">Organization List</option>
+                                            th:selected="${superOrgs.contains(organization)}">Organization List</option>
                                 </select>
                             </div>
                         </div>
