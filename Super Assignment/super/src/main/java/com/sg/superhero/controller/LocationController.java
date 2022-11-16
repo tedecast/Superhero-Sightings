@@ -6,6 +6,7 @@
 package com.sg.superhero.controller;
 
 import com.sg.superhero.entities.Location;
+import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,7 @@ public class LocationController {
 
         return "redirect:/locations";
     }
-    
+
     @GetMapping("editLocation")
     public String editLocation(HttpServletRequest request, Model model) {
         int locationID = Integer.parseInt(request.getParameter("locationID"));
@@ -91,5 +92,17 @@ public class LocationController {
 
         return "redirect:/locations";
     }
-    
+
+    @GetMapping("detailsLocation")
+    public String displayDetailsLocation(HttpServletRequest request, Model model) {
+        int locationID = Integer.parseInt(request.getParameter("locationID"));
+        Location location = this.service.getLocationByID(locationID);
+        model.addAttribute("location", location);
+
+        List<Super> supers = this.service.getSupersForLocation(location);
+        model.addAttribute("supers", supers);
+
+        return "detailsLocation";
+    }
+
 }
