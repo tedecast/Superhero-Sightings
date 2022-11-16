@@ -43,38 +43,41 @@
                     <span th:text="${superhero.superID}">Display Super ID</span>
                 </div>
                 <!--Power-->
-                <div class="col-6 text-right font-weight-bold">Power:</div>
+                <div class="col-6 text-right font-weight-bold">Power ID:</div>
                 <div class="col-6 text-left">
                     <span th:text="${superhero.power.powerID}">Display Power ID</span>
                 </div>
+                <div class="col-6 text-right font-weight-bold">Power Name:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${superhero.power.name}">Display Power Name</span>
+                </div>
+                <div class="col-6 text-right font-weight-bold">Power Description:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${superhero.power.description}">Display Power Description</span>
+                </div>
+                <!--Type-->
+                <div class="col-6 text-right font-weight-bold">Type:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${superhero.type}">Display Type</span>
+                </div>
                 <!--Name-->
-<!--                <div class="col-6 text-right font-weight-bold">Name:</div>
+                <div class="col-6 text-right font-weight-bold">Super Name</div>
                 <div class="col-6 text-left">
-                    <span th:text="${organization.name}">Display Name</span>
+                    <span th:text="${superhero.name}">Display Super Name</span>
                 </div>
-                Description
-                <div class="col-6 text-right font-weight-bold">Description:</div>
+                <!--Super Description-->
+                <div class="col-6 text-right font-weight-bold">Super Description:</div>
                 <div class="col-6 text-left">
-                    <span th:text="${organization.description}">Display Description</span>
+                    <span th:text="${superhero.description}">Display Address</span>
                 </div>
-                Address
-                <div class="col-6 text-right font-weight-bold">Address:</div>
+                <!--List of Organizations-->
+                <div class="col-6 text-right font-weight-bold">Organizations:</div>
                 <div class="col-6 text-left">
-                    <span th:text="${organization.address}">Display Address</span>
-                </div>
-                Contact Info
-                <div class="col-6 text-right font-weight-bold">Contact Info:</div>
-                <div class="col-6 text-left">
-                    <span th:text="${organization.contactInfo}">Display Contact Info.</span>
-                </div>
-                List of Supers
-                <div class="col-6 text-right font-weight-bold">Members:</div>
-                <div class="col-6 text-left">
-                    <span th:each="super : ${organization.supers}">
-                        <span th:text="${super.name}">Display Super</span>
+                    <span th:each="organization : ${superhero.organization}">
+                        <span th:text="${organization.name}">Display Organization</span>
                         <br/>
                     </span>
-                </div>-->
+                </div>
             </div>
         </div>
         <!-- End main body -->
