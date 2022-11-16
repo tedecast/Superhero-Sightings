@@ -6,6 +6,7 @@
 package com.sg.superhero.controller;
 
 import com.sg.superhero.entities.Power;
+import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -75,5 +76,17 @@ public class PowerController {
         this.service.updatePower(power);
 
         return "redirect:/powers";
+    }
+    
+    @GetMapping("detailsPower")
+    public String displayDetailsPower (HttpServletRequest request, Model model){
+        int powerID = Integer.parseInt(request.getParameter("powerID")); 
+        Power power = this.service.getPowerByID(powerID);
+        model.addAttribute("power", power);
+        
+        List<Super> supers = this.service.getAllSupers();
+        model.addAttribute("supers", supers);
+        
+        return "detailsPower";
     }
 }

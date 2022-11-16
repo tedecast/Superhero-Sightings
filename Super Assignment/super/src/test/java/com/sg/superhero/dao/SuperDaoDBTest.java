@@ -341,4 +341,9 @@ public class SuperDaoDBTest {
         assertEquals("Captain America", superOrgs.get(0).getName());
         assertEquals("Spiderman", superOrgs.get(1).getName());
     }
+
+    @Test
+    public void getSupersForPower() {
+
+    }
 }

@@ -60,7 +60,6 @@ public class SuperDaoDB implements SuperDao {
         }
     }
 
-
     private Power getPowerForSuper(int superID) {
         try {
             final String GET_POWER = "SELECT p.powerID, p.name, p.description FROM Power p "
@@ -93,10 +92,10 @@ public class SuperDaoDB implements SuperDao {
                 superhero.getType(),
                 superhero.getName(),
                 superhero.getDescription());
-        
+
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         superhero.setSuperID(newSuperID);
-        
+
         this.insertSuperOrganization(superhero);
         return superhero;
     }
@@ -126,7 +125,6 @@ public class SuperDaoDB implements SuperDao {
         this.insertSuperOrganization(superhero);
     }
 
-
     @Override
     @Transactional
     public void deleteSuperByID(int superID) {
@@ -140,7 +138,6 @@ public class SuperDaoDB implements SuperDao {
         this.jdbc.update(DELETE_SUPER, superID);
     }
 
-  
     @Override
     public List<Super> getSupersForLocation(Location location) {
         final String GET_SUPERS_FOR_LOCATION = "SELECT s.superID, s.powerID, s.type, s.name, s.description "
@@ -162,12 +159,27 @@ public class SuperDaoDB implements SuperDao {
                 + "FROM SuperOrganization so "
                 + "JOIN Super s ON so.superID = s.superID "
                 + "WHERE so.organizationID = ?";
-        
+
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_ORG, new SuperMapper(), organization.getOrganizationID());
         for (Super superhero : supers) {
             superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
         }
-         
+
+        return supers;
+    }
+
+    @Override
+    public List<Super> getSupersForPower(Power power) {
+        final String GET_SUPERS_FOR_POWER = "SELECT s.superID, s.powerID, "
+                + "s.type, s.name, s.description "
+                + "FROM Super s "
+                + "JOIN Power p ON s.powerID = p.powerID "
+                + "WHERE s.powerID = ?";
+        
+        List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_POWER, new SuperMapper(), power.getPowerID());
+        for (Super superhero : supers) {
+            superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));
+        }
         return supers;
     }
 
