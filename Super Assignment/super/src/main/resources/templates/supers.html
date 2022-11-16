@@ -117,7 +117,7 @@
                                 <td th:text="${superhero.name}">Name</td>
                                 <td th:text="${superhero.description}">Description</td>
                                 <td><a href="#" th:href="@{detailsSuper(superID=${superhero.superID})}">Details</a></td>
-                                <td><a href="#" th:href="@{/edit/editSuper(superID=${superhero.superID})}">Edit</a></td>
+                                <td><a href="#" th:href="@{editSuper(superID=${superhero.superID})}">Edit</a></td>
                                 <td><a href="#" th:href="@{/deleteSuper(superID=${superhero.superID})}">Delete</a></td>
                             </tr>
                         </tbody>

@@ -73,7 +73,7 @@ public class SuperController {
         return "redirect:/supers";
     }
 
-    @GetMapping("/edit/editSuper")
+    @GetMapping("editSuper")
     public String editSuper(HttpServletRequest request, Model model) {
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
@@ -86,10 +86,10 @@ public class SuperController {
         model.addAttribute("organizations", orgs);
         model.addAttribute("superOrgs", superOrgs);
 
-        return "edit/editSuper";
+        return "editSuper";
     }
 
-    @PostMapping("/edit/editSuper")
+    @PostMapping("editSuper")
     public String performEditSuper(HttpServletRequest request) {
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
