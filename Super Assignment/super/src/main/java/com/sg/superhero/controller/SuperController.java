@@ -95,7 +95,6 @@ public class SuperController {
         Super superhero = this.service.getSuperByID(superID);
 
         int powerID = Integer.parseInt(request.getParameter("powerID"));
-
         superhero.setPower(this.service.getPowerByID(powerID));
 
         String type = request.getParameter("superType");
@@ -106,13 +105,14 @@ public class SuperController {
         superhero.setType(type);
         superhero.setName(superName);
         superhero.setDescription(superDescription);
-
-//        String[] orgIDs = request.getParameterValues("organizationID");
-//        List<Organization> orgs = new ArrayList<>();
-//        for (String orgID : orgIDs) {
-//            orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
-//        }
-//        superhero.setOrganization(superhero.getOrganization());
+        
+        String[] orgIDs = request.getParameterValues("organizationID");
+        List<Organization> orgs = new ArrayList<>();
+        for (String orgID : orgIDs) {
+            orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
+        }
+        superhero.setOrganization(orgs);
+        
         this.service.updateSuper(superhero);
 
         return "redirect:/supers";
