@@ -43,6 +43,7 @@
 
                 <div class="col-7 text-center m-3">
                     <form action="editSuper" method="POST">
+                        <input type="hidden" name="superID" th:value="${superhero.superID}" id="superID"/>
                         <div class="form-group row">
                             <label for="superType" class="col-3 col-form-label">Type</label>
                             <select id="superType" name="superType" class="ml-3 mb-1 text-center" required>
@@ -85,7 +86,8 @@
                                     <option th:each="organization : ${organizations}" 
                                             th:value="${organization.organizationID}" 
                                             th:text="${organization.type + ': ' + organization.name}"
-                                            th:selected="${organization.name.equals('The Avengers')}">Organization</option>
+                                            th:selected="${superhero.organization.contains(organization.name)}">Organization</option>
+                                    <option th:text="${superhero.organization}">List</option>
                                 </select>
                             </div>
                         </div>
