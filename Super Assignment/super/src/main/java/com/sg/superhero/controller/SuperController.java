@@ -86,7 +86,7 @@ public class SuperController {
         model.addAttribute("organizations", orgs);
         model.addAttribute("superOrgs", superOrgs);
 
-        return "editSuper";
+        return "edit/editSuper";
     }
 
     @PostMapping("/edit/editSuper")

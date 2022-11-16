@@ -111,7 +111,7 @@
                                 <td th:text="${location.address}">Address</td>
                                 <td th:text="${location.latitude}">Latitude</td>
                                 <td th:text="${location.longitude}">Longitude</td>
-<!--                                <td><a href="#" th:href="@{/details/detailsSighting(sightingID=${superhero.superID})}">Details</a></td>-->
+                                <!--                                <td><a href="#" th:href="@{/details/detailsSighting(sightingID=${superhero.superID})}">Details</a></td>-->
                                 <td><a href="#" th:href="@{/edit/editLocation(locationID=${location.locationID})}">Edit</a></td>
                                 <td><a href="#" th:href="@{/deleteLocation(locationID=${location.locationID})}">Delete</a></td>
                             </tr>
@@ -130,4 +130,3 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>
 </html>
-

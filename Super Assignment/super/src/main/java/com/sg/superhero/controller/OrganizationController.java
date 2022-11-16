@@ -61,7 +61,7 @@ public class OrganizationController {
         return "redirect:/organizations";
     }
 
-    @GetMapping("/edit/editOrg")
+    @GetMapping("editOrg")
     public String editOrganization(HttpServletRequest request, Model model) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
@@ -70,7 +70,7 @@ public class OrganizationController {
         return "editOrg";
     }
 
-    @PostMapping("/edit/editOrg")
+    @PostMapping("editOrg")
     public String performEditOrganization(HttpServletRequest request) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);

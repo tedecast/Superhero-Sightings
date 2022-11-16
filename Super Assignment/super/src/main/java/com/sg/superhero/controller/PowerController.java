@@ -62,7 +62,7 @@ public class PowerController {
         Power power = this.service.getPowerByID(powerID);
 
         model.addAttribute("power", power);
-        return "editPower";
+        return "/edit/editPower";
     }
 
     @PostMapping("/edit/editPower")
