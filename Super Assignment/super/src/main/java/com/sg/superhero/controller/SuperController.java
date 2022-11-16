@@ -119,7 +119,7 @@ public class SuperController {
 
     }
     
-    @GetMapping("detailsSuper")
+    @GetMapping("details/detailsSuper")
     public String displayDetailsSuper (HttpServletRequest request, Model model){
         int superID = Integer.parseInt(request.getParameter("superID"));
         
