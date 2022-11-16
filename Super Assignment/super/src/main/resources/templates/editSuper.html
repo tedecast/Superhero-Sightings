@@ -45,14 +45,14 @@
                     <form action="editSuper" method="POST">
                         <input type="hidden" name="superID" th:value="${superhero.superID}" id="superID"/>
                         <div class="form-group row">
-                            <label for="superType" class="col-3 col-form-label">Type</label>
+                            <label for="superType" class="col-3 col-form-label font-weight-bold">Type</label>
                             <select id="superType" name="superType" class="ml-3 mb-1 text-center" required>
                                 <option th:selected="${superhero.type.equals('Hero')}" value="Hero">Hero</option>
                                 <option th:selected="${superhero.type.equals('Villain')}" value="Villain">Villain</option>
                             </select>
                         </div>
                         <div class="form-group row">
-                            <label for="superName" class="col-3 col-form-label">
+                            <label for="superName" class="col-3 col-form-label font-weight-bold">
                                 Super Name</label>
                             <div class="col-9">
                                 <input type="text" name="superName" 
@@ -60,14 +60,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="superDescription" class="col-3 col-form-label">Description</label>
+                            <label for="superDescription" class="col-3 col-form-label font-weight-bold">Description</label>
                             <div class="col-9">
                                 <input type="text" name="superDescription" 
                                        id="superDescription" class="form-control" th:value="${superhero.description}"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="power" class="col-3 col-form-label">
+                            <label for="power" class="col-3 col-form-label font-weight-bold">
                                 Power</label>
                             <div class="col-9">
                                 <select id="power" name="powerID" class="form-control">
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="organizations" class="col-3 col-form-label">Organizations</label>
+                            <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>
                             <div class="col-9">
                                 <select multiple id="organizations" name="organizationID" class="form-control">
                                     <option th:each="organization : ${organizations}" 
