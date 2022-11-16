@@ -103,6 +103,11 @@ public class SuperServiceImpl implements SuperService {
     public List<Super> getSupersForOrganization(Organization organization) {
         return this.superDao.getSupersForOrganization(organization);
     }
+    
+    @Override
+    public List<Super> getSupersForPower(Power power){
+        return this.superDao.getSupersForPower(power);
+    }
 
 //    Organization
     @Override

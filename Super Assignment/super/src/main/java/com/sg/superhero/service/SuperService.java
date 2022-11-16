@@ -44,6 +44,8 @@ public interface SuperService {
     public List<Super> getSupersForLocation(Location location);
 
     public List<Super> getSupersForOrganization(Organization organization);
+    
+    public List<Super> getSupersForPower(Power power);
 
 //    Organization
     public Organization getOrganizationByID(int organizationID);
