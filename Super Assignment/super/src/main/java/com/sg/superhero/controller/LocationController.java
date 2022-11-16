@@ -61,7 +61,7 @@ public class LocationController {
         return "redirect:/locations";
     }
     
-    @GetMapping("/edit/editLocation")
+    @GetMapping("editLocation")
     public String editLocation(HttpServletRequest request, Model model) {
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
@@ -70,7 +70,7 @@ public class LocationController {
         return "editLocation";
     }
 
-    @PostMapping("/edit/editLocation")
+    @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);

@@ -112,7 +112,7 @@
                                 <td th:text="${location.latitude}">Latitude</td>
                                 <td th:text="${location.longitude}">Longitude</td>
                                 <!--                                <td><a href="#" th:href="@{/details/detailsSighting(sightingID=${superhero.superID})}">Details</a></td>-->
-                                <td><a href="#" th:href="@{/edit/editLocation(locationID=${location.locationID})}">Edit</a></td>
+                                <td><a href="#" th:href="@{editLocation(locationID=${location.locationID})}">Edit</a></td>
                                 <td><a href="#" th:href="@{/deleteLocation(locationID=${location.locationID})}">Delete</a></td>
                             </tr>
                         </tbody>
