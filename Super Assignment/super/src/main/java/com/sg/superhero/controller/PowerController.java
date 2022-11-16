@@ -56,16 +56,16 @@ public class PowerController {
         return "redirect:/powers";
     }
 
-    @GetMapping("/edit/editPower")
+    @GetMapping("editPower")
     public String editPower(HttpServletRequest request, Model model) {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
 
         model.addAttribute("power", power);
-        return "/edit/editPower";
+        return "editPower";
     }
 
-    @PostMapping("/edit/editPower")
+    @PostMapping("editPower")
     public String performEditPower (HttpServletRequest request) {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
