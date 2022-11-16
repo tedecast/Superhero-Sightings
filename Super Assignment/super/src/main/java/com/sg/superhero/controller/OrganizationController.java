@@ -33,7 +33,7 @@ public class OrganizationController {
     }
 
     @PostMapping("addOrganization")
-    public String addStudent(HttpServletRequest request) {
+    public String addOrganization(HttpServletRequest request) {
 
         String orgName = request.getParameter("orgName");
         String orgDescription = request.getParameter("orgDescription");
@@ -54,13 +54,13 @@ public class OrganizationController {
     }
 
     @GetMapping("deleteOrg")
-    public String deleteOrganization (HttpServletRequest request) {
+    public String deleteOrganization(HttpServletRequest request) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         this.service.deleteOrganizationByID(orgID);
-        
+
         return "redirect:/organizations";
     }
-    
+
     @GetMapping("/edit/editOrg")
     public String editOrganization(HttpServletRequest request, Model model) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
@@ -69,9 +69,9 @@ public class OrganizationController {
         model.addAttribute("organization", org);
         return "editOrg";
     }
-    
+
     @PostMapping("/edit/editOrg")
-    public String performEditOrganization (HttpServletRequest request) {
+    public String performEditOrganization(HttpServletRequest request) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
@@ -85,14 +85,14 @@ public class OrganizationController {
 
         return "redirect:/organizations";
     }
-    
+
     @GetMapping("/details/detailsOrg")
-    public String displayDetailsOrganization (HttpServletRequest request, Model model){
+    public String displayDetailsOrganization(HttpServletRequest request, Model model) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
-        
+
         Organization organization = this.service.getOrganizationByID(orgID);
         model.addAttribute("organization", organization);
-        
+
         return "detailsOrg";
     }
 }

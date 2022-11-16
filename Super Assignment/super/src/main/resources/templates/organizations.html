@@ -35,7 +35,6 @@
                     <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
                 </div>
             </div>
-
             <!--Add Organizations-->
             <div class="row m-4 border border-dark">
                 <div class="col-3 text-center m-3">
@@ -45,11 +44,11 @@
                     <form action="addOrganization" method="POST">
                         <div class="form-group row">
                             <label for="orgType" class="col-3 col-form-label font-weight-bold">Type</label>
-                            <select id="orgType" name="orgType" class="ml-3 mb-1 text-center" required>
-                                <option disabled selected value="type">Choose Type</option>
-                                <option value="Hero">Hero</option>
-                                <option value ="Villain">Villain</option>
-                            </select>
+                                <select id="orgType" name="orgType" class="ml-3 mb-1 text-center" required>
+                                    <option disabled selected value="type">Choose Type</option>
+                                    <option value="Hero">Hero</option>
+                                    <option value ="Villain">Villain</option>
+                                </select>
                         </div>
                         <div class="form-group row">
                             <label for="orgName" class="col-3 col-form-label font-weight-bold">Name</label>
@@ -85,11 +84,8 @@
             </div>
             <!--Table for Organizations-->
             <div class="row m-4 border border-dark">
-                <h1 class="col text-center m-2">Organizations<a href="/add/addOrg" class="btn btn-primary btn-lg float-right">Add Organization</a></h1>
-
+                <h1 class="col text-center m-2">Organizations</h1>
                 <div class="col text-center m-3">
-
-
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -98,7 +94,7 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Address</th>
-                                <th>Contact Info.</th>
+                                <th>Contact Info</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,7 +106,7 @@
                                 <td th:text="${org.address}">Address</td>
                                 <td th:text="${org.contactInfo}">Contact Info.</td>
                                 <td><a href="#" th:href="@{/details/detailsOrg(organizationID=${org.organizationID})}">Details</a></td>
-                                <td><a href="#" th:href="@{/edit/editOrg(organizationID=${org.organizationID})}">Edit</a></td>
+                                <td><a href="#" th:href="@{/editOrg(organizationID=${org.organizationID})}">Edit</a></td>
                                 <td><a href="#" th:href="@{/deleteOrg(organizationID=${org.organizationID})}">Delete</a></td>
                             </tr>
                         </tbody>
