@@ -31,7 +31,7 @@ public class LocationController {
         model.addAttribute("locations", locations);
         return "locations";
     }
-    
+
     @PostMapping("addLocation")
     public String addLocation(HttpServletRequest request) {
 
@@ -53,4 +53,12 @@ public class LocationController {
         return "redirect:/locations";
     }
 
+    @GetMapping("deleteLocation")
+    public String deleteLocation(HttpServletRequest request) {
+        int locationID = Integer.parseInt(request.getParameter("locationID"));
+        this.service.deleteLocationByID(locationID);
+
+        return "redirect:/locations";
+    }
+    
 }
