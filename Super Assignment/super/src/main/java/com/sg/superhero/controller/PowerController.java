@@ -78,7 +78,7 @@ public class PowerController {
         return "redirect:/powers";
     }
     
-    @GetMapping("detailsPower")
+    @GetMapping("/details/detailsPower")
     public String displayDetailsPower (HttpServletRequest request, Model model){
         int powerID = Integer.parseInt(request.getParameter("powerID")); 
         Power power = this.service.getPowerByID(powerID);
