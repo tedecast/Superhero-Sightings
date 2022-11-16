@@ -43,54 +43,38 @@
                 </div>
                 <div class="col-7 text-center m-3">
                     <form action="addSighting" method="POST">     
+                        <!--Location List-->
                         <div class="form-group row">
-                            <label for="" class="col-3 col-form-label font-weight-bold">Type</label>
-                            <select id="superType" name="superType" class="ml-3 mb-1 text-center" required>
-                                <option disabled selected value="type">Choose Type</option>
-                                <option value="Hero">Hero</option>
-                                <option value ="Villain">Villain</option>
-                            </select>
-                        </div>
-                        <div class="form-group row">
-                            <label for="superName" class="col-3 col-form-label font-weight-bold">
-                                Super Name</label>
+                            <label for="locations" class="col-3 col-form-label font-weight-bold">Locations</label>
                             <div class="col-9">
-                                <input type="text" name="superName" 
-                                       id="superName" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="superDescription" class="col-3 col-form-label font-weight-bold">Description</label>
-                            <div class="col-9">
-                                <input type="text" name="superDescription" 
-                                       id="superDescription" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="power" class="col-3 col-form-label font-weight-bold">
-                                Power</label>
-                            <div class="col-9">
-                                <select id="power" name="powerID" class="form-control">
-                                    <option disabled selected value>Choose Power</option>
-                                    <option th:each="power : ${powers}" 
-                                            th:value="${power.powerID}" 
-                                            th:text="${power.name + ': ' 
-                                            + power.description}">Power</option>
+                                <select multiple id="locations" name="locationID" class="form-control">
+                                    <option th:each="location : ${locations}" 
+                                            th:value="${location.locationID}" 
+                                            th:text="${location.name}">Organization</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>
+                        <!--Super List-->
+                             <div class="form-group row">
+                            <label for="supers" class="col-3 col-form-label font-weight-bold">Supers</label>
                             <div class="col-9">
-                                <select multiple id="organizations" name="organizationID" class="form-control">
-                                    <option th:each="organization : ${organizations}" 
-                                            th:value="${organization.organizationID}" 
-                                            th:text="${organization.type + ': ' 
-                                            + organization.name}">Organization</option>
+                                <select multiple id="supers" name="superID" class="form-control">
+                                    <option th:each="superhero : ${supers}" 
+                                            th:value="${superhero.superID}" 
+                                            th:text="${superhero.name}">Supers</option>
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-1">Add Super</button>
+                        <!--Date-->
+                        <!--Description-->
+                        <div class="form-group row">
+                            <label for="sightingDescription" class="col-3 col-form-label font-weight-bold">Description</label>
+                            <div class="col-9">
+                                <input type="text" name="sightingDescription" 
+                                       id="sightingDescription" class="form-control"/>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-1">Add Sighting</button>
                     </form>
                 </div>
             </div>
