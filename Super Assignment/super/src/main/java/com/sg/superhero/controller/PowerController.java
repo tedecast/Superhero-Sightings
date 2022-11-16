@@ -84,7 +84,7 @@ public class PowerController {
         Power power = this.service.getPowerByID(powerID);
         model.addAttribute("power", power);
         
-        List<Super> supers = this.service.getAllSupers();
+        List<Super> supers = this.service.getSupersForPower(power);
         model.addAttribute("supers", supers);
         
         return "detailsPower";
