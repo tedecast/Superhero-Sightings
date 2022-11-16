@@ -84,12 +84,12 @@
                                 <select multiple id="organizations" name="organizationID" class="form-control">
                                     <option th:each="organization : ${organizations}" 
                                             th:value="${organization.organizationID}" 
-                                            th:text="${organization.type + ': ' 
-                                            + organization.name}">Organization</option>
+                                            th:text="${organization.type + ': ' + organization.name}"
+                                            th:selected="${organization.name.equals('The Avengers')}">Organization</option>
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-1">Add Super</button>
+                        <button type="submit" class="btn btn-primary mt-1">Update Super</button>
                     </form>
                 </div>
             </div>

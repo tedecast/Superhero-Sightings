@@ -69,14 +69,38 @@ public class SuperController {
     public String editSuper(HttpServletRequest request, Model model) {
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
-        
         List<Power> powers = this.service.getAllPowers();
         List<Organization> orgs = this.service.getAllOrganizations();
-        
+
         model.addAttribute("superhero", superhero);
         model.addAttribute("powers", powers);
         model.addAttribute("organizations", orgs);
-        
+
         return "editSuper";
+    }
+
+    @PostMapping("editSuper")
+    public String performEditSuper(HttpServletRequest request) {
+        int superID = Integer.parseInt(request.getParameter("superID"));
+        Super superhero = this.service.getSuperByID(superID);
+
+        int powerID = Integer.parseInt(request.getParameter("powerID"));
+
+        superhero.setPower(this.service.getPowerByID(powerID));
+        superhero.setType("superType");
+        superhero.setName("superName");
+        superhero.setDescription("superDescription");
+
+        String[] orgIDs = request.getParameterValues("organizationID");
+        List<Organization> orgs = new ArrayList<>();
+        for (String orgID : orgIDs) {
+            orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
+        }
+        superhero.setOrganization(orgs);
+        
+        this.service.updateSuper(superhero);
+        
+        return "redirect:/supers";
+
     }
 }
