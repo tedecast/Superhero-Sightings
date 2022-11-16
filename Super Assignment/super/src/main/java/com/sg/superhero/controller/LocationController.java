@@ -61,4 +61,35 @@ public class LocationController {
         return "redirect:/locations";
     }
     
+    @GetMapping("/edit/editLocation")
+    public String editLocation(HttpServletRequest request, Model model) {
+        int locationID = Integer.parseInt(request.getParameter("locationID"));
+        Location location = this.service.getLocationByID(locationID);
+
+        model.addAttribute("location", location);
+        return "editLocation";
+    }
+
+    @PostMapping("/edit/editLocation")
+    public String performEditLocation(HttpServletRequest request) {
+        int locationID = Integer.parseInt(request.getParameter("locationID"));
+        Location location = this.service.getLocationByID(locationID);
+
+        String locationName = request.getParameter("locationName");
+        String locationDescription = request.getParameter("locationDescription");
+        String locationAddress = request.getParameter("locationAddress");
+        String latitude = request.getParameter("latitude");
+        String longitude = request.getParameter("longitude");
+
+        location.setName(locationName);
+        location.setDescription(locationDescription);
+        location.setAddress(locationAddress);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+
+        this.service.updateLocation(location);
+
+        return "redirect:/locations";
+    }
+    
 }
