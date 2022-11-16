@@ -64,6 +64,14 @@ public class SuperController {
 
         return "redirect:/supers";
     }
+    
+    @GetMapping("deleteSuper")
+    public String deleteSuper (HttpServletRequest request) {
+        int superID = Integer.parseInt(request.getParameter("superID"));
+        this.service.deleteSuperByID(superID);
+        
+        return "redirect:/supers";
+    }
 
     @GetMapping("editSuper")
     public String editSuper(HttpServletRequest request, Model model) {
@@ -108,4 +116,14 @@ public class SuperController {
         return "redirect:/supers";
 
     }
-}
+    
+    @GetMapping("detailsSuper")
+    public String displayDetailsSuper (HttpServletRequest request, Model model){
+        int superID = Integer.parseInt(request.getParameter("superID"));
+        
+        Super superhero = this.service.getSuperByID(superID);
+        model.addAttribute("superhero", superhero);
+        
+        return "detailsSuper";
+    }
+}   
