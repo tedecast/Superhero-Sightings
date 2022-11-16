@@ -86,7 +86,7 @@ public class OrganizationController {
         return "redirect:/organizations";
     }
 
-    @GetMapping("/details/detailsOrg")
+    @GetMapping("detailsOrg")
     public String displayDetailsOrganization(HttpServletRequest request, Model model) {
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
 
