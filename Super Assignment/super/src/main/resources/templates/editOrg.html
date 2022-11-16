@@ -44,35 +44,35 @@
                 <div class="col-7 text-center m-3">
                     <form action="editOrg" method="POST">
                         <div class="form-group row">
-                            <label for="orgType" class="col-3 col-form-label">Type</label>
+                            <label for="orgType" class="col-3 col-form-label font-weight-bold">Type</label>
                             <select id="orgType" name="orgType" class="ml-3 mb-1 text-center" required>
                                 <option th:selected="${organization.type.equals('Hero')}" value="Hero">Hero</option>
                                 <option th:selected="${organization.type.equals('Villain')}" value="Villain">Villain</option>
                             </select>
                         </div>
                         <div class="form-group row">
-                            <label for="orgName" class="col-3 col-form-label">Name</label>
+                            <label for="orgName" class="col-3 col-form-label font-weight-bold">Name</label>
                             <div class="col-9">
                                 <input type="text" name="orgName" 
                                        id="orgName" class="form-control" th:value="${organization.name}"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="orgDescription" class="col-3 col-form-label">Description</label>
+                            <label for="orgDescription" class="col-3 col-form-label font-weight-bold">Description</label>
                             <div class="col-9">
                                 <input type="text" name="orgDescription" 
                                        id="orgDescription" class="form-control" th:value="${organization.description}"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="orgAddress" class="col-3 col-form-label">Address</label>
+                            <label for="orgAddress" class="col-3 col-form-label font-weight-bold">Address</label>
                             <div class="col-9">
                                 <input type="text" name="orgAddress" 
                                        id="orgAddress" class="form-control" th:value="${organization.address}"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="contactInfo" class="col-3 col-form-label">Contact Info.</label>
+                            <label for="contactInfo" class="col-3 col-form-label font-weight-bold">Contact Info.</label>
                             <div class="col-9">
                                 <input type="text" name="contactInfo" 
                                        id="contactInfo" class="form-control" th:value="${organization.contactInfo}"/>
