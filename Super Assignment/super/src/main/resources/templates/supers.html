@@ -102,7 +102,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Super ID</th>
                                 <th>Power ID</th>
                                 <th>Type</th>
                                 <th>Name</th>
@@ -111,7 +110,6 @@
                         </thead>
                         <tbody>
                             <tr th:each="superhero : ${supers}">
-                                <td th:text="${superhero.superID}">Super ID</td>
                                 <td th:text="${superhero.power.powerID}">Power ID</td>
                                 <td th:text="${superhero.type}">Type</td>
                                 <td th:text="${superhero.name}">Name</td>
