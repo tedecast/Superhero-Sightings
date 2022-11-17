@@ -95,7 +95,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Location ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Address</th>
@@ -105,7 +104,6 @@
                         </thead>
                         <tbody>
                             <tr th:each="location : ${locations}">
-                                <td th:text="${location.locationID}">ID</td>
                                 <td th:text="${location.name}">Name</td>
                                 <td th:text="${location.description}">Description</td>
                                 <td th:text="${location.address}">Address</td>
