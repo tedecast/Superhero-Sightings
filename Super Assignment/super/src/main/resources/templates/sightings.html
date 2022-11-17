@@ -42,23 +42,25 @@
                     <span class="h3">Add Sighting</span>
                 </div>
                 <div class="col-7 text-center m-3">
-                    <form action="addSighting" method="POST">     
-                        <!--Location List-->
+                    <form action="addSighting" method="POST">    
+                        <!--Location-->
                         <div class="form-group row">
-                            <label for="locations" class="col-3 col-form-label font-weight-bold">Locations</label>
+                            <label for="locations" class="col-3 col-form-label font-weight-bold">Location</label>
                             <div class="col-9">
-                                <select multiple id="locations" name="locationID" class="form-control">
+                                <select id="locations" name="locationID" class="form-control">
+                                    <option disabled selected value>Choose Location</option>
                                     <option th:each="location : ${locations}" 
                                             th:value="${location.locationID}" 
-                                            th:text="${location.name}">Location</option>
+                                            th:text="${location.name}">Locations</option>
                                 </select>
                             </div>
                         </div>
-                        <!--Super List-->
+                        <!--Super-->
                         <div class="form-group row">
-                            <label for="supers" class="col-3 col-form-label font-weight-bold">Supers</label>
+                            <label for="supers" class="col-3 col-form-label font-weight-bold">Super</label>
                             <div class="col-9">
-                                <select multiple id="supers" name="superID" class="form-control">
+                                <select id="supers" name="superID" class="form-control">
+                                    <option disabled selected value>Choose Super</option>
                                     <option th:each="superhero : ${supers}" 
                                             th:value="${superhero.superID}" 
                                             th:text="${superhero.name}">Supers</option>
