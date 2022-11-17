@@ -68,12 +68,3 @@ CREATE TABLE SuperOrganization (
 	CONSTRAINT FK_SuperOrganization_Organization FOREIGN KEY (OrganizationID)
 		REFERENCES `Organization` (OrganizationID)
 );
-
-USE superDBTest;
-ALTER TABLE Sighting 
-MODIFY COLUMN SuperID INT NULL;
-
-USE SuperDBTest;
-ALTER TABLE Sighting
-MODIFY COLUMN LocationID INT NULL;
-
