@@ -107,7 +107,8 @@
                                 <td th:text="${sighting.superhero.superID}">Super ID</td>
                                 <td th:text="${sighting.date}">Date</td>
                                 <td th:text="${sighting.description}">Description</td>
-                                <!--                                <td><a href="#" th:href="@{/details/detailsSighting(sightingID=${superhero.superID})}">Details</a></td>
+                                <td><a href="#" th:href="@{detailsSighting(sightingID=${sighting.sightingID})}">Details</a></td>
+                                <!--
                                                                 <td><a href="#" th:href="@{/edit/editSuper(superID=${superhero.superID})}">Edit</a></td>
                                                                 <td><a href="#" th:href="@{/deleteSuper(superID=${superhero.superID})}">Delete</a></td>-->
                             </tr>

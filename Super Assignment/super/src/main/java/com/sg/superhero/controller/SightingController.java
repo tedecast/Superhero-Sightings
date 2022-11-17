@@ -52,18 +52,6 @@ public class SightingController {
         String superID = request.getParameter("superID");
         sighting.setSuperhero(this.service.getSuperByID(Integer.parseInt(superID)));
 
-//        String string = "004-034556";
-//        String[] parts = date.split("-");
-//        String year = parts[0]; 
-//        String month = parts[1];
-//        String day = parts[2];
-//        
-//        int intYear = Integer.parseInt(year);
-//        int intMonth = Integer.parseInt(month);
-//        int intDay = Integer.parseInt(day);
-//        LocalDate sightingDate = Date.valueOf(date).toLocalDate();
-//        LocalDate sightingDate = LocalDate.of(intYear, intMonth, intDay);
-//        LocalDate sightingDate = LocalDate.of(2022, 07, 29);
         String date = request.getParameter("date");
         LocalDate sightingDate = LocalDate.parse(date);
         String description = request.getParameter("sightingDescription");
@@ -74,6 +62,16 @@ public class SightingController {
         this.service.addSighting(sighting);
 
         return "redirect:/sightings";
+    }
+
+    @GetMapping("detailsSighting")
+    public String displayDetailsSuper(HttpServletRequest request, Model model) {
+        int sightingID = Integer.parseInt(request.getParameter("sightingID"));
+
+        Sighting sighting = this.service.getSightingByID(sightingID);
+        model.addAttribute("sighting",  sighting);
+
+        return "detailsSighting";
     }
 
 }
