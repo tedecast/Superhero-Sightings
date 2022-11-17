@@ -7,6 +7,7 @@ package com.sg.superhero.entities;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -17,6 +18,8 @@ public class Sighting {
     private int sightingID;
     private Super superhero;
     private Location location;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String description;
 

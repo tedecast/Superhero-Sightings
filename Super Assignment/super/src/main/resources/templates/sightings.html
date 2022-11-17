@@ -50,12 +50,12 @@
                                 <select multiple id="locations" name="locationID" class="form-control">
                                     <option th:each="location : ${locations}" 
                                             th:value="${location.locationID}" 
-                                            th:text="${location.name}">Organization</option>
+                                            th:text="${location.name}">Location</option>
                                 </select>
                             </div>
                         </div>
                         <!--Super List-->
-                             <div class="form-group row">
+                        <div class="form-group row">
                             <label for="supers" class="col-3 col-form-label font-weight-bold">Supers</label>
                             <div class="col-9">
                                 <select multiple id="supers" name="superID" class="form-control">
@@ -66,6 +66,13 @@
                             </div>
                         </div>
                         <!--Date-->
+                        <div class="form-group row">
+                            <label for="date" class="col-3 col-form-label font-weight-bold">Date</label>
+                            <div class="col-9">
+                                <input type="date" name="date" 
+                                       id="date" th:value="${now}" class="form-control"/>
+                            </div>
+                        </div>
                         <!--Description-->
                         <div class="form-group row">
                             <label for="sightingDescription" class="col-3 col-form-label font-weight-bold">Description</label>
@@ -96,13 +103,13 @@
                         <tbody>
                             <tr th:each="sighting : ${sightings}">
                                 <td th:text="${sighting.sightingID}">Sighting ID</td>
-                                <td th:text="${sighting.locationID}">Location ID</td>
-                                <td th:text="${sighting.superID}">Super ID</td>
+                                <td th:text="${sighting.location.locationID}">Location ID</td>
+                                <td th:text="${sighting.superhero.superID}">Super ID</td>
                                 <td th:text="${sighting.date}">Date</td>
                                 <td th:text="${sighting.description}">Description</td>
-<!--                                <td><a href="#" th:href="@{/details/detailsSighting(sightingID=${superhero.superID})}">Details</a></td>
-                                <td><a href="#" th:href="@{/edit/editSuper(superID=${superhero.superID})}">Edit</a></td>
-                                <td><a href="#" th:href="@{/deleteSuper(superID=${superhero.superID})}">Delete</a></td>-->
+                                <!--                                <td><a href="#" th:href="@{/details/detailsSighting(sightingID=${superhero.superID})}">Details</a></td>
+                                                                <td><a href="#" th:href="@{/edit/editSuper(superID=${superhero.superID})}">Edit</a></td>
+                                                                <td><a href="#" th:href="@{/deleteSuper(superID=${superhero.superID})}">Delete</a></td>-->
                             </tr>
                         </tbody>
                     </table>

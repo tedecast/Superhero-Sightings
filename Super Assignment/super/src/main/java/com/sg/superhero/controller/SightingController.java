@@ -9,6 +9,7 @@ import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +34,12 @@ public class SightingController {
         List<Super> supers = this.service.getAllSupers();
         List<Sighting> sightings = this.service.getAllSightings();
         List<Location> locations = this.service.getAllLocations();
+        LocalDate now = LocalDate.now();
 
         model.addAttribute("supers", supers);
         model.addAttribute("sightings", sightings);
         model.addAttribute("locations", locations);
+        model.addAttribute("now", now);
         return "sightings";
     }
 
@@ -49,6 +52,18 @@ public class SightingController {
         String superID = request.getParameter("superID");
         sighting.setSuperhero(this.service.getSuperByID(Integer.parseInt(superID)));
 
+//        String string = "004-034556";
+//        String[] parts = date.split("-");
+//        String year = parts[0]; 
+//        String month = parts[1];
+//        String day = parts[2];
+//        
+//        int intYear = Integer.parseInt(year);
+//        int intMonth = Integer.parseInt(month);
+//        int intDay = Integer.parseInt(day);
+//        LocalDate sightingDate = Date.valueOf(date).toLocalDate();
+//        LocalDate sightingDate = LocalDate.of(intYear, intMonth, intDay);
+//        LocalDate sightingDate = LocalDate.of(2022, 07, 29);
         String date = request.getParameter("date");
         LocalDate sightingDate = LocalDate.parse(date);
         String description = request.getParameter("sightingDescription");
