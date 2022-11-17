@@ -42,7 +42,15 @@
                     <span class="h3">Add Sighting</span>
                 </div>
                 <div class="col-7 text-center m-3">
-                    <form action="addSighting" method="POST">    
+                    <form action="addSighting" method="POST">   
+                        <!--Date-->
+                        <div class="form-group row">
+                            <label for="date" class="col-3 col-form-label font-weight-bold">Date</label>
+                            <div class="col-9">
+                                <input type="date" name="date" 
+                                       id="date" th:value="${now}" class="form-control"/>
+                            </div>
+                        </div>
                         <!--Location-->
                         <div class="form-group row">
                             <label for="locations" class="col-3 col-form-label font-weight-bold">Location</label>
@@ -65,14 +73,6 @@
                                             th:value="${superhero.superID}" 
                                             th:text="${superhero.name}">Supers</option>
                                 </select>
-                            </div>
-                        </div>
-                        <!--Date-->
-                        <div class="form-group row">
-                            <label for="date" class="col-3 col-form-label font-weight-bold">Date</label>
-                            <div class="col-9">
-                                <input type="date" name="date" 
-                                       id="date" th:value="${now}" class="form-control"/>
                             </div>
                         </div>
                         <!--Description-->
