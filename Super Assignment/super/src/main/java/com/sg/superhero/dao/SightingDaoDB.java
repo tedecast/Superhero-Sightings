@@ -79,7 +79,7 @@ public class SightingDaoDB implements SightingDao {
 
     @Override
     public List<Sighting> getAllSightings() {
-        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting";
+        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting ORDER BY date DESC";
         List<Sighting> sightings = this.jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
 
         this.associateLocationsForSightings(sightings);
