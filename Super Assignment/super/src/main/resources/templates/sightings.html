@@ -93,17 +93,16 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Location ID</th>
-                                <th>Super ID</th>
                                 <th>Date</th>
+                                <th>Super ID</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="sighting : ${sightings}">
+                                <td th:text="${sighting.date}">Date</td>
                                 <td th:text="${sighting.location.locationID}">Location ID</td>
                                 <td th:text="${sighting.superhero.superID}">Super ID</td>
-                                <td th:text="${sighting.date}">Date</td>
                                 <td th:text="${sighting.description}">Description</td>
                                 <td><a href="#" th:href="@{detailsSighting(sightingID=${sighting.sightingID})}">Details</a></td>
                                 <!--
