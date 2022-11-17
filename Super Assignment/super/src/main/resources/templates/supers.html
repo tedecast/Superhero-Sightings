@@ -102,17 +102,17 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Power ID</th>
                                 <th>Type</th>
                                 <th>Name</th>
+                                <th>Power</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="superhero : ${supers}">
-                                <td th:text="${superhero.power.powerID}">Power ID</td>
                                 <td th:text="${superhero.type}">Type</td>
                                 <td th:text="${superhero.name}">Name</td>
+                                <td th:text="${superhero.power.name}">Power Name</td>
                                 <td th:text="${superhero.description}">Description</td>
                                 <td><a href="#" th:href="@{detailsSuper(superID=${superhero.superID})}">Details</a></td>
                                 <td><a href="#" th:href="@{editSuper(superID=${superhero.superID})}">Edit</a></td>
