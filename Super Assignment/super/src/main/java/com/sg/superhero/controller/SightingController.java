@@ -9,7 +9,6 @@ import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Sighting;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -64,12 +63,20 @@ public class SightingController {
         return "redirect:/sightings";
     }
 
+    @GetMapping("deleteSighting")
+    public String deleteSighting(HttpServletRequest request) {
+        int sightingID = Integer.parseInt(request.getParameter("sightingID"));
+        this.service.deleteSightingByID(sightingID);
+
+        return "redirect:/sightings";
+    }
+
     @GetMapping("detailsSighting")
     public String displayDetailsSuper(HttpServletRequest request, Model model) {
         int sightingID = Integer.parseInt(request.getParameter("sightingID"));
 
         Sighting sighting = this.service.getSightingByID(sightingID);
-        model.addAttribute("sighting",  sighting);
+        model.addAttribute("sighting", sighting);
 
         return "detailsSighting";
     }
