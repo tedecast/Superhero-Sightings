@@ -45,10 +45,7 @@
                 <!--Location-->
                 <div class="col-6 text-right font-weight-bold">Location:</div>
                 <div class="col-6 text-left">
-                    <span th:each="location : ${sighting.location}">
-                        <span th:text="${location.name}">Display Sighting</span>
-                        <br/>
-                    </span>
+                    <span th:text="${sighting.location.name}">Display Location</span>
                 </div>
                 <!--Super-->
                 <div class="col-6 text-right font-weight-bold">Super Involved:</div>
