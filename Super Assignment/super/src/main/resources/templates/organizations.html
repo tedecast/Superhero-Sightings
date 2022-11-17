@@ -89,7 +89,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Type</th>
                                 <th>Name</th>
                                 <th>Description</th>
@@ -99,7 +98,6 @@
                         </thead>
                         <tbody>
                             <tr th:each="org : ${organizations}">
-                                <td th:text="${org.organizationID}">ID</td>
                                 <td th:text="${org.type}">Type</td>
                                 <td th:text="${org.name}">Name</td>
                                 <td th:text="${org.description}">Description</td>
