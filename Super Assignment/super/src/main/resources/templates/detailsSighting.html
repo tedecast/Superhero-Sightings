@@ -50,10 +50,7 @@
                 <!--Super-->
                 <div class="col-6 text-right font-weight-bold">Super Involved:</div>
                 <div class="col-6 text-left">
-                    <span th:each="superhero : ${sighting.superhero}">
-                        <span th:text="${superhero.name}">Display Supers</span>
-                        <br/>
-                    </span>
+                    <span th:text="${sighting.superhero.name}">Display Super</span>
                 </div>
                 <!--Sighting Description-->
                 <div class="col-6 text-right font-weight-bold">Sighting Description:</div>
