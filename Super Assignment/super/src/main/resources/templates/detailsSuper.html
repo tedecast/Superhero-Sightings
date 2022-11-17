@@ -37,19 +37,6 @@
             </div>
             <!--Start of Details-->
             <div class="row m-4 border border-dark">
-                <!--Power-->
-                <div class="col-6 text-right font-weight-bold">Power ID:</div>
-                <div class="col-6 text-left">
-                    <span th:text="${superhero.power.powerID}">Display Power ID</span>
-                </div>
-                <div class="col-6 text-right font-weight-bold">Power Name:</div>
-                <div class="col-6 text-left">
-                    <span th:text="${superhero.power.name}">Display Power Name</span>
-                </div>
-                <div class="col-6 text-right font-weight-bold">Power Description:</div>
-                <div class="col-6 text-left">
-                    <span th:text="${superhero.power.description}">Display Power Description</span>
-                </div>
                 <!--Type-->
                 <div class="col-6 text-right font-weight-bold">Type:</div>
                 <div class="col-6 text-left">
@@ -64,6 +51,15 @@
                 <div class="col-6 text-right font-weight-bold">Super Description:</div>
                 <div class="col-6 text-left">
                     <span th:text="${superhero.description}">Display Description</span>
+                </div>
+                <!--Power-->
+                <div class="col-6 text-right font-weight-bold">Power Name:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${superhero.power.name}">Display Power Name</span>
+                </div>
+                <div class="col-6 text-right font-weight-bold">Power Description:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${superhero.power.description}">Display Power Description</span>
                 </div>
                 <!--List of Organizations-->
                 <div class="col-6 text-right font-weight-bold">Organizations:</div>
