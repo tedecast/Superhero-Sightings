@@ -8,8 +8,13 @@ package com.sg.superhero.controller;
 import com.sg.superhero.entities.Power;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +31,13 @@ public class PowerController {
     @Autowired
     SuperService service;
 
+    Set<ConstraintViolation<Power>> violations = new HashSet<>();
+
     @GetMapping("powers")
     public String displayPowers(Model model) {
         List<Power> powers = this.service.getAllPowers();
         model.addAttribute("powers", powers);
+        model.addAttribute("errors", violations);
         return "powers";
     }
 
@@ -43,7 +51,12 @@ public class PowerController {
         power.setName(powerName);
         power.setDescription(powerDescription);
 
-        this.service.addPower(power);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(power);
+
+        if (violations.isEmpty()) {
+            this.service.addPower(power);
+        }
 
         return "redirect:/powers";
     }
@@ -66,7 +79,7 @@ public class PowerController {
     }
 
     @PostMapping("editPower")
-    public String performEditPower (HttpServletRequest request) {
+    public String performEditPower(HttpServletRequest request) {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
 
@@ -77,16 +90,16 @@ public class PowerController {
 
         return "redirect:/powers";
     }
-    
+
     @GetMapping("detailsPower")
-    public String displayDetailsPower (HttpServletRequest request, Model model){
-        int powerID = Integer.parseInt(request.getParameter("powerID")); 
+    public String displayDetailsPower(HttpServletRequest request, Model model) {
+        int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
         model.addAttribute("power", power);
-        
+
         List<Super> supers = this.service.getSupersForPower(power);
         model.addAttribute("supers", supers);
-        
+
         return "detailsPower";
     }
 }

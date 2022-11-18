@@ -6,6 +6,8 @@
 package com.sg.superhero.entities;
 
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -14,7 +16,13 @@ import java.util.Objects;
 public class Power {
 
     private int PowerID;
+
+    @NotBlank(message = "Name must not be blank.")
+    @Size(max = 50, message = "Name must be less than 50 characters.")
     private String name;
+
+    @NotBlank(message = "Description must not be blank.")
+    @Size(max = 50, message = "Description must be less than 255 characters.")
     private String description;
 
     public Power() {
@@ -81,5 +89,5 @@ public class Power {
     public String toString() {
         return "Power{" + "PowerID=" + PowerID + ", name=" + name + ", description=" + description + '}';
     }
- 
+
 }
