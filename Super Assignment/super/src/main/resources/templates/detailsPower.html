@@ -37,6 +37,11 @@
             </div>
             <!--Start of Details-->
             <div class="row m-4 border border-dark">
+                <!--Name-->
+                <div class="col-6 text-right font-weight-bold">Name:</div>
+                <div class="col-6 text-left">
+                    <span th:text="${power.name}">Display Name</span>
+                </div>
                 <!--Description-->
                 <div class="col-6 text-right font-weight-bold">Description:</div>
                 <div class="col-6 text-left">
@@ -50,6 +55,7 @@
                         <br/>
                     </span>
                 </div>
+                <!--Edit, Delete, Go Back-->
                 <div class="col-12 text-center m-4">
                     <a href="#" th:href="@{editPower(powerID=${power.powerID})}" class="btn btn-outline-primary btn-md">Edit</a>
                     <a href="#" data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${power.powerID}"class="btn btn-outline-primary btn-md">Delete</a>
