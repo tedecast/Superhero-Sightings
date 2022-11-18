@@ -75,14 +75,16 @@
                                 Power</label>
                             <div class="col-9">
                                 <select id="power" name="powerID" class="form-control">
+                                    <option>No Power</option>
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
-                                            th:text="${power.name + ': ' 
-                                            + power.description}"
+                                            th:text="${power.name + ': ' + power.description}"
                                             th:selected="${superhero.power.powerID == power.powerID}">Power</option>
                                 </select>
                             </div>
                         </div>
+                        <!--No Power-->
+
                         <!--Organizations-->
                         <div class="form-group row">
                             <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>

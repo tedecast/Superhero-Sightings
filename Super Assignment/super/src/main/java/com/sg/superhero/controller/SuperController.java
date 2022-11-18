@@ -99,8 +99,13 @@ public class SuperController {
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
 
-        int powerID = Integer.parseInt(request.getParameter("powerID"));
-        superhero.setPower(this.service.getPowerByID(powerID));
+        String powerID = request.getParameter("powerID");
+
+        if (powerID.equals("No Power")) {
+            superhero.setPower(null);
+        } else {
+            superhero.setPower(this.service.getPowerByID(Integer.parseInt(powerID)));
+        }
 
         String type = request.getParameter("superType");
         String superName = request.getParameter("superName");
