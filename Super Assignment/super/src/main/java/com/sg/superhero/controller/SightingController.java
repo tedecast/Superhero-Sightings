@@ -161,13 +161,14 @@ public class SightingController {
             model.addAttribute("supers", supers);
             return "editSighting";
         }
-        return "redirect:/sightings";
+
+        return "redirect:/detailsSighting?sightingID=" + sighting.getSightingID();
 
     }
 
     @GetMapping("detailsSighting")
-    public String displayDetailsSuper(HttpServletRequest request, Model model) {
-        int sightingID = Integer.parseInt(request.getParameter("sightingID"));
+    public String displayDetailsSighting(Integer sightingID, Model model) {
+//        int sightingID = Integer.parseInt(request.getParameter("sightingID"));
 
         Sighting sighting = this.service.getSightingByID(sightingID);
         model.addAttribute("sighting", sighting);
