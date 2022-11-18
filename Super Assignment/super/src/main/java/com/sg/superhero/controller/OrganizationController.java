@@ -7,8 +7,13 @@ package com.sg.superhero.controller;
 
 import com.sg.superhero.entities.Organization;
 import com.sg.superhero.service.SuperService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +30,8 @@ public class OrganizationController {
     @Autowired
     SuperService service;
 
+    Set<ConstraintViolation<Organization>> violations = new HashSet<>();
+
     @GetMapping("organizations")
     public String displayOrganizations(Model model) {
         List<Organization> orgs = this.service.getAllOrganizations();
@@ -32,8 +39,16 @@ public class OrganizationController {
         return "organizations";
     }
 
+    @GetMapping("addOrganization")
+    public String displayAddLocation(Model model) {
+        model.addAttribute("errors", violations);
+        return "addOrganization";
+    }
+
     @PostMapping("addOrganization")
-    public String addOrganization(HttpServletRequest request) {
+    public String addOrganization(HttpServletRequest request, Model model) {
+
+        violations.clear();
 
         String orgName = request.getParameter("orgName");
         String orgDescription = request.getParameter("orgDescription");
@@ -48,7 +63,18 @@ public class OrganizationController {
         org.setContactInfo(contactInfo);
         org.setType(orgType);
 
-        this.service.addOrganization(org);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(org);
+
+        if (violations.isEmpty()) {
+            this.service.addOrganization(org);
+        } else {
+            model.addAttribute("errors", violations);
+            model.addAttribute("organization", org);
+            return "addOrganization";
+        }
+
+        model.addAttribute("errors", violations);
 
         return "redirect:/organizations";
     }

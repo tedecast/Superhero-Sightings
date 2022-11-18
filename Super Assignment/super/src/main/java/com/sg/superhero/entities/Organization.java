@@ -5,22 +5,37 @@
  */
 package com.sg.superhero.entities;
 
-
 import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Teresa
  */
 public class Organization {
-    
+
     private int organizationID;
+
+    @NotBlank(message = "Name must not be blank.")
+    @Size(max = 50, message = "Name must be less than 50 characters.")
     private String name;
+
+    @NotBlank(message = "Description must not be blank.")
+    @Size(max = 255, message = "First name must be less than 255 characters.")
     private String description;
+
+    @NotBlank(message = "Address must not be blank.")
+    @Size(max = 255, message = "Address must be less than 255 characters.")
     private String address;
+
     private String contactInfo;
+
+    @NotBlank(message = "You must choose a type.")
+    @Size(max = 30, message = "Type must be less than 10 characters.")
     private String type;
+    
     private List<Super> supers;
 
     public int getOrganizationID() {
@@ -133,6 +148,4 @@ public class Organization {
         return "Organization{" + "organizationID=" + organizationID + ", name=" + name + ", description=" + description + ", address=" + address + ", contactInfo=" + contactInfo + ", type=" + type + ", supers=" + supers + '}';
     }
 
-    
-    
 }
