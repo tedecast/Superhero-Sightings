@@ -85,6 +85,31 @@ public class SightingController {
         return "editSighting";
     }
 
+    @PostMapping("editSighting")
+    public String performEditSighting(HttpServletRequest request) {
+        int sightingID = Integer.parseInt(request.getParameter("sightingID"));
+        Sighting sighting = this.service.getSightingByID(sightingID);
+
+        String date = request.getParameter("date");
+        LocalDate sightingDate = LocalDate.parse(date);
+
+        int locationID = Integer.parseInt(request.getParameter("locationID"));
+        sighting.setLocation(this.service.getLocationByID(locationID));
+
+        int superID = Integer.parseInt(request.getParameter("superID"));
+        sighting.setSuperhero(this.service.getSuperByID(superID));
+
+        String description = request.getParameter("sightingDescription");
+
+        sighting.setDate(sightingDate);
+        sighting.setDescription(description);
+
+        this.service.updateSighting(sighting);
+
+        return "redirect:/sightings";
+
+    }
+
     @GetMapping("detailsSighting")
     public String displayDetailsSuper(HttpServletRequest request, Model model) {
         int sightingID = Integer.parseInt(request.getParameter("sightingID"));
