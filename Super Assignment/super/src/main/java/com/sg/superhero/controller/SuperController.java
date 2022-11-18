@@ -10,8 +10,13 @@ import com.sg.superhero.entities.Power;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +33,8 @@ public class SuperController {
     @Autowired
     SuperService service;
 
+    Set<ConstraintViolation<Super>> violations = new HashSet<>();
+
     @GetMapping("supers")
     public String displaySupers(Model model) {
         List<Super> supers = this.service.getAllSupers();
@@ -39,9 +46,29 @@ public class SuperController {
         return "supers";
     }
 
-    @PostMapping("addSuper")
-    public String addSuper(Super superhero, HttpServletRequest request) {
+    @GetMapping("addSuper")
+    public String displayAddsuper(Model model) {
 
+        List<Organization> organizations = this.service.getAllOrganizations();
+        List<Power> powers = this.service.getAllPowers();
+
+        model.addAttribute("powers", powers);
+        model.addAttribute("organizations", organizations);
+        model.addAttribute("errors", violations);
+
+        return "addSuper";
+    }
+
+    @PostMapping("addSuper")
+    public String addSuper(Super superhero, HttpServletRequest request, Model model) {
+
+        violations.clear();
+        List<Organization> organizations = this.service.getAllOrganizations();
+        List<Power> powers = this.service.getAllPowers();
+
+        model.addAttribute("powers", powers);
+        model.addAttribute("organizations", organizations);
+        
         String powerID = request.getParameter("powerID");
 
         if (powerID.equals("No Power")) {
@@ -65,7 +92,18 @@ public class SuperController {
         }
         superhero.setOrganization(orgs);
 
-        this.service.addSuper(superhero);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(superhero);
+
+        if (violations.isEmpty()) {
+            this.service.addSuper(superhero);
+        } else {
+            model.addAttribute("errors", violations);
+            model.addAttribute("location", superhero);
+            return "addSuper";
+        }
+
+        model.addAttribute("errors", violations);
 
         return "redirect:/supers";
     }

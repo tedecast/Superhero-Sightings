@@ -36,14 +36,14 @@
                 </div>
             </div>
 
-            <!--Add Super-->
+<!--            Add Super was previously here
             <div class="row m-4 border border-dark">
                 <div class="col-3 text-center m-3">
                     <span class="h3">Add Super</span>
                 </div>
                 <div class="col-7 text-center m-3">
                     <form action="addSuper" method="POST">  
-                        <!--Type-->
+                        Type
                         <div class="form-group row">
                             <label for="superType" class="col-3 col-form-label font-weight-bold">Type</label>
                             <select id="superType" name="superType" class="ml-3 mb-1 text-center" required>
@@ -52,7 +52,7 @@
                                 <option value ="Villain">Villain</option>
                             </select>
                         </div>
-                        <!--Name-->
+                        Name
                         <div class="form-group row">
                             <label for="superName" class="col-3 col-form-label font-weight-bold">
                                 Super Name</label>
@@ -61,7 +61,7 @@
                                        id="superName" class="form-control"/>
                             </div>
                         </div>
-                        <!--Description-->
+                        Description
                         <div class="form-group row">
                             <label for="superDescription" class="col-3 col-form-label font-weight-bold">Description</label>
                             <div class="col-9">
@@ -69,22 +69,22 @@
                                        id="superDescription" class="form-control"/>
                             </div>
                         </div>
-                        <!--Power-->
+                        Power
                         <div class="form-group row">
                             <label for="power" class="col-3 col-form-label font-weight-bold">
-                                Power</label>
+                                Add Power</label>
                             <div class="col-9">
                                 <select id="power" name="powerID" class="form-control">
                                     <option disabled selected value>Choose Power</option>
+                                    <option>No Power</option>
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
                                             th:text="${power.name + ': ' 
                                             + power.description}">Power</option>
-                                    <option value="No Power">No Power</option>
                                 </select>
                             </div>
                         </div>
-                        <!--Organizations-->
+                        Organizations
                         <div class="form-group row">
                             <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>
                             <div class="col-9">
@@ -99,12 +99,13 @@
                         <button type="submit" class="btn btn-primary mt-1">Add Super</button>
                     </form>
                 </div>
-            </div>
+            </div>-->
 
             <!-- Super Table -->
             <div class="row m-4 border border-dark">
                 <div class="col text-center m-3">
-                    <h1 class="col text-center m-2">Supers</h1>
+                    <h1 class="col text-center m-2">Supers
+                    <a href="/addSuper" class="btn btn-outline-primary btn-lg float-right">Add Super</a></h1>
                     <table class="table table-striped">
                         <thead>
                             <tr>
