@@ -86,7 +86,9 @@
                                        id="sightingDescription" class="form-control" th:value="${sighting.description}"/>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-1">Update Sighting</button>
+                        <input type="hidden" name="sightingID" th:value="${sighting.sightingID}"/>
+                        <button type="submit" class="btn btn-outline-primary">OK</button>
+                        <a href="/sightings" class="btn btn-outline-primary">Cancel</a>
                     </form>
                 </div>
             </div>
