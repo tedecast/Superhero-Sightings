@@ -92,8 +92,8 @@ public class SuperController {
             for (String orgID : orgIDs) {
                 orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
             }
-        } 
-        
+        }
+
         superhero.setOrganization(orgs);
 
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
@@ -122,12 +122,14 @@ public class SuperController {
 
     @GetMapping("editSuper")
     public String editSuper(HttpServletRequest request, Model model) {
+        violations.clear();
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
         List<Power> powers = this.service.getAllPowers();
         List<Organization> orgs = this.service.getAllOrganizations();
         List<Organization> superOrgs = this.service.getOrganizationsForSuper(superhero);
 
+        model.addAttribute("errors", violations);
         model.addAttribute("superhero", superhero);
         model.addAttribute("powers", powers);
         model.addAttribute("organizations", orgs);
@@ -137,7 +139,10 @@ public class SuperController {
     }
 
     @PostMapping("editSuper")
-    public String performEditSuper(HttpServletRequest request) {
+    public String performEditSuper(HttpServletRequest request, Model model) {
+
+        violations.clear();
+
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
 
@@ -165,7 +170,24 @@ public class SuperController {
         }
         superhero.setOrganization(orgs);
 
-        this.service.updateSuper(superhero);
+        List<Power> powers = this.service.getAllPowers();
+        List<Organization> organizations = this.service.getAllOrganizations();
+        List<Organization> superOrgs = this.service.getOrganizationsForSuper(superhero);
+        
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(superhero);
+
+        if (violations.isEmpty()) {
+            this.service.updateSuper(superhero);
+        } else {
+            superhero = this.service.getSuperByID(superhero.getSuperID());
+            model.addAttribute("errors", violations);
+            model.addAttribute("superhero", superhero);
+            model.addAttribute("powers", powers);
+            model.addAttribute("organizations", organizations);
+            model.addAttribute("superOrgs", superOrgs);
+            return "editSuper";
+        }
 
         return "redirect:/supers";
 
