@@ -94,7 +94,7 @@
                         <div class="form-group row">
                             <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>
                             <div class="col-9">
-                                <select multiple id="organizations" name="organizationID" class="form-control">
+                                <select multiple id="organizations" name="organizationID" class="form-control" required>
                                     <option th:each="organization : ${organizations}" 
                                             th:value="${organization.organizationID}" 
                                             th:text="${organization.type + ': ' 

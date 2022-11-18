@@ -68,7 +68,7 @@ public class SuperController {
 
         model.addAttribute("powers", powers);
         model.addAttribute("organizations", organizations);
-        
+
         String powerID = request.getParameter("powerID");
 
         if (powerID.equals("No Power")) {
@@ -87,9 +87,13 @@ public class SuperController {
 
         String[] orgIDs = request.getParameterValues("organizationID");
         List<Organization> orgs = new ArrayList<>();
-        for (String orgID : orgIDs) {
-            orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
-        }
+
+        if (orgIDs != null) {
+            for (String orgID : orgIDs) {
+                orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
+            }
+        } 
+        
         superhero.setOrganization(orgs);
 
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();

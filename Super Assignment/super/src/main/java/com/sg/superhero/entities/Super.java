@@ -19,6 +19,7 @@ public class Super {
     private int superID;
 //    No possible validation needed for Power
     private Power power;
+    
     private List<Organization> organization;
     
     @NotBlank(message = "You must choose a type.")
