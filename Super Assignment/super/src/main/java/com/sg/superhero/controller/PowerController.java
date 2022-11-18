@@ -74,19 +74,32 @@ public class PowerController {
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
 
+        model.addAttribute("errors", violations);
         model.addAttribute("power", power);
         return "editPower";
     }
 
     @PostMapping("editPower")
-    public String performEditPower(HttpServletRequest request) {
+    public String performEditPower(HttpServletRequest request, Model model) {
+        violations.clear();
+
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
 
         power.setName(request.getParameter("powerName"));
         power.setDescription(request.getParameter("powerDescription"));
 
-        this.service.updatePower(power);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(power);
+
+        if (violations.isEmpty()) {
+            this.service.updatePower(power);
+        } else {
+            power = this.service.getPowerByID(power.getPowerID());
+            model.addAttribute("errors", violations);
+            model.addAttribute("power", power);
+            return "editPower";
+        }
 
         return "redirect:/powers";
     }

@@ -38,6 +38,7 @@
 
             <!--Add Power-->
             <div class="row m-4 border border-dark">
+                <!--Power Validation-->
                 <div class="col-12 m-1 text-center" 
                      th:if="${!errors.isEmpty()}">
                     <p class="alert alert-danger" th:each="error : ${errors}" 
@@ -47,7 +48,8 @@
                     <span class="h3">Add Power</span>
                 </div>
                 <div class="col-7 text-center m-3">
-                    <form action="addPower" method="POST">     
+                    <form action="addPower" method="POST">    
+                        <!--Name-->
                         <div class="form-group row">
                             <label for="powerName" class="col-3 col-form-label font-weight-bold">
                                 Power Name</label>
@@ -56,6 +58,7 @@
                                        id="powerName" class="form-control"/>
                             </div>
                         </div>
+                        <!--Description-->
                         <div class="form-group row">
                             <label for="powerDescription" class="col-3 col-form-label font-weight-bold">Description</label>
                             <div class="col-9">

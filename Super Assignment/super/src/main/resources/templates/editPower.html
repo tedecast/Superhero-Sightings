@@ -36,11 +36,18 @@
                 </div>
             </div>
             <div class="row m-4 border border-dark">
+                <!--Power Validation-->
+                <div class="col-12 m-1 text-center" 
+                     th:if="${!errors.isEmpty()}">
+                    <p class="alert alert-danger" th:each="error : ${errors}" 
+                       th:text="${error.message}">Error message</p>
+                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Edit Power</span>
                 </div>
                 <div class="col-7 text-center m-3">
                     <form action="editPower" method="POST">
+                        <!--Name-->
                         <div class="form-group row">
                             <label for="powerName" class="col-3 col-form-label font-weight-bold">
                                 Power Name</label>
@@ -49,6 +56,7 @@
                                        id="powerName" class="form-control" th:value="${power.name}"/>
                             </div>
                         </div>
+                        <!--Description-->
                         <div class="form-group row">
                             <label for="powerDescription" class="col-3 col-form-label font-weight-bold">
                                 Power Description</label>
@@ -65,7 +73,7 @@
             </div>
         </div>     
 
-        <!-- End main body -->
+        <!-- End main body 
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
