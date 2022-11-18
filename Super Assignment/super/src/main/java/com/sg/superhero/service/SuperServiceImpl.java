@@ -132,7 +132,7 @@ public class SuperServiceImpl implements SuperService {
 
     @Override
     public void deleteOrganizationByID(int organizationID) {
-        this.deleteOrganizationByID(organizationID);
+        this.orgDao.deleteOrganizationByID(organizationID);
     }
 
     @Override
