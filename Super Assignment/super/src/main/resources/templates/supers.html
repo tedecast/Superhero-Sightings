@@ -117,7 +117,7 @@
                             <tr th:each="superhero : ${supers}">
                                 <td th:text="${superhero.type}">Type</td>
                                 <td th:text="${superhero.name}">Name</td>
-                                <td th:text="${superhero.power.name}">Power Name</td>
+                                <td th:text="${superhero.power} ? ${superhero.power.name} : 'No Power'">Power Name</td>
                                 <td th:text="${superhero.description}">Description</td>
                                 <td><a href="#" th:href="@{detailsSuper(superID=${superhero.superID})}">Details</a></td>
                                 <td><a href="#" th:href="@{editSuper(superID=${superhero.superID})}">Edit</a></td>
