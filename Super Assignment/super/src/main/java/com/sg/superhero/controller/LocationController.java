@@ -80,12 +80,15 @@ public class LocationController {
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
 
+        model.addAttribute("errors", violations);
         model.addAttribute("location", location);
         return "editLocation";
     }
 
     @PostMapping("editLocation")
-    public String performEditLocation(HttpServletRequest request) {
+    public String performEditLocation(HttpServletRequest request, Model model) {
+        violations.clear();
+        
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
 
@@ -101,7 +104,17 @@ public class LocationController {
         location.setLatitude(latitude);
         location.setLongitude(longitude);
 
-        this.service.updateLocation(location);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(location);
+
+        if (violations.isEmpty()) {
+            this.service.updateLocation(location);
+        } else {
+            location = this.service.getLocationByID(location.getLocationID());
+            model.addAttribute("errors", violations);
+            model.addAttribute("location", location);
+            return "editLocation";
+        }
 
         return "redirect:/locations";
     }

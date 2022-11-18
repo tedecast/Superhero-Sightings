@@ -17,7 +17,7 @@ public class Location {
 
     private int locationID;
 
-    @NotBlank(message = "Name must not be blank.")
+    @NotBlank(message = "Location Name must not be blank.")
     @Size(max = 50, message = "Name must be less than 50 characters.")
     private String name;
 

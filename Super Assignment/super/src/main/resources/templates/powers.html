@@ -37,44 +37,46 @@
             </div>
 
             <!--Add Power-->
-            <div class="row m-4 border border-dark">
-                <!--Power Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
-                <div class="col-3 text-center m-3">
-                    <span class="h3">Add Power</span>
-                </div>
-                <div class="col-7 text-center m-3">
-                    <form action="addPower" method="POST">    
-                        <!--Name-->
-                        <div class="form-group row">
-                            <label for="powerName" class="col-3 col-form-label font-weight-bold">
-                                Power Name</label>
-                            <div class="col-9">
-                                <input type="text" name="powerName" 
-                                       id="powerName" class="form-control"/>
+            <!--            <div class="row m-4 border border-dark">
+                            Power Validation
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}">Error message</p>
                             </div>
-                        </div>
-                        <!--Description-->
-                        <div class="form-group row">
-                            <label for="powerDescription" class="col-3 col-form-label font-weight-bold">Description</label>
-                            <div class="col-9">
-                                <input type="text" name="powerDescription" 
-                                       id="powerDescription" class="form-control"/>
+                            <div class="col-3 text-center m-3">
+                                <span class="h3">Add Power</span>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Power</button>
-                    </form>
-                </div>
-            </div>
+                            <div class="col-7 text-center m-3">
+                                <form action="addPower" method="POST">    
+                                    Name
+                                    <div class="form-group row">
+                                        <label for="powerName" class="col-3 col-form-label font-weight-bold">
+                                            Power Name</label>
+                                        <div class="col-9">
+                                            <input type="text" name="powerName" 
+                                                   id="powerName" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    Description
+                                    <div class="form-group row">
+                                        <label for="powerDescription" class="col-3 col-form-label font-weight-bold">Description</label>
+                                        <div class="col-9">
+                                            <input type="text" name="powerDescription" 
+                                                   id="powerDescription" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Power</button>
+                                    <a href="/powers" class="btn btn-outline-primary btn-md">Cancel</a>
+                                </form>
+                            </div>
+                        </div>-->
 
             <!-- Power Table -->
             <div class="row m-4 border border-dark">
                 <div class="col text-center m-3">
-                    <h1 class="col text-center m-2">Powers</h1>
+                    <h1 class="col text-center m-2">Powers 
+                        <a href="/addPower" class="btn btn-outline-primary btn-lg float-right">Add Power</a></h1>
                     <table class="table table-striped">
                         <thead>
                             <tr>

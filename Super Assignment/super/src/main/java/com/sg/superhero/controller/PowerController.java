@@ -41,9 +41,17 @@ public class PowerController {
         return "powers";
     }
 
-    @PostMapping("addPower")
-    public String addPower(HttpServletRequest request) {
+    @GetMapping("addPower")
+    public String displayAddPowers(Model model) {
+        model.addAttribute("errors", violations);
 
+        return "addPower";
+    }
+
+    @PostMapping("addPower")
+    public String addPower(HttpServletRequest request, Model model) {
+
+        violations.clear();
         String powerName = request.getParameter("powerName");
         String powerDescription = request.getParameter("powerDescription");
 
@@ -56,7 +64,13 @@ public class PowerController {
 
         if (violations.isEmpty()) {
             this.service.addPower(power);
+        } else {
+            model.addAttribute("errors", violations);
+            model.addAttribute("power", power);
+            return "addPower";
         }
+
+        model.addAttribute("errors", violations);
 
         return "redirect:/powers";
     }
@@ -71,6 +85,7 @@ public class PowerController {
 
     @GetMapping("editPower")
     public String editPower(HttpServletRequest request, Model model) {
+        violations.clear();
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
 
