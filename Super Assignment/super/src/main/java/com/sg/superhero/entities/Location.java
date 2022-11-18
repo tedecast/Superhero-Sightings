@@ -6,18 +6,35 @@
 package com.sg.superhero.entities;
 
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Teresa
  */
 public class Location {
-    
+
     private int locationID;
+
+    @NotBlank(message = "Name must not be blank.")
+    @Size(max = 50, message = "Name must be less than 50 characters.")
     private String name;
+
+    @NotBlank(message = "Description must not be blank.")
+    @Size(max = 255, message = "Description must be less than 255 characters.")
     private String description;
+
+    @NotBlank(message = "Address must not be blank.")
+    @Size(max = 255, message = "Address must be less than 255 characters.")
     private String address;
+
+    @NotBlank(message = "Latitude must not be blank.")
+    @Size(max = 50, message = "Latitude must be less than 50 characters.")
     private String latitude;
+
+    @NotBlank(message = "Longitude must not be blank.")
+    @Size(max = 50, message = "Longitude must be less than 50 characters.")
     private String longitude;
 
     public int getLocationID() {
@@ -118,6 +135,4 @@ public class Location {
         return "Location{" + "locationID=" + locationID + ", name=" + name + ", description=" + description + ", address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + '}';
     }
 
-    
-    
 }

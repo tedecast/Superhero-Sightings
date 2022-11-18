@@ -8,8 +8,13 @@ package com.sg.superhero.controller;
 import com.sg.superhero.entities.Location;
 import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +31,13 @@ public class LocationController {
     @Autowired
     SuperService service;
 
+    Set<ConstraintViolation<Location>> violations = new HashSet<>();
+
     @GetMapping("locations")
     public String displayPowers(Model model) {
         List<Location> locations = this.service.getAllLocations();
         model.addAttribute("locations", locations);
+        model.addAttribute("errors", violations);
         return "locations";
     }
 
@@ -49,7 +57,12 @@ public class LocationController {
         location.setLatitude(latitude);
         location.setLongitude(longitude);
 
-        this.service.addLocation(location);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(location);
+
+        if (violations.isEmpty()) {
+            this.service.addLocation(location);
+        }
 
         return "redirect:/locations";
     }
