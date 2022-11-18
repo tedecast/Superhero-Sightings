@@ -87,11 +87,20 @@ public class SuperDaoDB implements SuperDao {
     public Super addSuper(Super superhero) {
         final String INSERT_SUPER = "INSERT INTO super(PowerID, Type, Name, Description) "
                 + "VALUES(?,?,?,?)";
-        this.jdbc.update(INSERT_SUPER,
-                superhero.getPower().getPowerID(),
-                superhero.getType(),
-                superhero.getName(),
-                superhero.getDescription());
+        if (superhero.getPower() != null) {
+            this.jdbc.update(INSERT_SUPER,
+                    superhero.getPower().getPowerID(),
+                    superhero.getType(),
+                    superhero.getName(),
+                    superhero.getDescription());
+        } else {
+            this.jdbc.update(INSERT_SUPER,
+                    null,
+                    superhero.getType(),
+                    superhero.getName(),
+                    superhero.getDescription());
+        
+        }
 
         int newSuperID = this.jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         superhero.setSuperID(newSuperID);
@@ -175,7 +184,7 @@ public class SuperDaoDB implements SuperDao {
                 + "FROM Super s "
                 + "JOIN Power p ON s.powerID = p.powerID "
                 + "WHERE s.powerID = ?";
-        
+
         List<Super> supers = this.jdbc.query(GET_SUPERS_FOR_POWER, new SuperMapper(), power.getPowerID());
         for (Super superhero : supers) {
             superhero.setPower(this.getPowerForSuper(superhero.getSuperID()));

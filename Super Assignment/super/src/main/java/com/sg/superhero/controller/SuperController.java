@@ -43,7 +43,12 @@ public class SuperController {
     public String addSuper(Super superhero, HttpServletRequest request) {
 
         String powerID = request.getParameter("powerID");
-        superhero.setPower(this.service.getPowerByID(Integer.parseInt(powerID)));
+
+        if (powerID.equals("No Power")) {
+            superhero.setPower(null);
+        } else {
+            superhero.setPower(this.service.getPowerByID(Integer.parseInt(powerID)));
+        }
 
         String type = request.getParameter("superType");
         String superName = request.getParameter("superName");
@@ -64,12 +69,12 @@ public class SuperController {
 
         return "redirect:/supers";
     }
-    
+
     @GetMapping("deleteSuper")
-    public String deleteSuper (HttpServletRequest request) {
+    public String deleteSuper(HttpServletRequest request) {
         int superID = Integer.parseInt(request.getParameter("superID"));
         this.service.deleteSuperByID(superID);
-        
+
         return "redirect:/supers";
     }
 
@@ -105,27 +110,27 @@ public class SuperController {
         superhero.setType(type);
         superhero.setName(superName);
         superhero.setDescription(superDescription);
-        
+
         String[] orgIDs = request.getParameterValues("organizationID");
         List<Organization> orgs = new ArrayList<>();
         for (String orgID : orgIDs) {
             orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
         }
         superhero.setOrganization(orgs);
-        
+
         this.service.updateSuper(superhero);
 
         return "redirect:/supers";
 
     }
-    
+
     @GetMapping("detailsSuper")
-    public String displayDetailsSuper (HttpServletRequest request, Model model){
+    public String displayDetailsSuper(HttpServletRequest request, Model model) {
         int superID = Integer.parseInt(request.getParameter("superID"));
-        
+
         Super superhero = this.service.getSuperByID(superID);
         model.addAttribute("superhero", superhero);
-        
+
         return "detailsSuper";
     }
-}   
+}

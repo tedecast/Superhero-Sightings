@@ -77,9 +77,6 @@ public class PowerDaoDB implements PowerDao {
     public void deletePowerByID(int powerID) {
         final String UPDATE_POWERS = "UPDATE Super SET powerID = null WHERE powerID = ?";
         this.jdbc.update(UPDATE_POWERS, powerID);
-        
-//        final String DELETE_SUPER_POWER = "DELETE FROM Super WHERE PowerID = ?";
-//        this.jdbc.update(DELETE_SUPER_POWER, powerID);
 
         final String DELETE_SUPERPOWER = "DELETE FROM Power WHERE PowerID = ?";
         this.jdbc.update(DELETE_SUPERPOWER, powerID);
