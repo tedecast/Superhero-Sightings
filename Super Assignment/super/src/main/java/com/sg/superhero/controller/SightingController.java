@@ -120,4 +120,19 @@ public class SightingController {
         return "detailsSighting";
     }
 
+    @GetMapping("sightingsByDate")
+    public String displaySightingsByDate(String date, Model model) {
+        LocalDate sightingDate = LocalDate.parse(date);
+        List<Sighting> sightings = this.service.getSightingsByDate(sightingDate);
+        List<Location> locations = this.service.getAllLocations();
+        List<Super> supers = this.service.getAllSupers();
+        LocalDate now = LocalDate.now();
+        
+        model.addAttribute("sightings", sightings);
+        model.addAttribute("locations", locations);
+        model.addAttribute("supers", supers);
+        model.addAttribute("now", now);
+        return "sightings";
+
+    }
 }
