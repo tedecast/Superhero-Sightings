@@ -89,15 +89,19 @@ public class OrganizationController {
 
     @GetMapping("editOrg")
     public String editOrganization(HttpServletRequest request, Model model) {
+        violations.clear();
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
+        model.addAttribute("errors", violations);
         model.addAttribute("organization", org);
         return "editOrg";
     }
 
     @PostMapping("editOrg")
-    public String performEditOrganization(HttpServletRequest request) {
+    public String performEditOrganization(HttpServletRequest request, Model model) {
+        violations.clear();
+
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
@@ -107,7 +111,17 @@ public class OrganizationController {
         org.setContactInfo(request.getParameter("contactInfo"));
         org.setType(request.getParameter("orgType"));
 
-        this.service.updateOrganization(org);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(org);
+
+        if (violations.isEmpty()) {
+            this.service.updateOrganization(org);
+        } else {
+            org = this.service.getOrganizationByID(org.getOrganizationID());
+            model.addAttribute("errors", violations);
+            model.addAttribute("organization", org);
+            return "editOrg";
+        }
 
         return "redirect:/organizations";
     }
