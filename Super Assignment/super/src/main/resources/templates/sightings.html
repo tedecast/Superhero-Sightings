@@ -65,7 +65,7 @@
                         </div>
                         <!--Super-->
                         <div class="form-group row">
-                            <label for="supers" class="col-3 col-form-label font-weight-bold">Super</label>
+                            <label for="supers" class="col-3 col-form-label font-weight-bold">Super Involved</label>
                             <div class="col-9">
                                 <select id="supers" name="superID" class="form-control">
                                     <option disabled selected value>Choose Super</option>
@@ -108,9 +108,7 @@
                                 <td th:text="${sighting.superhero.name}">Super Name</td>
                                 <td th:text="${sighting.description}">Description</td>
                                 <td><a href="#" th:href="@{detailsSighting(sightingID=${sighting.sightingID})}">Details</a></td>
-                                <!--
-                                                                <td><a href="#" th:href="@{/edit/editSuper(superID=${superhero.superID})}">Edit</a></td>
-                                -->                                                               
+                                <td><a href="#" th:href="@{editSighting(sightingID=${sighting.sightingID})}">Edit</a></td>
                                 <td><a href="#" th:href="@{/deleteSighting(sightingID=${sighting.sightingID})}">Delete</a></td>
                             </tr>
                         </tbody>
