@@ -45,6 +45,13 @@
                     <form action="editSighting" method="POST">
                         <input type="hidden" name="superID" th:value="${sighting.sightingID}" id="superID"/>
                         <!--Date-->
+                        <div class="form-group row">
+                            <label for="date" class="col-3 col-form-label font-weight-bold">Date</label>
+                            <div class="col-9">
+                                <input type="date" name="date" 
+                                       id="date" th:value="${sighting.date}" class="form-control"/>
+                            </div>
+                        </div>
                         <!--Location-->
                         <div class="form-group row">
                             <label for="locations" class="col-3 col-form-label font-weight-bold">
