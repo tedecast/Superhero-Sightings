@@ -70,7 +70,7 @@ public class SightingController {
     public String addSighting(Sighting sighting, HttpServletRequest request, Model model) {
 
         violations.clear();
-        
+
         String locationID = request.getParameter("locationID");
         sighting.setLocation(this.service.getLocationByID(Integer.parseInt(locationID)));
 
@@ -86,7 +86,7 @@ public class SightingController {
 
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(sighting);
-        
+
         LocalDate now = LocalDate.now();
         if (violations.isEmpty()) {
             this.service.addSighting(sighting);
@@ -110,11 +110,13 @@ public class SightingController {
 
     @GetMapping("editSighting")
     public String editSighting(HttpServletRequest request, Model model) {
+        violations.clear();
         int sightingID = Integer.parseInt(request.getParameter("sightingID"));
         Sighting sighting = this.service.getSightingByID(sightingID);
         List<Location> locations = this.service.getAllLocations();
         List<Super> supers = this.service.getAllSupers();
 
+        model.addAttribute("errors", violations);
         model.addAttribute("sighting", sighting);
         model.addAttribute("locations", locations);
         model.addAttribute("supers", supers);
@@ -123,7 +125,9 @@ public class SightingController {
     }
 
     @PostMapping("editSighting")
-    public String performEditSighting(HttpServletRequest request) {
+    public String performEditSighting(HttpServletRequest request, Model model) {
+        violations.clear();
+
         int sightingID = Integer.parseInt(request.getParameter("sightingID"));
         Sighting sighting = this.service.getSightingByID(sightingID);
 
@@ -141,8 +145,22 @@ public class SightingController {
         sighting.setDate(sightingDate);
         sighting.setDescription(description);
 
-        this.service.updateSighting(sighting);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(sighting);
 
+        List<Location> locations = this.service.getAllLocations();
+        List<Super> supers = this.service.getAllSupers();
+        
+        if (violations.isEmpty()) {
+            this.service.updateSighting(sighting);
+        } else {
+            sighting = this.service.getSightingByID(sighting.getSightingID());
+            model.addAttribute("errors", violations);
+            model.addAttribute("sighting", sighting);
+            model.addAttribute("locations", locations);
+            model.addAttribute("supers", supers);
+            return "editSighting";
+        }
         return "redirect:/sightings";
 
     }
