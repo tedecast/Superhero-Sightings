@@ -41,8 +41,17 @@ public class LocationController {
         return "locations";
     }
 
+    @GetMapping("addLocation")
+    public String displayAddLocation(Model model) {
+        model.addAttribute("errors", violations);
+
+        return "addLocation";
+    }
+
     @PostMapping("addLocation")
-    public String addLocation(HttpServletRequest request) {
+    public String addLocation(HttpServletRequest request, Model model) {
+
+        violations.clear();
 
         String locationName = request.getParameter("locationName");
         String locationDescription = request.getParameter("locationDescription");
@@ -62,7 +71,13 @@ public class LocationController {
 
         if (violations.isEmpty()) {
             this.service.addLocation(location);
+        } else {
+            model.addAttribute("errors", violations);
+            model.addAttribute("location", location);
+            return "addLocation";
         }
+
+        model.addAttribute("errors", violations);
 
         return "redirect:/locations";
     }
@@ -77,6 +92,7 @@ public class LocationController {
 
     @GetMapping("editLocation")
     public String editLocation(HttpServletRequest request, Model model) {
+        violations.clear();
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
 
@@ -88,7 +104,7 @@ public class LocationController {
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request, Model model) {
         violations.clear();
-        
+
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
 

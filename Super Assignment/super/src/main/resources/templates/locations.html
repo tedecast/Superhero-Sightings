@@ -36,68 +36,13 @@
                 </div>
             </div>
 
-            <!--Add Location-->
-            <div class="row m-4 border border-dark">
-                <!--Location Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
-                <div class="col-3 text-center m-3">
-                    <span class="h3">Add Location</span>
-                </div>
-                <div class="col-7 text-center m-3">
-                    <form action="addLocation" method="POST">    
-                        <!--Location Name-->
-                        <div class="form-group row">
-                            <label for="superName" class="col-3 col-form-label font-weight-bold">Location Name</label>
-                            <div class="col-9">
-                                <input type="text" name="locationName" 
-                                       id="locationName" class="form-control"/>
-                            </div>
-                        </div>
-                        <!--Description-->
-                        <div class="form-group row">
-                            <label for="locationDescription" class="col-3 col-form-label font-weight-bold">Description</label>
-                            <div class="col-9">
-                                <input type="text" name="locationDescription" 
-                                       id="locationDescription" class="form-control"/>
-                            </div>
-                        </div>
-                        <!--Address-->
-                        <div class="form-group row">
-                            <label for="locationAddress" class="col-3 col-form-label font-weight-bold">Address</label>
-                            <div class="col-9">
-                                <input type="text" name="locationAddress" 
-                                       id="locationAddress" class="form-control"/>
-                            </div>
-                        </div>
-                        <!--Latitude-->
-                        <div class="form-group row">
-                            <label for="latitude" class="col-3 col-form-label font-weight-bold">Latitude</label>
-                            <div class="col-9">
-                                <input type="text" name="latitude" 
-                                       id="latitude" class="form-control"/>
-                            </div>
-                        </div>
-                        <!--Longitude-->
-                        <div class="form-group row">
-                            <label for="longitude" class="col-3 col-form-label font-weight-bold">Longitude</label>
-                            <div class="col-9">
-                                <input type="text" name="longitude" 
-                                       id="longitude" class="form-control"/>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-1">Add Location</button>
-                    </form>
-                </div>
-            </div>
+            <!--Add Location was originally here-->
 
             <!-- Location Table -->
             <div class="row m-4 border border-dark">
                 <div class="col text-center m-3">
-                    <h1 class="col text-center m-2">Locations</h1>
+                    <h1 class="col text-center m-2">Locations
+                        <a href="/addLocation" class="btn btn-outline-primary btn-lg float-right">Add Location</a></h1>
                     <table class="table table-striped">
                         <thead>
                             <tr>
