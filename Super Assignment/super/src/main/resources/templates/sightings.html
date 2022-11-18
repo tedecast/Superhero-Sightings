@@ -37,13 +37,13 @@
             </div>
 
             <!--Add Sighting-->
-            <div class="row m-4 border border-dark">
+<!--            <div class="row m-4 border border-dark">
                 <div class="col-3 text-center m-3">
                     <span class="h3">Add Sighting</span>
                 </div>
                 <div class="col-7 text-center m-3">
                     <form action="addSighting" method="POST">   
-                        <!--Date-->
+                        Date
                         <div class="form-group row">
                             <label for="date" class="col-3 col-form-label font-weight-bold">Date</label>
                             <div class="col-9">
@@ -51,7 +51,7 @@
                                        id="date" th:value="${now}" class="form-control"/>
                             </div>
                         </div>
-                        <!--Location-->
+                        Location
                         <div class="form-group row">
                             <label for="locations" class="col-3 col-form-label font-weight-bold">Location</label>
                             <div class="col-9">
@@ -63,7 +63,7 @@
                                 </select>
                             </div>
                         </div>
-                        <!--Super-->
+                        Super
                         <div class="form-group row">
                             <label for="supers" class="col-3 col-form-label font-weight-bold">Super Involved</label>
                             <div class="col-9">
@@ -75,7 +75,7 @@
                                 </select>
                             </div>
                         </div>
-                        <!--Description-->
+                        Description
                         <div class="form-group row">
                             <label for="sightingDescription" class="col-3 col-form-label font-weight-bold">Description</label>
                             <div class="col-9">
@@ -86,7 +86,7 @@
                         <button type="submit" class="btn btn-primary mt-1">Add Sighting</button>
                     </form>
                 </div>
-            </div>
+            </div>-->
             <!--Sighting By Date-->
             <div class="row m-4 border border-dark">
                 <div class="col-3 text-center m-3">
@@ -110,7 +110,8 @@
             <!-- Sighting Table -->
             <div class="row m-4 border border-dark">
                 <div class="col text-center m-3">
-                    <h1 class="col text-center m-2">Sightings</h1>
+                    <h1 class="col text-center m-2">Sightings
+                    <a href="/addSighting" class="btn btn-outline-primary btn-lg float-right">Add Sighting</a></h1>
                     <table class="table table-striped">
                         <thead>
                             <tr>

@@ -7,6 +7,9 @@ package com.sg.superhero.entities;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -18,9 +21,13 @@ public class Sighting {
     private int sightingID;
     private Super superhero;
     private Location location;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @PastOrPresent(message = "Please enter a date no later than today")
     private LocalDate date;
+    
+    @NotBlank(message = "Description must not be blank.")
+    @Size(max = 255, message = "Description must be fewer than 255 characters")
     private String description;
 
     public int getSightingID() {
