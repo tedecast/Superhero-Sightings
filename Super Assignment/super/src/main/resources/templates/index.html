@@ -41,6 +41,32 @@
                     <h5 class="p-3">Welcome to the Super Sightings! Here you can view and record all the latest sightings!</h5>
                 </div>
             </div>
+            <!--Last 10 Sightings-->
+                        <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <h1 class="col text-center m-2">Sightings</h1>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Super Involved</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="sighting : ${sightings}">
+                                <td th:text="${sighting.date}">Date</td>
+                                <td th:text="${sighting.location.name}">Location Name</td>
+                                <td th:text="${sighting.superhero.name}">Super Name</td>
+                                <td th:text="${sighting.description}">Description</td>
+                                <td><a href="#" th:href="@{detailsSighting(sightingID=${sighting.sightingID})}">Details</a></td>
+                                <!--Delete Sighting-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>  
 
         <!-- End main body -->
