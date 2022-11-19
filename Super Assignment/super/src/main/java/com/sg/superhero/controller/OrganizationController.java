@@ -127,7 +127,7 @@ public class OrganizationController {
     }
 
     @GetMapping("detailsOrg")
-    public String displayDetailsOrganization(Integer organizationID, HttpServletRequest request, Model model) {
+    public String displayDetailsOrganization(Integer organizationID, Model model) {
         Organization organization = this.service.getOrganizationByID(organizationID);
         model.addAttribute("organization", organization);
 

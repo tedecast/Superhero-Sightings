@@ -120,8 +120,7 @@ public class PowerController {
     }
 
     @GetMapping("detailsPower")
-    public String displayDetailsPower(HttpServletRequest request, Model model) {
-        int powerID = Integer.parseInt(request.getParameter("powerID"));
+    public String displayDetailsPower(Integer powerID, Model model) {
         Power power = this.service.getPowerByID(powerID);
         model.addAttribute("power", power);
 

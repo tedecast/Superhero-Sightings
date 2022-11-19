@@ -6,7 +6,6 @@
 package com.sg.superhero.controller;
 
 import com.sg.superhero.entities.Location;
-import com.sg.superhero.entities.Super;
 import com.sg.superhero.service.SuperService;
 import java.util.HashSet;
 import java.util.List;
@@ -136,7 +135,7 @@ public class LocationController {
     }
 
     @GetMapping("detailsLocation")
-    public String displayDetailsLocation(Integer locationID, HttpServletRequest request, Model model){
+    public String displayDetailsLocation(Integer locationID, Model model){
 
         Location location = this.service.getLocationByID(locationID);
         model.addAttribute("location", location);
