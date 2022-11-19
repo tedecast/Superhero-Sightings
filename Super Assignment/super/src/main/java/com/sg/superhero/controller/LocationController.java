@@ -132,17 +132,14 @@ public class LocationController {
             return "editLocation";
         }
 
-        return "redirect:/locations";
+        return "redirect:/detailsLocation?locationID=" + location.getLocationID();
     }
 
     @GetMapping("detailsLocation")
-    public String displayDetailsLocation(HttpServletRequest request, Model model) {
-        int locationID = Integer.parseInt(request.getParameter("locationID"));
+    public String displayDetailsLocation(Integer locationID, HttpServletRequest request, Model model) {
+//        int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
         model.addAttribute("location", location);
-
-        List<Super> supers = this.service.getSupersForLocation(location);
-        model.addAttribute("supers", supers);
 
         return "detailsLocation";
     }
