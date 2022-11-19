@@ -116,7 +116,7 @@ public class PowerController {
             return "editPower";
         }
 
-        return "redirect:/powers";
+        return "redirect:/detailsPower?powerID=" + power.getPowerID();
     }
 
     @GetMapping("detailsPower")
