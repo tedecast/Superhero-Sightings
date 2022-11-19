@@ -123,14 +123,12 @@ public class OrganizationController {
             return "editOrg";
         }
 
-        return "redirect:/organizations";
+        return "redirect:/detailsOrg?organizationID=" + org.getOrganizationID();
     }
 
     @GetMapping("detailsOrg")
-    public String displayDetailsOrganization(HttpServletRequest request, Model model) {
-        int orgID = Integer.parseInt(request.getParameter("organizationID"));
-
-        Organization organization = this.service.getOrganizationByID(orgID);
+    public String displayDetailsOrganization(Integer organizationID, HttpServletRequest request, Model model) {
+        Organization organization = this.service.getOrganizationByID(organizationID);
         model.addAttribute("organization", organization);
 
         return "detailsOrg";

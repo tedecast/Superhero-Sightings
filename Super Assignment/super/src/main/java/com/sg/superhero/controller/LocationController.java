@@ -136,8 +136,8 @@ public class LocationController {
     }
 
     @GetMapping("detailsLocation")
-    public String displayDetailsLocation(Integer locationID, HttpServletRequest request, Model model) {
-//        int locationID = Integer.parseInt(request.getParameter("locationID"));
+    public String displayDetailsLocation(Integer locationID, HttpServletRequest request, Model model){
+
         Location location = this.service.getLocationByID(locationID);
         model.addAttribute("location", location);
 
