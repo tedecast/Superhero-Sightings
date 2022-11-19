@@ -45,6 +45,7 @@
                 </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Edit Super</span>
+                    <input type="hidden" name="superID" th:value="${superhero.superID}"/>
                 </div>
 
                 <div class="col-7 text-center m-3">
@@ -104,7 +105,7 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" name="superID" th:value="${superhero.superID}"/>
+                        <!--                        <input type="hidden" name="superID" th:value="${superhero.superID}"/>-->
                         <button type="submit" class="btn btn-outline-primary">OK</button>
                         <a href="/supers" class="btn btn-outline-primary">Cancel</a>
                     </form>

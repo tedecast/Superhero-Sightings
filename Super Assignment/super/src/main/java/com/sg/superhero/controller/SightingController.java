@@ -168,7 +168,6 @@ public class SightingController {
 
     @GetMapping("detailsSighting")
     public String displayDetailsSighting(Integer sightingID, Model model) {
-//        int sightingID = Integer.parseInt(request.getParameter("sightingID"));
 
         Sighting sighting = this.service.getSightingByID(sightingID);
         model.addAttribute("sighting", sighting);

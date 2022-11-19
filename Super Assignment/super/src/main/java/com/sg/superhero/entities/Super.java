@@ -27,7 +27,7 @@ public class Super {
     private String type;
     
     @NotBlank(message = "Super Name must not be blank.")
-    @Size(max = 10, message = "Super Name must be fewer than 50 characters")
+    @Size(max = 50, message = "Super Name must be fewer than 50 characters")
     private String name;
     
     @NotBlank(message = "Description must not be blank.")

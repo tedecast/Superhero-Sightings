@@ -41,6 +41,7 @@ public class SuperServiceImpl implements SuperService {
 
     @Autowired
     SightingDao sightingDao;
+    
 
 //    Power
     @Override

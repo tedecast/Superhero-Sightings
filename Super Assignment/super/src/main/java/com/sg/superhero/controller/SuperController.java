@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -20,6 +21,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -173,7 +175,7 @@ public class SuperController {
         List<Power> powers = this.service.getAllPowers();
         List<Organization> organizations = this.service.getAllOrganizations();
         List<Organization> superOrgs = this.service.getOrganizationsForSuper(superhero);
-        
+
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(superhero);
 
@@ -188,14 +190,11 @@ public class SuperController {
             model.addAttribute("superOrgs", superOrgs);
             return "editSuper";
         }
-
-        return "redirect:/supers";
-
+        return "redirect:/detailsSuper?superID=" + superhero.getSuperID();
     }
 
     @GetMapping("detailsSuper")
-    public String displayDetailsSuper(HttpServletRequest request, Model model) {
-        int superID = Integer.parseInt(request.getParameter("superID"));
+    public String displayDetailsSuper(Integer superID, Model model) {
 
         Super superhero = this.service.getSuperByID(superID);
         model.addAttribute("superhero", superhero);
