@@ -41,15 +41,13 @@ public class OrganizationController {
 
     @GetMapping("addOrganization")
     public String displayAddLocation(Model model) {
+        violations.clear();
         model.addAttribute("errors", violations);
         return "addOrganization";
     }
 
     @PostMapping("addOrganization")
     public String addOrganization(HttpServletRequest request, Model model) {
-
-        violations.clear();
-
         String orgName = request.getParameter("orgName");
         String orgDescription = request.getParameter("orgDescription");
         String orgAddress = request.getParameter("orgAddress");

@@ -19,21 +19,21 @@ public class Organization {
     private int organizationID;
 
     @NotBlank(message = "Name must not be blank.")
-    @Size(max = 50, message = "Name must be less than 50 characters.")
+    @Size(min = 1, max = 50, message = "Name must be between 1-50 characters.")
     private String name;
 
     @NotBlank(message = "Description must not be blank.")
-    @Size(max = 255, message = "First name must be less than 255 characters.")
+    @Size(min = 1, max = 255, message = "Descripition must be between 1-255 characters.")
     private String description;
 
     @NotBlank(message = "Address must not be blank.")
-    @Size(max = 255, message = "Address must be less than 255 characters.")
+    @Size(min = 1, max = 255, message = "Address must be between 1-255 characters.")
     private String address;
-
+    
+    @Size(max = 100, message = "Contact Info. must be less than 100 characters." )
     private String contactInfo;
 
     @NotBlank(message = "You must choose a type.")
-    @Size(max = 30, message = "Type must be less than 10 characters.")
     private String type;
     
     private List<Super> supers;
