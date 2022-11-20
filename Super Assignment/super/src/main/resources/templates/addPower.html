@@ -38,12 +38,6 @@
 
             <!--Add Power-->
             <div class="row m-4 border border-dark">
-                <!--Power Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Add Power</span>
                 </div>
@@ -57,6 +51,13 @@
                                 <input type="text" name="powerName" 
                                        id="powerName" class="form-control"/>
                             </div>
+                            <!--Bad Name-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('name')}">Bad Name</p>
+                            </div>
                         </div>
                         <!--Description-->
                         <div class="form-group row">
@@ -64,6 +65,13 @@
                             <div class="col-9">
                                 <input type="text" name="powerDescription" 
                                        id="powerDescription" class="form-control"/>
+                            </div>
+                            <!--Bad Description-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('description')}">Bad Description</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-outline-primary">Add Power</button>

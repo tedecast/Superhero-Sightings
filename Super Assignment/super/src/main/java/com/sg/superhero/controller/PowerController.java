@@ -21,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -55,8 +54,7 @@ public class PowerController {
 
     @PostMapping("addPower")
     public String addPower(HttpServletRequest request, Model model) {
-
-        violations.clear();
+        
         String powerName = request.getParameter("powerName");
         String powerDescription = request.getParameter("powerDescription");
 
@@ -90,18 +88,15 @@ public class PowerController {
 
     @GetMapping("editPower")
     public String editPower(Integer powerID, Model model) {
-        violations.clear();
-//        int powerID = Integer.parseInt(request.getParameter("powerID"));
+        violationsEdit.clear();
         Power power = this.service.getPowerByID(powerID);
-//
-        model.addAttribute("errors", violations);
+        model.addAttribute("errors", violationsEdit);
         model.addAttribute("power", power);
         return "editPower";
     }
 
     @PostMapping("editPower")
     public String performEditPower(@Valid Power power, BindingResult result, HttpServletRequest request, Model model) {
-//        violations.clear();
 
         int powerID = Integer.parseInt(request.getParameter("powerID"));
         power = this.service.getPowerByID(powerID);
@@ -110,7 +105,7 @@ public class PowerController {
         power.setDescription(request.getParameter("powerDescription"));
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violationsEdit = validate.validate(power);
-        
+
         if (violationsEdit.isEmpty()) {
             this.service.updatePower(power);
         } else {
@@ -119,10 +114,7 @@ public class PowerController {
             model.addAttribute("power", power);
             return "editPower";
         }
-//        if (result.hasErrors()) {
-//            return "editPower";
-//        }
-//        
+
         this.service.updatePower(power);
 
         return "redirect:/detailsPower?powerID=" + power.getPowerID();
