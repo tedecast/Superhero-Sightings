@@ -123,14 +123,14 @@ public class SuperController {
 
     @GetMapping("editSuper")
     public String editSuper(HttpServletRequest request, Model model) {
-        violations.clear();
+        violationsEdit.clear();
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
         List<Power> powers = this.service.getAllPowers();
         List<Organization> orgs = this.service.getAllOrganizations();
         List<Organization> superOrgs = this.service.getOrganizationsForSuper(superhero);
 
-        model.addAttribute("errors", violations);
+        model.addAttribute("errors", violationsEdit);
         model.addAttribute("superhero", superhero);
         model.addAttribute("powers", powers);
         model.addAttribute("organizations", orgs);
@@ -166,9 +166,12 @@ public class SuperController {
 
         String[] orgIDs = request.getParameterValues("organizationID");
         List<Organization> orgs = new ArrayList<>();
-        for (String orgID : orgIDs) {
-            orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
+        if (orgIDs != null) {
+            for (String orgID : orgIDs) {
+                orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
+            }
         }
+        
         superhero.setOrganization(orgs);
 
         List<Power> powers = this.service.getAllPowers();
