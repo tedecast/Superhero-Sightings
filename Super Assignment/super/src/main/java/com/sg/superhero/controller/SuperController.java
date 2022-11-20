@@ -50,6 +50,7 @@ public class SuperController {
     @GetMapping("addSuper")
     public String displayAddsuper(Model model) {
 
+        violations.clear();
         List<Organization> organizations = this.service.getAllOrganizations();
         List<Power> powers = this.service.getAllPowers();
 
@@ -63,7 +64,6 @@ public class SuperController {
     @PostMapping("addSuper")
     public String addSuper(Super superhero, HttpServletRequest request, Model model) {
 
-        violations.clear();
         List<Organization> organizations = this.service.getAllOrganizations();
         List<Power> powers = this.service.getAllPowers();
 
@@ -142,7 +142,7 @@ public class SuperController {
     @PostMapping("editSuper")
     public String performEditSuper(HttpServletRequest request, Model model) {
 
-        violations.clear();
+        violationsEdit.clear();
 
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
@@ -171,7 +171,7 @@ public class SuperController {
                 orgs.add(this.service.getOrganizationByID(Integer.parseInt(orgID)));
             }
         }
-        
+
         superhero.setOrganization(orgs);
 
         List<Power> powers = this.service.getAllPowers();

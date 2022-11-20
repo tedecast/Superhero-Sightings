@@ -37,12 +37,6 @@
             </div>
             <!--Edit Super-->
             <div class="row m-4 border border-dark">
-                <!--Super Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Edit Super</span>
                     <input type="hidden" name="superID" th:value="${superhero.superID}"/>
@@ -58,6 +52,13 @@
                                 <option th:selected="${superhero.type.equals('Hero')}" value="Hero">Hero</option>
                                 <option th:selected="${superhero.type.equals('Villain')}" value="Villain">Villain</option>
                             </select>
+                            <!--Bad Type-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('type')}">Bad Type</p>
+                            </div>
                         </div>
                         <!--Name-->
                         <div class="form-group row">
@@ -67,6 +68,13 @@
                                 <input type="text" name="superName" 
                                        id="superName" class="form-control" th:value="${superhero.name}"/>
                             </div>
+                            <!--Bad Name-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('name')}">Bad Name</p>
+                            </div>
                         </div>
                         <!--Description-->
                         <div class="form-group row">
@@ -74,6 +82,13 @@
                             <div class="col-9">
                                 <input type="text" name="superDescription" 
                                        id="superDescription" class="form-control" th:value="${superhero.description}"/>
+                            </div>
+                            <!--Bad Description-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('description')}">Bad Description</p>
                             </div>
                         </div>
                         <!--Power-->
@@ -90,7 +105,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <!--Organizations-->
                         <div class="form-group row">
                             <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>
@@ -103,8 +117,15 @@
                                             th:if="${superOrgs!=null}">Organization List</option>
                                 </select>
                             </div>
+                            <!--Bad Organization-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('organization')}">Bad Organization</p>
+                            </div>
                         </div>
-                        <!--                        <input type="hidden" name="superID" th:value="${superhero.superID}"/>-->
+                        <input type="hidden" name="superID" th:value="${superhero.superID}"/>
                         <button type="submit" class="btn btn-outline-primary">OK</button>
                         <a href="/supers" class="btn btn-outline-primary">Cancel</a>
                     </form>
