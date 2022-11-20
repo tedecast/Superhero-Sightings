@@ -31,6 +31,7 @@ public class OrganizationController {
     SuperService service;
 
     Set<ConstraintViolation<Organization>> violations = new HashSet<>();
+    Set<ConstraintViolation<Organization>> violationsEdit = new HashSet<>();
 
     @GetMapping("organizations")
     public String displayOrganizations(Model model) {
@@ -87,19 +88,17 @@ public class OrganizationController {
 
     @GetMapping("editOrg")
     public String editOrganization(HttpServletRequest request, Model model) {
-        violations.clear();
+        violationsEdit.clear();
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
-        model.addAttribute("errors", violations);
+        model.addAttribute("errors", violationsEdit);
         model.addAttribute("organization", org);
         return "editOrg";
     }
 
     @PostMapping("editOrg")
     public String performEditOrganization(HttpServletRequest request, Model model) {
-        violations.clear();
-
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
@@ -110,13 +109,13 @@ public class OrganizationController {
         org.setType(request.getParameter("orgType"));
 
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-        violations = validate.validate(org);
+        violationsEdit = validate.validate(org);
 
-        if (violations.isEmpty()) {
+        if (violationsEdit.isEmpty()) {
             this.service.updateOrganization(org);
         } else {
             org = this.service.getOrganizationByID(org.getOrganizationID());
-            model.addAttribute("errors", violations);
+            model.addAttribute("errors", violationsEdit);
             model.addAttribute("organization", org);
             return "editOrg";
         }
