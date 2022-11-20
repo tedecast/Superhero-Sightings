@@ -55,11 +55,11 @@
                 <!--Power-->
                 <div class="col-6 text-right font-weight-bold">Power Name:</div>
                 <div class="col-6 text-left">
-                    <span th:text="${superhero.power} ? ${superhero.power.name} : 'No Power'">Display Power Name</span>
+                    <span th:text="${superhero.power != null} ? ${superhero.power.name} : 'No Power'">Display Power Name</span>
                 </div>
                 <div class="col-6 text-right font-weight-bold">Power Description:</div>
                 <div class="col-6 text-left">
-                    <span th:text="${superhero.power} ? ${superhero.power.description}: 'N/A'">Display Power Description</span>
+                    <span th:text="${superhero.power != null} ? ${superhero.power.description}: 'No Power'">Display Power Description</span>
                 </div>
                 <!--List of Organizations-->
                 <div class="col-6 text-right font-weight-bold">Organizations:</div>
