@@ -91,19 +91,17 @@ public class LocationController {
 
     @GetMapping("editLocation")
     public String editLocation(HttpServletRequest request, Model model) {
-        violations.clear();
+        violationsEdit.clear();
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
 
-        model.addAttribute("errors", violations);
+        model.addAttribute("errors", violationsEdit);
         model.addAttribute("location", location);
         return "editLocation";
     }
 
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request, Model model) {
-        violations.clear();
-
         int locationID = Integer.parseInt(request.getParameter("locationID"));
         Location location = this.service.getLocationByID(locationID);
 

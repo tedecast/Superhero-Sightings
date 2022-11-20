@@ -36,12 +36,6 @@
                 </div>
             </div>
             <div class="row m-4 border border-dark">
-                <!--Location Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Edit Location</span>
                 </div>
@@ -55,6 +49,13 @@
                                 <input type="text" name="locationName" 
                                        id="locationName" class="form-control" th:value="${location.name}"/>
                             </div>
+                            <!--Bad Location Name-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('name')}">Bad Name</p>
+                            </div>
                         </div>
                         <!--Description-->
                         <div class="form-group row">
@@ -62,6 +63,13 @@
                             <div class="col-9">
                                 <input type="text" name="locationDescription" 
                                        id="locationDescription" class="form-control" th:value="${location.description}"/>
+                            </div>
+                            <!--Bad Description-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('description')}">Bad Description</p>
                             </div>
                         </div>
                         <!--Address-->
@@ -71,6 +79,13 @@
                                 <input type="text" name="locationAddress" 
                                        id="locationAddress" class="form-control" th:value="${location.address}"/>
                             </div>
+                            <!--Bad Address-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('address')}">Bad Address</p>
+                            </div>
                         </div>
                         <!--Latitude-->
                         <div class="form-group row">
@@ -79,6 +94,13 @@
                                 <input type="text" name="latitude" 
                                        id="latitude" class="form-control" th:value="${location.latitude}"/>
                             </div>
+                            <!--Bad Latitude-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('latitude')}">Bad Latitude</p>
+                            </div>
                         </div>
                         <!--Longitude-->
                         <div class="form-group row">
@@ -86,6 +108,13 @@
                             <div class="col-9">
                                 <input type="text" name="longitude" 
                                        id="longitude" class="form-control" th:value="${location.longitude}"/>
+                            </div>
+                            <!--Bad Longitude-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('longitude')}">Bad Longitude</p>
                             </div>
                         </div>
                         <input type="hidden" name="locationID" th:value="${location.locationID}"/>
