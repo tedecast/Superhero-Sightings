@@ -37,11 +37,6 @@
             </div>
             <div class="row m-4 border border-dark">
                 <!--Power Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Edit Power</span>
                 </div>
@@ -55,11 +50,12 @@
                                 <input type="text" name="powerName" 
                                        id="powerName" class="form-control" th:value="${power.name}"/>
                                 <!--Bad Name-->
-<!--                                <div th:if="${#fields.hasErrors('power.name')}">
-                                    <p th:each="error : ${#fields.errors('power.name')}" class="alert alert-danger"
-                                       th:text="${error}"> Bad Name </p>
-                                </div>-->
-
+                                <div class="col-12 m-1 text-center" 
+                                     th:if="${!errors.isEmpty()}">
+                                    <p class="alert alert-danger" th:each="error : ${errors}" 
+                                       th:text="${error.message}"
+                                       th:if="${error.getPropertyPath().toString().equals('name')}">Bad Name</p>
+                                </div>
                             </div>
                         </div>
                         <!--Description-->
@@ -70,10 +66,12 @@
                                 <input type="text" name="powerDescription" 
                                        id="powerDescription" class="form-control" th:value="${power.description}"/>
                                 <!--Bad Description-->
-<!--                                <div th:if="${#fields.hasErrors('power.description')}">
-                                    <p th:each="error : ${#fields.errors('power.description')}" class="alert alert-danger"
-                                       th:text="${error}"> Bad Description </p>
-                                </div>-->
+                                <div class="col-12 m-1 text-center" 
+                                     th:if="${!errors.isEmpty()}">
+                                    <p class="alert alert-danger" th:each="error : ${errors}" 
+                                       th:text="${error.message}"
+                                       th:if="${error.getPropertyPath().toString().equals('description')}">Bad Description</p>
+                                </div>
                             </div>
                         </div>
                         <input type="hidden" name="powerID" th:value="${power.powerID}"/>

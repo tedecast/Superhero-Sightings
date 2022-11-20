@@ -21,8 +21,8 @@ public class Power {
     @Size(min = 1, max = 50, message = "Power Name must be betwen 1-50 characters.")
     private String name;
     
-    @NotBlank(message = "Description must not be blank.")
-    @Size(min = 1, max = 255, message = "Description must be between 1-255 characters.")
+    @NotBlank(message = "Power Description must not be blank.")
+    @Size(min = 1, max = 255, message = "Power Description must be between 1-255 characters.")
     private String description;
 
     public Power() {

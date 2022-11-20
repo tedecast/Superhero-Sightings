@@ -35,6 +35,7 @@ public class PowerController {
     SuperService service;
 
     Set<ConstraintViolation<Power>> violations = new HashSet<>();
+    Set<ConstraintViolation<Power>> violationsEdit = new HashSet<>();
 
     @GetMapping("powers")
     public String displayPowers(Model model) {
@@ -108,12 +109,13 @@ public class PowerController {
         power.setName(request.getParameter("powerName"));
         power.setDescription(request.getParameter("powerDescription"));
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-        violations = validate.validate(power);
-        if (violations.isEmpty()) {
+        violationsEdit = validate.validate(power);
+        
+        if (violationsEdit.isEmpty()) {
             this.service.updatePower(power);
         } else {
             power = this.service.getPowerByID(power.getPowerID());
-            model.addAttribute("errors", violations);
+            model.addAttribute("errors", violationsEdit);
             model.addAttribute("power", power);
             return "editPower";
         }
