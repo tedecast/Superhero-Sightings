@@ -18,23 +18,23 @@ public class Location {
     private int locationID;
 
     @NotBlank(message = "Location Name must not be blank.")
-    @Size(max = 50, message = "Name must be less than 50 characters.")
+    @Size(min = 1, max = 50, message = "Location Name must be between 1-50 characters.")
     private String name;
 
     @NotBlank(message = "Description must not be blank.")
-    @Size(max = 255, message = "Description must be less than 255 characters.")
+    @Size(min = 1, max = 255, message = "Description must be between 1-255 characters.")
     private String description;
 
     @NotBlank(message = "Address must not be blank.")
-    @Size(max = 255, message = "Address must be less than 255 characters.")
+    @Size(min = 1, max = 255, message = "Address must be between 1-255 characters.")
     private String address;
 
     @NotBlank(message = "Latitude must not be blank.")
-    @Size(max = 50, message = "Latitude must be less than 50 characters.")
+    @Size(min = 1, max = 50, message = "Latitude must be between 1-50 characters.")
     private String latitude;
 
     @NotBlank(message = "Longitude must not be blank.")
-    @Size(max = 50, message = "Longitude must be less than 50 characters.")
+    @Size(min = 1, max = 50, message = "Longitude must be between 1-50 characters.")
     private String longitude;
 
     public int getLocationID() {

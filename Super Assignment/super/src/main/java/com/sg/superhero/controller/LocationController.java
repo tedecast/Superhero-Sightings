@@ -31,6 +31,7 @@ public class LocationController {
     SuperService service;
 
     Set<ConstraintViolation<Location>> violations = new HashSet<>();
+    Set<ConstraintViolation<Location>> violationsEdit = new HashSet<>();
 
     @GetMapping("locations")
     public String displayPowers(Model model) {
@@ -42,6 +43,7 @@ public class LocationController {
 
     @GetMapping("addLocation")
     public String displayAddLocation(Model model) {
+        violations.clear();
         model.addAttribute("errors", violations);
 
         return "addLocation";
@@ -49,8 +51,6 @@ public class LocationController {
 
     @PostMapping("addLocation")
     public String addLocation(HttpServletRequest request, Model model) {
-
-        violations.clear();
 
         String locationName = request.getParameter("locationName");
         String locationDescription = request.getParameter("locationDescription");
