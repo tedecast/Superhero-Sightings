@@ -93,20 +93,14 @@
                         <!--Power-->
                         <div class="form-group row">
                             <label for="power" class="col-3 col-form-label font-weight-bold">
-                                Add Power</label>
+                                Choose Power</label>
                             <div class="col-9">
-                                <select id="power" name="powerID" class="form-control">
-                                    <option disabled selected value>Choose Power</option>
+                                <select id="power" name="powerID" class="form-control" required>
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
                                             th:text="${power.name + ': ' 
                                             + power.description}">Power</option>
                                 </select>
-                                <!--Bad Power-->
-                                <!--                                <div th:if="${#fields.hasErrors('superhero.power')}">
-                                                                    <p th:each="error: ${#fields.errors('superhero.power')}" class="alert alert-danger"
-                                                                       th:text="${error}"> Bad Power Choice </p>
-                                                                       </div>-->
                             </div>
                         </div>
                         <!--Organizations-->

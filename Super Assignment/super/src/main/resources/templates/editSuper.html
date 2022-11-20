@@ -81,7 +81,7 @@
                             <label for="power" class="col-3 col-form-label font-weight-bold">
                                 Add Power</label>
                             <div class="col-9">
-                                <select id="power" name="powerID" class="form-control">
+                                <select id="power" name="powerID" class="form-control" required>
                                     <option disabled selected value>Choose Power</option>
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
@@ -99,7 +99,8 @@
                                     <option th:each="organization : ${organizations}" 
                                             th:value="${organization.organizationID}" 
                                             th:text="${organization.type + ': ' + organization.name}"
-                                            th:selected="${superOrgs.contains(organization)}">Organization List</option>
+                                            th:selected="${superOrgs.contains(organization)}"
+                                            th:if="${superOrgs!=null}">Organization List</option>
                                 </select>
                             </div>
                         </div>

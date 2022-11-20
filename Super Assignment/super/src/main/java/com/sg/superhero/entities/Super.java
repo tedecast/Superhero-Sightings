@@ -20,7 +20,8 @@ import javax.validation.constraints.Size;
 public class Super {
 
     private int superID;
-
+    
+    @NotNull(message="You must choose a power.")
     private Power power;
     
     @Size(min = 1, message="Super must belong to at least 1 organization.")
