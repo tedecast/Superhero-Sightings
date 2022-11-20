@@ -7,7 +7,10 @@ package com.sg.superhero.entities;
 
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,6 +21,9 @@ public class Super {
 
     private int superID;
 //    No possible validation needed for Power
+//    @NotNull
+//    @Valid
+//    @NotEmpty(message = "Super must have a power!")
     private Power power;
     
     private List<Organization> organization;

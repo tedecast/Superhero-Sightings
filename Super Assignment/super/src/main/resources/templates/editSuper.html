@@ -82,16 +82,14 @@
                                 Add Power</label>
                             <div class="col-9">
                                 <select id="power" name="powerID" class="form-control">
-                                    <option>No Power</option>
+                                    <option disabled selected value>Choose Power</option>
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
-                                            th:text="${power.name + ': ' + power.description}">Power</option>
-
-                                    <!--th:selected="${superhero.power.powerID == power.powerID}"-->
+                                            th:text="${power.name + ': ' + power.description}"
+                                            th:selected='${superhero.power eq power}'>Power</option>
                                 </select>
                             </div>
                         </div>
-                        <!--No Power-->
 
                         <!--Organizations-->
                         <div class="form-group row">

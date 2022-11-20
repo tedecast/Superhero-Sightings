@@ -43,6 +43,7 @@ public class PowerController {
 
     @GetMapping("addPower")
     public String displayAddPowers(Model model) {
+        violations.clear();
         model.addAttribute("errors", violations);
 
         return "addPower";
@@ -51,7 +52,7 @@ public class PowerController {
     @PostMapping("addPower")
     public String addPower(HttpServletRequest request, Model model) {
 
-        violations.clear();
+//        violations.clear();
         String powerName = request.getParameter("powerName");
         String powerDescription = request.getParameter("powerDescription");
 
