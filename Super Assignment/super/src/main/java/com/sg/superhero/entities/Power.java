@@ -18,11 +18,11 @@ public class Power {
     private int PowerID;
 
     @NotBlank(message = "Power Name must not be blank.")
-    @Size(max = 50, message = "Name must be less than 50 characters.")
+    @Size(min = 1, max = 50, message = "Power Name must be betwen 1-50 characters.")
     private String name;
-
+    
     @NotBlank(message = "Description must not be blank.")
-    @Size(max = 50, message = "Description must be less than 255 characters.")
+    @Size(min = 1, max = 255, message = "Description must be between 1-255 characters.")
     private String description;
 
     public Power() {

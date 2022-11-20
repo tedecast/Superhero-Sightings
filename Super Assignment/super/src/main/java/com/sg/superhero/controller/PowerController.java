@@ -13,12 +13,15 @@ import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -52,7 +55,7 @@ public class PowerController {
     @PostMapping("addPower")
     public String addPower(HttpServletRequest request, Model model) {
 
-//        violations.clear();
+        violations.clear();
         String powerName = request.getParameter("powerName");
         String powerDescription = request.getParameter("powerDescription");
 
@@ -85,29 +88,27 @@ public class PowerController {
     }
 
     @GetMapping("editPower")
-    public String editPower(HttpServletRequest request, Model model) {
+    public String editPower(Integer powerID, Model model) {
         violations.clear();
-        int powerID = Integer.parseInt(request.getParameter("powerID"));
+//        int powerID = Integer.parseInt(request.getParameter("powerID"));
         Power power = this.service.getPowerByID(powerID);
-
+//
         model.addAttribute("errors", violations);
         model.addAttribute("power", power);
         return "editPower";
     }
 
     @PostMapping("editPower")
-    public String performEditPower(HttpServletRequest request, Model model) {
-        violations.clear();
+    public String performEditPower(@Valid Power power, BindingResult result, HttpServletRequest request, Model model) {
+//        violations.clear();
 
         int powerID = Integer.parseInt(request.getParameter("powerID"));
-        Power power = this.service.getPowerByID(powerID);
+        power = this.service.getPowerByID(powerID);
 
         power.setName(request.getParameter("powerName"));
         power.setDescription(request.getParameter("powerDescription"));
-
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(power);
-
         if (violations.isEmpty()) {
             this.service.updatePower(power);
         } else {
@@ -116,6 +117,11 @@ public class PowerController {
             model.addAttribute("power", power);
             return "editPower";
         }
+//        if (result.hasErrors()) {
+//            return "editPower";
+//        }
+//        
+        this.service.updatePower(power);
 
         return "redirect:/detailsPower?powerID=" + power.getPowerID();
     }

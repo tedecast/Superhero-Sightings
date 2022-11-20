@@ -26,10 +26,10 @@
                     <a href="powers" class="btn btn-outline-primary btn-lg">Powers</a>
                 </div>
                 <div class="col text-center m-3">
-                    <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
+                    <a href="organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
                 </div>
                 <div class="col text-center m-3">
-                    <a href="organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
+                    <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
                 </div>
                 <div class="col text-center m-3">
                     <a href="sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
@@ -46,7 +46,7 @@
                     <span class="h3">Edit Power</span>
                 </div>
                 <div class="col-7 text-center m-3">
-                    <form action="editPower" method="POST">
+                    <form id="editPower" action="editPower" method="POST">
                         <!--Name-->
                         <div class="form-group row">
                             <label for="powerName" class="col-3 col-form-label font-weight-bold">
@@ -54,6 +54,12 @@
                             <div class="col-9">
                                 <input type="text" name="powerName" 
                                        id="powerName" class="form-control" th:value="${power.name}"/>
+                                <!--Bad Name-->
+<!--                                <div th:if="${#fields.hasErrors('power.name')}">
+                                    <p th:each="error : ${#fields.errors('power.name')}" class="alert alert-danger"
+                                       th:text="${error}"> Bad Name </p>
+                                </div>-->
+
                             </div>
                         </div>
                         <!--Description-->
@@ -63,6 +69,11 @@
                             <div class="col-9">
                                 <input type="text" name="powerDescription" 
                                        id="powerDescription" class="form-control" th:value="${power.description}"/>
+                                <!--Bad Description-->
+<!--                                <div th:if="${#fields.hasErrors('power.description')}">
+                                    <p th:each="error : ${#fields.errors('power.description')}" class="alert alert-danger"
+                                       th:text="${error}"> Bad Description </p>
+                                </div>-->
                             </div>
                         </div>
                         <input type="hidden" name="powerID" th:value="${power.powerID}"/>
