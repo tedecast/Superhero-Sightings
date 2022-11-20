@@ -20,12 +20,10 @@ import javax.validation.constraints.Size;
 public class Super {
 
     private int superID;
-//    No possible validation needed for Power
-//    @NotNull
-//    @Valid
-//    @NotEmpty(message = "Super must have a power!")
+
     private Power power;
     
+    @Size(min = 1, message="Super must belong to at least 1 organization.")
     private List<Organization> organization;
     
     @NotBlank(message = "You must choose a type.")
@@ -33,11 +31,11 @@ public class Super {
     private String type;
     
     @NotBlank(message = "Super Name must not be blank.")
-    @Size(max = 50, message = "Super Name must be fewer than 50 characters")
+    @Size(min = 1, max = 50, message = "Super Name must be between 1-50 characters")
     private String name;
     
     @NotBlank(message = "Description must not be blank.")
-    @Size(max = 255, message = "Description must be fewer than 255 characters")
+    @Size(min = 1, max = 255, message = "Description must be between 1-255 characters")
     private String description;
 
     public int getSuperID() {

@@ -38,12 +38,6 @@
 
             <!--Add Super-->
             <div class="row m-4 border border-dark">
-                <!--Super Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Add Super</span>
                 </div>
@@ -57,6 +51,13 @@
                                 <option value="Hero">Hero</option>
                                 <option value ="Villain">Villain</option>
                             </select>
+                            <!--Bad Type-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('type')}">Bad Type</p>
+                            </div>
                         </div>
                         <!--Name-->
                         <div class="form-group row">
@@ -66,6 +67,13 @@
                                 <input type="text" name="superName" 
                                        id="superName" class="form-control"/>
                             </div>
+                            <!--Bad Name-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('name')}">Bad Name</p>
+                            </div>
                         </div>
                         <!--Description-->
                         <div class="form-group row">
@@ -73,6 +81,13 @@
                             <div class="col-9">
                                 <input type="text" name="superDescription" 
                                        id="superDescription" class="form-control"/>
+                            </div>
+                            <!--Bad Description-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('description')}">Bad Description</p>
                             </div>
                         </div>
                         <!--Power-->
@@ -88,22 +103,29 @@
                                             + power.description}">Power</option>
                                 </select>
                                 <!--Bad Power-->
-<!--                                <div th:if="${#fields.hasErrors('superhero.power')}">
-                                    <p th:each="error: ${#fields.errors('superhero.power')}" class="alert alert-danger"
-                                       th:text="${error}"> Bad Power Choice </p>
-                                       </div>-->
+                                <!--                                <div th:if="${#fields.hasErrors('superhero.power')}">
+                                                                    <p th:each="error: ${#fields.errors('superhero.power')}" class="alert alert-danger"
+                                                                       th:text="${error}"> Bad Power Choice </p>
+                                                                       </div>-->
                             </div>
                         </div>
                         <!--Organizations-->
                         <div class="form-group row">
                             <label for="organizations" class="col-3 col-form-label font-weight-bold">Organizations</label>
                             <div class="col-9">
-                                <select multiple id="organizations" name="organizationID" class="form-control" required>
+                                <select multiple id="organizations" name="organizationID" class="form-control">
                                     <option th:each="organization : ${organizations}" 
                                             th:value="${organization.organizationID}" 
                                             th:text="${organization.type + ': ' 
                                             + organization.name}">Organization</option>
                                 </select>
+                            </div>
+                            <!--Bad Organization-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('organization')}">Bad Organization</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-outline-primary">Add Super</button>

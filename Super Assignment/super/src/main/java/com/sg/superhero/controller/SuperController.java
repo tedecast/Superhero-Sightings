@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -21,7 +20,6 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -36,6 +34,7 @@ public class SuperController {
     SuperService service;
 
     Set<ConstraintViolation<Super>> violations = new HashSet<>();
+    Set<ConstraintViolation<Super>> violationsEdit = new HashSet<>();
 
     @GetMapping("supers")
     public String displaySupers(Model model) {
