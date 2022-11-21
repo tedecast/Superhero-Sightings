@@ -53,7 +53,7 @@ public class SuperServiceImpl implements SuperService {
     public List<Power> getAllPowers() {
         return this.powerDao.getAllPowers();
     }
-
+    
     @Override
     public Power addPower(Power power) {
         return this.powerDao.addPower(power);
