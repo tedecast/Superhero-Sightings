@@ -47,6 +47,7 @@ public class PowerController {
     @GetMapping("addPower")
     public String displayAddPowers(Model model) {
         violations.clear();
+        violationsEdit.clear();
         model.addAttribute("errors", violations);
 
         return "addPower";
@@ -89,6 +90,7 @@ public class PowerController {
     @GetMapping("editPower")
     public String editPower(Integer powerID, Model model) {
         violationsEdit.clear();
+        violations.clear();
         Power power = this.service.getPowerByID(powerID);
         model.addAttribute("errors", violationsEdit);
         model.addAttribute("power", power);

@@ -51,6 +51,7 @@ public class SuperController {
     public String displayAddsuper(Model model) {
 
         violations.clear();
+        violationsEdit.clear();
         List<Organization> organizations = this.service.getAllOrganizations();
         List<Power> powers = this.service.getAllPowers();
 
@@ -123,7 +124,10 @@ public class SuperController {
 
     @GetMapping("editSuper")
     public String editSuper(HttpServletRequest request, Model model) {
+        
         violationsEdit.clear();
+        violations.clear();
+        
         int superID = Integer.parseInt(request.getParameter("superID"));
         Super superhero = this.service.getSuperByID(superID);
         List<Power> powers = this.service.getAllPowers();

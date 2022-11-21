@@ -43,6 +43,7 @@ public class OrganizationController {
     @GetMapping("addOrganization")
     public String displayAddLocation(Model model) {
         violations.clear();
+        violationsEdit.clear();
         model.addAttribute("errors", violations);
         return "addOrganization";
     }
@@ -89,6 +90,7 @@ public class OrganizationController {
     @GetMapping("editOrg")
     public String editOrganization(HttpServletRequest request, Model model) {
         violationsEdit.clear();
+        violations.clear();
         int orgID = Integer.parseInt(request.getParameter("organizationID"));
         Organization org = this.service.getOrganizationByID(orgID);
 
