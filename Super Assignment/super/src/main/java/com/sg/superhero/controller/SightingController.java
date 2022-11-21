@@ -34,6 +34,7 @@ public class SightingController {
     SuperService service;
 
     Set<ConstraintViolation<Sighting>> violations = new HashSet<>();
+    Set<ConstraintViolation<Sighting>> violationsEdit = new HashSet<>();
 
     @GetMapping("sightings")
     public String displaySightings(Model model) {
@@ -50,10 +51,11 @@ public class SightingController {
     }
 
     @GetMapping("addSighting")
-    public String displayAddsuper(Model model) {
+    public String displayAddSuper(Model model) {
 
         violations.clear();
-
+        violationsEdit.clear();
+        
         List<Super> supers = this.service.getAllSupers();
         List<Sighting> sightings = this.service.getAllSightings();
         List<Location> locations = this.service.getAllLocations();
@@ -116,6 +118,8 @@ public class SightingController {
     @GetMapping("editSighting")
     public String editSighting(HttpServletRequest request, Model model) {
         violations.clear();
+        violationsEdit.clear();
+        
         int sightingID = Integer.parseInt(request.getParameter("sightingID"));
         Sighting sighting = this.service.getSightingByID(sightingID);
         List<Location> locations = this.service.getAllLocations();
@@ -131,8 +135,6 @@ public class SightingController {
 
     @PostMapping("editSighting")
     public String performEditSighting(HttpServletRequest request, Model model) {
-        violations.clear();
-
         int sightingID = Integer.parseInt(request.getParameter("sightingID"));
         Sighting sighting = this.service.getSightingByID(sightingID);
 
@@ -151,16 +153,16 @@ public class SightingController {
         sighting.setDescription(description);
 
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-        violations = validate.validate(sighting);
+        violationsEdit = validate.validate(sighting);
 
         List<Location> locations = this.service.getAllLocations();
         List<Super> supers = this.service.getAllSupers();
 
-        if (violations.isEmpty()) {
+        if (violationsEdit.isEmpty()) {
             this.service.updateSighting(sighting);
         } else {
             sighting = this.service.getSightingByID(sighting.getSightingID());
-            model.addAttribute("errors", violations);
+            model.addAttribute("errors", violationsEdit);
             model.addAttribute("sighting", sighting);
             model.addAttribute("locations", locations);
             model.addAttribute("supers", supers);
