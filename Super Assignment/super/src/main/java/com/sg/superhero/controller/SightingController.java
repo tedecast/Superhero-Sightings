@@ -52,6 +52,8 @@ public class SightingController {
     @GetMapping("addSighting")
     public String displayAddsuper(Model model) {
 
+        violations.clear();
+
         List<Super> supers = this.service.getAllSupers();
         List<Sighting> sightings = this.service.getAllSightings();
         List<Location> locations = this.service.getAllLocations();
@@ -69,8 +71,6 @@ public class SightingController {
     @PostMapping("addSighting")
     public String addSighting(Sighting sighting, HttpServletRequest request, Model model) {
 
-        violations.clear();
-
         String locationID = request.getParameter("locationID");
         sighting.setLocation(this.service.getLocationByID(Integer.parseInt(locationID)));
 
@@ -87,13 +87,18 @@ public class SightingController {
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(sighting);
 
+        List<Location> locations = this.service.getAllLocations();
+        List<Super> supers = this.service.getAllSupers();
         LocalDate now = LocalDate.now();
+        
         if (violations.isEmpty()) {
             this.service.addSighting(sighting);
         } else {
-            model.addAttribute("errors", violations);
+            model.addAttribute("locations", locations);
+            model.addAttribute("supers", supers);
             model.addAttribute("sighting", sighting);
             model.addAttribute("now", now);
+            model.addAttribute("errors", violations);
             return "addSighting";
         }
 
@@ -150,7 +155,7 @@ public class SightingController {
 
         List<Location> locations = this.service.getAllLocations();
         List<Super> supers = this.service.getAllSupers();
-        
+
         if (violations.isEmpty()) {
             this.service.updateSighting(sighting);
         } else {

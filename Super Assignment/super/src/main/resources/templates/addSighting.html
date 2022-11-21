@@ -38,12 +38,6 @@
 
             <!--Add Sighting-->
             <div class="row m-4 border border-dark">
-                <!--Sighting Validation-->
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
                 <div class="col-3 text-center m-3">
                     <span class="h3">Add Sighting</span>
                 </div>
@@ -62,7 +56,6 @@
                             <label for="locations" class="col-3 col-form-label font-weight-bold">Location</label>
                             <div class="col-9">
                                 <select id="locations" name="locationID" class="form-control">
-<!--                                    <option disabled selected value>Choose Location</option>-->
                                     <option th:each="location : ${locations}" 
                                             th:value="${location.locationID}" 
                                             th:text="${location.name}">Locations</option>
@@ -74,7 +67,6 @@
                             <label for="supers" class="col-3 col-form-label font-weight-bold">Super Involved</label>
                             <div class="col-9">
                                 <select id="supers" name="superID" class="form-control">
-<!--                                    <option disabled selected value>Choose Super</option>-->
                                     <option th:each="superhero : ${supers}" 
                                             th:value="${superhero.superID}" 
                                             th:text="${superhero.name}">Supers</option>
@@ -87,6 +79,13 @@
                             <div class="col-9">
                                 <input type="text" name="sightingDescription" 
                                        id="sightingDescription" class="form-control"/>
+                            </div>
+                            <!--Bad Description-->
+                            <div class="col-12 m-1 text-center" 
+                                 th:if="${!errors.isEmpty()}">
+                                <p class="alert alert-danger" th:each="error : ${errors}" 
+                                   th:text="${error.message}"
+                                   th:if="${error.getPropertyPath().toString().equals('description')}">Bad Description</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-outline-primary">Add Sighting</button>

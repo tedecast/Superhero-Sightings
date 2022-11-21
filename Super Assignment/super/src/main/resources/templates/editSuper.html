@@ -94,10 +94,9 @@
                         <!--Power-->
                         <div class="form-group row">
                             <label for="power" class="col-3 col-form-label font-weight-bold">
-                                Add Power</label>
+                                Choose Power</label>
                             <div class="col-9">
                                 <select id="power" name="powerID" class="form-control" required>
-                                    <option disabled selected value>Choose Power</option>
                                     <option th:each="power : ${powers}" 
                                             th:value="${power.powerID}" 
                                             th:text="${power.name + ': ' + power.description}"

@@ -104,7 +104,7 @@ public class SuperController {
             this.service.addSuper(superhero);
         } else {
             model.addAttribute("errors", violations);
-            model.addAttribute("location", superhero);
+            model.addAttribute("superhero", superhero);
             return "addSuper";
         }
 
